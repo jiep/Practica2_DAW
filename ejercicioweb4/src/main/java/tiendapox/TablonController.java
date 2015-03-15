@@ -1,17 +1,11 @@
 package tiendapox;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TablonController {
 
-	private List<Anuncio> anuncios = new CopyOnWriteArrayList<>();
+	/*private List<Anuncio> anuncios = new CopyOnWriteArrayList<>();
 
 	@RequestMapping("/")
 	public ModelAndView tablon() {
@@ -33,5 +27,5 @@ public class TablonController {
 		Anuncio anuncio = anuncios.get(numAnuncio-1);
 
 		return new ModelAndView("mostrar").addObject("anuncio", anuncio);
-	}
+	}*/
 }

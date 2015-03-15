@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse"
+              data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Desplegar navegación</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="pull-left" rel="home" href="#" title="Poxmanía">
+        <img src="http://fo-pixmania.static.e-merchant.com/grafx/es/es/header/logo/pixmania.png"/>
+    </a>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Pequeños electrodómesticos</a></li>
+        <li><a href="#">Televisores</a></li>
+        <li><a href="#">Videoconsolas</a></li>
+        <li><a href="#">Otras cosas</a></li>
+      </ul>
+
+      <form class="navbar-form navbar-left" role="search">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="¿Qué estás buscando?"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar</button>
+          </span>
+        </div>
+      </form>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Administración</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="col-md-9">
+    <div id="articulos">
+    
+      <div class="panel panel-default" th:each="product, it : ${products}">
+        <div class="panel-heading" th:text="${product.name}">Producto</div>
+        <div class="panel-body">
+          <div class="col-md-4">
+            <img class="img-responsive" th:src="${product.image}" />
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <p><b>Descripción:</b></p>
+              <p th:text="${product.description}"></p>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h1 th:text="${product.price} + €">98 €</h1>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-default">Añadir al carrito <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">Cesta</div>
+        <ul>
+          <li>Artículo 1</li>
+          <li>Artículo 2</li>
+        </ul>
+      </div>
+    </div>
+
+</body>
+
+</html>
