@@ -54,7 +54,7 @@
         <div class="panel-heading" th:text="${product.name}">Producto</div>
         <div class="panel-body">
           <div class="col-md-4">
-            <img class="img-responsive" th:src="${product.image}" />
+            <img class="img-responsive" th:src="@{~/img/} + ${product.image}" />
           </div>
           <div class="col-md-8">
             <div class="row">

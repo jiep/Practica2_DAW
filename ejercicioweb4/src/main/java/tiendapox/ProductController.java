@@ -17,23 +17,25 @@ public class ProductController {
 	@RequestMapping("/")
 	public ModelAndView index() {
 		
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
-		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "http://www.yourscontent.co.uk/Images/ProductImages/0f02618f-3184-4af1-bc7a-4fc40b52cad1.jpg", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "0.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "1.png", "Descripción de prueba", 100));
+		products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
+
 
 		
 		return new ModelAndView("index").addObject("products", products);
