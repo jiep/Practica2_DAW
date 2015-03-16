@@ -47,44 +47,54 @@
     </div>
   </nav>
 
-  <div class="col-md-9">
-    <div id="articulos">
-    
-      <div class="panel panel-default" th:each="product, it : ${products}">
+  <div class="col-md-12">
+    <div id="cesta">
+    <h1>Mi cesta</h1>
+    <div class="panel panel-default" th:each="product, it : ${products}">
         <div class="panel-heading" th:text="${product.name}">Producto</div>
         <div class="panel-body">
           <div class="col-md-4">
             <img class="img-responsive" th:src="@{~/img/} + ${product.image}" />
           </div>
-          <div class="col-md-8">
+          
+          <div class="col-md-5">
             <div class="row">
               <p><b>Descripción:</b></p>
               <p th:text="${product.description}"></p>
             </div>
+          </div>
+          
+          <div class="col-md-3">
             <div class="row">
-              <div class="col-md-6">
                 <h1 th:text="${product.price} + €">98 €</h1>
-              </div>
-              <div class="col-md-6">
-                <button class="btn btn-default">Añadir al carrito <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button>
-              </div>
+           </div>
+              <div class="row">
+              	<input type="number" name="cuantity" value="1" width="5"/>
+            </div>
+            <div class="row">	
+             <button class="btn btn-default"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+           </div>
             </div>
           </div>
+          
         </div>
-      </div>
+       </div>
+       <div class="panel panel-default">
+        <div class="panel-heading">
+        	<div>Total:</div>
+        </div>
+        <div class="panel-body">
+        	<div>Total</div>
+        </div>
+       </div>
+       
+       <div>
+       <button class="btn btn-default">Hacer pedido <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
+       </div>
     
     </div>
-  </div>
+  
 
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">Cesta</div>
-        <ul>
-          <li>Artículo 1</li>
-          <li>Artículo 2</li>
-        </ul>
-      </div>
-    </div>
 
 </body>
 

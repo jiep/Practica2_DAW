@@ -41,15 +41,18 @@ public class ProductController {
 		return new ModelAndView("index").addObject("products", products);
 	}
 
-	/*@RequestMapping("/insertar")
-	public ModelAndView insertar(Anuncio anuncio) {
+	@RequestMapping("/cart")
+	public ModelAndView cart() {
+	products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
 
-		anuncios.add(anuncio);
 
-		return new ModelAndView("insertar");
+		
+		return new ModelAndView("cart").addObject("products", products);
+		
+		
 	}
 
-	@RequestMapping("/mostrar")
+	/*@RequestMapping("/mostrar")
 	public ModelAndView mostrar(@RequestParam int numAnuncio) {
 
 		Anuncio anuncio = anuncios.get(numAnuncio-1);
