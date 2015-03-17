@@ -69,7 +69,7 @@
                 <h1 th:text="${product.price} + €">98 €</h1>
            </div>
               <div class="row">
-              	<input type="number" name="cuantity" value="1" width="5"/>
+              	<input type="number" name="cuantity" value="1" min="1" max="100" width="5"/>
             </div>
             <div class="row">	
              <button class="btn btn-default"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
@@ -89,7 +89,7 @@
        </div>
        
        <div>
-       <button class="btn btn-default">Hacer pedido <span class="glyphicon glyphicon-euro" aria-hidden="true"></span></button>
+       <button class="btn btn-default"><span class="glyphicon glyphicon-euro" aria-hidden="true"> Hacer pedido</span></button>
        </div>
     
     </div>

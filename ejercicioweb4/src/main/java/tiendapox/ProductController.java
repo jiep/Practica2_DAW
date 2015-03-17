@@ -43,13 +43,7 @@ public class ProductController {
 
 	@RequestMapping("/cart")
 	public ModelAndView cart() {
-	products.add(new Product("Pepe", Category.PEQUEÑOS_ELECTRODOMESTICOS, "2.png", "Descripción de prueba", 100));
-
-
-		
 		return new ModelAndView("cart").addObject("products", products);
-		
-		
 	}
 
 	/*@RequestMapping("/mostrar")
