@@ -45,6 +45,11 @@ public class ProductController {
 	public ModelAndView cart() {
 		return new ModelAndView("cart").addObject("products", products);
 	}
+	
+	@RequestMapping("/order")
+	public ModelAndView order(){
+		return new ModelAndView("order").addObject("products", products);
+	}
 
 	/*@RequestMapping("/mostrar")
 	public ModelAndView mostrar(@RequestParam int numAnuncio) {
