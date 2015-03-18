@@ -48,9 +48,12 @@
   </nav>
 
   <div class="col-md-12">
+  	<h1>Mi pedido</h1>
     <div id="cesta">
-    <h1>Mi pedido</h1>
-    <div class="panel panel-default" th:each="product, it : ${products}">
+    
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+    		<div class="panel panel-default" th:each="product, it : ${products}">
         <div class="panel-heading" th:text="${product.name}">Producto</div>
         <div class="panel-body">
           <div class="col-md-4">
@@ -78,15 +81,17 @@
           </div>
           
         </div>
-       </div>
        <div class="panel panel-default">
         <div class="panel-heading">
         	<div>Total:</div>
         </div>
         <div class="panel-body">
-        	<div>Total</div>
+        	<div class="pull-right">0</div>
         </div>
        </div>
+       
+       <hr/>
+       <h2>Dirección de entrga</h2>
        
        <form id="form">
        	
@@ -98,8 +103,14 @@
     		<label id="address">Dirección</label>
     		<input type="text" class="form-control" placeholder="Dirección"/>
   		</div>
-  		<button type="submit" class="btn btn-default">Confirmar pedido</button>
+  		<button type="submit" class="btn btn-default pull-right">Confirmar pedido</button>
    	 </form>
+   	 
+    		</div>
+    	</div>
+    
+   	</div>
+   	 
   
   </div>
 
