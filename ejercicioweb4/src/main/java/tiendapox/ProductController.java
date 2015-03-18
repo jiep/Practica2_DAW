@@ -55,6 +55,11 @@ public class ProductController {
 	public ModelAndView admin(){
 		return new ModelAndView("admin").addObject("products", products);
 	}
+	
+	@RequestMapping("/add")
+	public ModelAndView add(){
+		return new ModelAndView("add").addObject("products", products);
+	}
 
 	/*@RequestMapping("/mostrar")
 	public ModelAndView mostrar(@RequestParam int numAnuncio) {
