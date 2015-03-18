@@ -48,51 +48,54 @@
   </nav>
 
   <div class="col-md-12">
-    <div id="cesta">
-    <h1>Mi cesta</h1>
-    <div class="panel panel-default" th:each="product, it : ${products}">
-        <div class="panel-heading" th:text="${product.name}">Producto</div>
-        <div class="panel-body">
-          <div class="col-md-4">
-            <img class="img-responsive" th:src="@{~/img/} + ${product.image}" />
-          </div>
+  	<h1>Mi cesta</h1>
+    <div class="panel panel-default">
+    	<div class="panel-body">
+    		<div id="cesta">
+    	<div class="panel panel-default" th:each="product, it : ${products}">
+        	<div class="panel-heading" th:text="${product.name}">Producto</div>
+        	<div class="panel-body">
+          		<div class="col-md-4">
+            		<img class="img-responsive" th:src="@{~/img/} + ${product.image}" />
+          		</div>
           
-          <div class="col-md-5">
-            <div class="row">
-              <p><b>Descripción:</b></p>
-              <p th:text="${product.description}"></p>
-            </div>
-          </div>
+         		 <div class="col-md-5">
+            		<div class="row">
+              			<p><b>Descripción:</b></p>
+              			<p th:text="${product.description}"></p>
+            		</div>
+          		</div>
           
-          <div class="col-md-3">
-            <div class="row">
-                <h1 th:text="${product.price} + €">98 €</h1>
-           </div>
-              <div class="row">
-              	<input type="number" name="cuantity" value="1" min="1" max="100" width="5"/>
-            </div>
-            <div class="row">	
-             <button class="btn btn-default"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-           </div>
-            </div>
-          </div>
-          
+         		<div class="col-md-3">
+            		<div class="row">
+                		<h1 th:text="${product.price} + €">98 €</h1>
+           			</div>
+              		<div class="row">
+              			<input type="number" name="cuantity" value="1" min="1" max="100" width="5"/>
+            		</div>
+            		<div class="row">	
+             			<button class="btn btn-default"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+           			</div>
+            	</div>
+          	</div>  
         </div>
-       </div>
-       <div class="panel panel-default">
-        <div class="panel-heading">
-        	<div>Total:</div>
-        </div>
-        <div class="panel-body">
-        	<div>Total</div>
-        </div>
-       </div>
        
-       <div>
-       <button class="btn btn-default"><span class="glyphicon glyphicon-euro" aria-hidden="true"> Hacer pedido</span></button>
-       </div>
-    
+    	<div class="panel panel-default">
+    		<div class="panel-heading">
+        		<p>Total:</p>
+        	</div>
+        	<div class="panel-body">
+        		<p>Total</p>
+        	</div>
+   		</div>
+       
+   		<div>
+   			<button th:action="@{/order}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span> Hacer pedido</button>
+   		</div>
+	</div>
+    	</div>
     </div>
+</div>
   
 
 
