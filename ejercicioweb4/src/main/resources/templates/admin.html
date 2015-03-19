@@ -4,11 +4,10 @@
 
 <head>
 <title>Módulo de administración</title>
-<link rel="stylesheet"
-	th:href="@{~/css/bootstrap.min.css}" />
+<link rel="icon" th:href="@{~/img/favicon.ico}"/>
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
 <script th:src="@{~/js/jquery.min.js}"></script>
-<script
-	th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -54,10 +53,12 @@
 	</nav>
 
 	<div class="pull-right">
-		<button class="btn btn-default">
-			Añadir producto <span class="glyphicon glyphicon-shopping-plus"
-				aria-hidden="true"></span>
-		</button>
+		<a href="/new.html">
+			<button class="btn btn-default">
+				Añadir producto <span class="glyphicon glyphicon-shopping-plus"
+					aria-hidden="true"></span>
+			</button>
+		</a>
 	</div>
 
 	<div class="btn-group col-md-12">
