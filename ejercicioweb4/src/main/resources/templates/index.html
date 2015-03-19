@@ -92,10 +92,10 @@
 								<h1 th:text="${product.price} + €">98 €</h1>
 							</div>
 							<div class="col-md-6">
-								<button class="btn btn-default">
+								<a th:href="@{/addToCart(product_id=${it.count})}"><button class="btn btn-default">
 									Añadir al carrito <span
 										class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-								</button>
+								</button></a>
 							</div>
 						</div>
 					</div>
@@ -108,11 +108,12 @@
 	<div class="col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right">2</span>
+				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right" th:text="${order != null} ? ${#lists.size(order)} : 0">0</span>
 			</div>
 			<ul>
-				<li>Artículo 1</li>
-				<li>Artículo 2</li>
+				<li th:each="product_order : ${order}">
+					<p th:text="${product_order.name}">Nombre</p>
+				</li>
 			</ul>
 		</div>
 	</div>

@@ -1,16 +1,19 @@
 package tiendapox;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ProductController {
 
 	private List<Product> products = new CopyOnWriteArrayList<>();
+	private List<Product> order = new ArrayList<>();
 
 	@RequestMapping("/")
 	public ModelAndView index() {
@@ -22,12 +25,7 @@ public class ProductController {
 		products.add(new Product("Pepe", "PEQUEÑOS_ELECTRODOMESTICOS", "1.png", "Descripción de prueba", 100));
 		
 		
-		return new ModelAndView("index").addObject("products", products);
-	}
-
-	@RequestMapping("/cart")
-	public ModelAndView cart() {
-		return new ModelAndView("cart").addObject("products", products);
+		return new ModelAndView("index").addObject("products", products).addObject("order", order);
 	}
 
 	@RequestMapping("/order")
@@ -46,6 +44,20 @@ public class ProductController {
 		products.add(product);
 		
 		return new ModelAndView("admin").addObject("products", products);
+	}
+		
+	@RequestMapping("/addToCart")
+	public ModelAndView addToCart(@RequestParam int product_id){
+		
+		order.add(products.get(product_id-1));
+		
+		return new ModelAndView("index").addObject("products", products).addObject("order", order);
+	}
+	
+	@RequestMapping("/cart")
+	public ModelAndView cart() {
+				
+		return new ModelAndView("cart").addObject("order", order);
 	}
 	
 	/*

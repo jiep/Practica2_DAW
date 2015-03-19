@@ -60,12 +60,12 @@
 			<div class="panel-body">
 				<div id="cesta">
 					<div class="panel panel-default"
-						th:each="product, it : ${products}">
-						<div class="panel-heading" th:text="${product.name}">Producto</div>
+						th:each="product_order : ${order}">
+						<div class="panel-heading" th:text="${product_order.name}">Producto</div>
 						<div class="panel-body">
 							<div class="col-md-4">
 								<img class="img-responsive"
-									th:src="@{~/img/} + ${product.image}" />
+									th:src="@{~/img/} + ${product_order.image}" />
 							</div>
 
 							<div class="col-md-5">
@@ -73,13 +73,13 @@
 									<p>
 										<b>Descripción:</b>
 									</p>
-									<p th:text="${product.description}"></p>
+									<p th:text="${product_order.description}"></p>
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="row">
-									<h1 th:text="${product.price} + €">98 €</h1>
+									<h1 th:text="${product_order.price} + €">98 €</h1>
 								</div>
 								<div class="row">
 									<input type="number" name="cuantity" value="1" min="1"

@@ -2,11 +2,12 @@ package tiendapox;
 
 public class Product {
 
-	/*public static enum Category {
-		PEQUEÑOS_ELECTRODOMESTICOS, TELEVISIONES, INFORMATICA, VIDEOCONSOLAS
-	}*/
+	/*
+	 * public static enum Category { PEQUEÑOS_ELECTRODOMESTICOS, TELEVISIONES,
+	 * INFORMATICA, VIDEOCONSOLAS }
+	 */
 
-	//private int id;
+	// private int id;
 	private String name;
 	private String category;
 	private String image;
@@ -65,8 +66,8 @@ public class Product {
 		this.price = price;
 	}
 
-	/*public int getId() {
-		return id;
-	}*/
+	/*
+	 * public int getId() { return id; }
+	 */
 
 }
