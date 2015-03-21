@@ -4,7 +4,7 @@
 
 <head>
 <title>Bienvienido a Poxmanía</title>
-<link rel="icon" th:href="@{~/img/favicon.ico}"/>
+<link rel="icon" th:href="@{~/img/favicon.ico}" />
 <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
 <script th:src="@{~/js/jquery.min.js}"></script>
 <script th:src="@{~/js/bootstrap.min.js}"></script>
@@ -27,13 +27,15 @@
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
-				<li><a th:href="@{/electrodomesticos}">Pequeños electrodómesticos</a></li>
-				<li><a th:href="@{/televisores}">Televisores</a></li>
-				<li><a th:href="@{/videoconsolas}">Videoconsolas</a></li>
-				<li><a th:href="@{/informatica}">Informática</a></li>
+				<li><a th:href="@{/category/electrodomesticos}">Pequeños
+						electrodómesticos</a></li>
+				<li><a th:href="@{/category/televisores}">Televisores</a></li>
+				<li><a th:href="@{/category/videoconsolas}">Videoconsolas</a></li>
+				<li><a th:href="@{/category/informatica}">Informática</a></li>
 			</ul>
 
-			<form th:action="@{/search}" class="navbar-form navbar-left" role="search">
+			<form th:action="@{/search}" class="navbar-form navbar-left"
+				role="search">
 				<div class="input-group">
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
@@ -54,8 +56,8 @@
 					<div class="dropdown-menu">
 						<form th:action="@{/admin}" method="post">
 							<div class="form-group">
-								<label>Usuario</label> <input name="user" type="text" class="form-control"
-									placeholder="Usuario" />
+								<label>Usuario</label> <input name="user" type="text"
+									class="form-control" placeholder="Usuario" />
 							</div>
 							<div class="form-group">
 								<label>Contraseña</label> <input name="pass" type="password"
@@ -70,12 +72,16 @@
 			</ul>
 		</div>
 	</nav>
-	
-	<div th:if="${error != null}" class="col-md-12">
-		<div class="alert alert-danger" role="alert" th:text="${error}"></div>
-	</div>
+
 
 	<div class="col-md-9">
+		<div id="error" th:if="${error != null}">
+			<div class="alert alert-danger" role="alert" th:text="${error}"></div>
+		</div>
+
+		<div id="category-not-found" th:if="${category_error != null}">
+			<div class="alert alert-warning" role="alert" th:text="${category_error}"></div>
+		</div>
 		<div id="articulos">
 
 			<div class="panel panel-default" th:each="product, it : ${products}">
@@ -97,10 +103,11 @@
 								<h1 th:text="${product.price} + €">98 €</h1>
 							</div>
 							<div class="col-md-6">
-								<a th:href="@{/addToCart(product_id=${it.count})}"><button class="btn btn-default">
-									Añadir al carrito <span
-										class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-								</button></a>
+								<a th:href="@{/addToCart(product_id=${it.count})}"><button
+										class="btn btn-default">
+										Añadir al carrito <span
+											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+									</button></a>
 							</div>
 						</div>
 					</div>
@@ -113,7 +120,8 @@
 	<div class="col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right" th:text="${order != null} ? ${#lists.size(order)} : 0">0</span>
+				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
+					th:text="${order != null} ? ${#lists.size(order)} : 0">0</span>
 			</div>
 			<ul>
 				<li th:each="product_order : ${order}">
