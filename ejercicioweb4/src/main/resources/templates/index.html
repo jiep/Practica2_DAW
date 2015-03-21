@@ -52,13 +52,13 @@
 						class="caret"></b>
 				</a>
 					<div class="dropdown-menu">
-						<form action="/" method="post">
+						<form th:action="@{/admin}" method="post">
 							<div class="form-group">
-								<label>Usuario</label> <input type="text" class="form-control"
+								<label>Usuario</label> <input name="user" type="text" class="form-control"
 									placeholder="Usuario" />
 							</div>
 							<div class="form-group">
-								<label>Contraseña</label> <input type="password"
+								<label>Contraseña</label> <input name="pass" type="password"
 									class="form-control" placeholder="Contraseña" />
 							</div>
 							<button type="submit" class="btn btn-default pull-right">
@@ -70,6 +70,10 @@
 			</ul>
 		</div>
 	</nav>
+	
+	<div th:if="${error != null}" class="col-md-12">
+		<div class="alert alert-danger" role="alert" th:text="${error}"></div>
+	</div>
 
 	<div class="col-md-9">
 		<div id="articulos">
