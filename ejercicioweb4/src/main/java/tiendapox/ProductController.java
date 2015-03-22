@@ -1,16 +1,23 @@
 package tiendapox;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,6 +25,7 @@ public class ProductController {
 
 	private List<Product> products = new CopyOnWriteArrayList<>();
 	private List<Product> order = new ArrayList<>();
+	private static final String FILES_FOLDER = "files";
 
 	@RequestMapping("/")
 	public ModelAndView index() {
@@ -137,7 +145,45 @@ public class ProductController {
 	}
 
 	@RequestMapping("/add")
-	public ModelAndView add(Product product) {
+	public ModelAndView add(@RequestParam("name") String name,
+			@RequestParam("category") String category, @RequestParam("image") MultipartFile image,
+			@RequestParam("description") String description, @RequestParam("price") double price) {
+		
+		
+		String fileName = products.size() + ".png";
+
+		if (!image.isEmpty()) {
+			System.out.println("La imagen no es vacía");
+			try {
+
+				File filesFolder = new File(FILES_FOLDER);
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				System.out.println("Path absoluto: " + filesFolder.getAbsolutePath());
+				
+				File uploadedFile = new File(filesFolder.getAbsolutePath(),
+						fileName);
+				image.transferTo(uploadedFile);
+
+			} catch (Exception e) {
+				return new ModelAndView("index")
+						.addObject("fileName", fileName).addObject("error",
+								e.getClass().getName() + ":" + e.getMessage());
+			}
+		} else {
+			//return new ModelAndView("index").addObject("error",
+					//"El archivo está");
+		}
+
+		Product product = new Product(name, category, fileName, description, price);
+		
+		System.out.println("Nombre: " + product.getName());
+		System.out.println("Categoría: " + product.getCategory());
+		System.out.println("Imagen: " + product.getImage());
+		System.out.println("Descripción: " + product.getDescription());
+		System.out.println("Precio: " + product.getPrice());
 
 		products.add(product);
 
@@ -177,7 +223,7 @@ public class ProductController {
 			cat = "Videoconsolas";
 			break;
 		case "informatica":
-			cat = "informática";
+			cat = "Informática";
 			break;
 		default:
 			return new ModelAndView("index").addObject("error",
@@ -226,6 +272,23 @@ public class ProductController {
 		}
 
 		return mv;
+	}
+	
+	@RequestMapping("/image/{fileName}")
+	public void handleFileDownload(@PathVariable String fileName,
+			HttpServletResponse res) throws FileNotFoundException, IOException {
+
+		File file = new File(FILES_FOLDER, fileName + ".png");
+
+		if (file.exists()) {
+			res.setContentType("image/png");
+			res.setContentLength(new Long(file.length()).intValue());
+			FileCopyUtils
+					.copy(new FileInputStream(file), res.getOutputStream());
+		} else {
+			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
+					+ ") does not exist");
+		}
 	}
 
 }
