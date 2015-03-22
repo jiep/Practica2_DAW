@@ -195,7 +195,6 @@ public class ProductController {
 			mv = new ModelAndView("index").addObject("category_error",
 					"No existen productos en esta categoría").addObject(
 					"order", order);
-			;
 		} else {
 			mv = new ModelAndView("index").addObject("products",
 					category_products).addObject("order", order);
