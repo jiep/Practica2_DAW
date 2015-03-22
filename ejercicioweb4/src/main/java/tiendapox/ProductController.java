@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProductController {
 
-	private List<Product> products = new CopyOnWriteArrayList<>();
+	private List<Product> products = new ArrayList<>();
 	private List<Product> order = new ArrayList<>();
 	private static final String FILES_FOLDER = "files";
 
@@ -289,6 +288,13 @@ public class ProductController {
 			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
 					+ ") does not exist");
 		}
+	}
+	
+	@RequestMapping("/admin/remove")
+	public ModelAndView remove(@RequestParam int id){
+		products.remove(id - 1);
+		
+		return new ModelAndView("admin").addObject("products", products);
 	}
 
 }
