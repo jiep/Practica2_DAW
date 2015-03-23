@@ -81,8 +81,8 @@ public class ProductController {
 				"El LG 55UB850V dispone de un diseño Cinema Screen para disfrutar al máximo de la Ultra Alta Definición de 4K. Cuenta con una resolución 4 veces superior a la de la Full HD 1080p y con pantalla de 55 pulgadas (139 cm) con bordes ultrafinos para ofrecer imágenes perfectas con un nivel de detalle inigualado tanto de cerca como de lejos.  El televisor 55-UB850V incluye el motor de tratamiento de imagenTriple XD Engine que optimiza el contraste, la nitidez y los colores. La tecnología LED Plus, que asocia una retroiluminación de tipo Edge LED con la gestión Local Dimming, garantiza por su parte una imagen particularmente luminosa con un tratamiento por zonas para una fineza incomparable. Gracias a una frecuencia de barrido mejorada UCI 1000Hz obtendrás una imagen de 3840 x 2160 píxeles con un realismo increíble. ",
 				1149.00));
 
-		return new ModelAndView("index").addObject("products", products.findAll())
-				.addObject("order", order);
+		return new ModelAndView("index").addObject("products",
+				products.findAll()).addObject("order", order);
 	}
 
 	@RequestMapping("/order")
@@ -127,7 +127,8 @@ public class ProductController {
 		if (!session.isNew()) {
 			if (session.getAttribute("user").equals(USER)
 					&& session.getAttribute("pass").equals(PASS)) {
-				mv = new ModelAndView("admin").addObject("products", products);
+				mv = new ModelAndView("admin").addObject("products",
+						products.findAll());
 			} else {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
@@ -139,7 +140,8 @@ public class ProductController {
 			session.setAttribute("null", PASS);
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
-					.addObject("products", products).addObject("order", order);
+					.addObject("products", products.findAll())
+					.addObject("order", order);
 		}
 
 		return mv;
@@ -147,14 +149,15 @@ public class ProductController {
 
 	@RequestMapping("/add")
 	public ModelAndView add(@RequestParam("name") String name,
-			@RequestParam("category") String category, @RequestParam("image") MultipartFile image,
-			@RequestParam("description") String description, @RequestParam("price") double price) {
-		
-		
+			@RequestParam("category") String category,
+			@RequestParam("image") MultipartFile image,
+			@RequestParam("description") String description,
+			@RequestParam("price") double price) {
+
 		String fileName = products.count() + ".png";
 
 		if (!image.isEmpty()) {
-			System.out.println("La imagen no es vacía");
+
 			try {
 
 				File filesFolder = new File(FILES_FOLDER);
@@ -162,8 +165,6 @@ public class ProductController {
 					filesFolder.mkdirs();
 				}
 
-				System.out.println("Path absoluto: " + filesFolder.getAbsolutePath());
-				
 				File uploadedFile = new File(filesFolder.getAbsolutePath(),
 						fileName);
 				image.transferTo(uploadedFile);
@@ -174,12 +175,13 @@ public class ProductController {
 								e.getClass().getName() + ":" + e.getMessage());
 			}
 		} else {
-			//return new ModelAndView("index").addObject("error",
-					//"El archivo está");
+			// return new ModelAndView("index").addObject("error",
+			// "El archivo está");
 		}
 
-		Product product = new Product(name, category, fileName, description, price);
-		
+		Product product = new Product(name, category, fileName, description,
+				price);
+
 		System.out.println("Nombre: " + product.getName());
 		System.out.println("Categoría: " + product.getCategory());
 		System.out.println("Imagen: " + product.getImage());
@@ -188,7 +190,8 @@ public class ProductController {
 
 		products.save(product);
 
-		return new ModelAndView("admin").addObject("products", products.findAll());
+		return new ModelAndView("admin").addObject("products",
+				products.findAll());
 	}
 
 	@RequestMapping(value = "/addToCart")
@@ -196,8 +199,8 @@ public class ProductController {
 
 		order.add(products.findOne(product_id));
 
-		return new ModelAndView("index").addObject("products", products.findAll())
-				.addObject("order", order);
+		return new ModelAndView("index").addObject("products",
+				products.findAll()).addObject("order", order);
 	}
 
 	@RequestMapping("/cart")
@@ -246,16 +249,19 @@ public class ProductController {
 	}
 
 	@RequestMapping("/search")
-	public ModelAndView search(@RequestParam(required = false) String name, @RequestParam(required = false) Double from, @RequestParam(required = false) Double to) {
+	public ModelAndView search(@RequestParam(required = false) String name,
+			@RequestParam(required = false) Double from,
+			@RequestParam(required = false) Double to) {
 
 		List<Product> search_products = null;
-		
-		if(name != null){
+
+		if (name != null) {
 			search_products = products.findByNameContainingIgnoreCase(name);
-		}else if(from != 0 && to != 0){
-			search_products = products.findByPriceBetweenOrderByPriceAsc(from, to);
+		} else if (from != 0 && to != 0) {
+			search_products = products.findByPriceBetweenOrderByPriceAsc(from,
+					to);
 		}
-			
+
 		ModelAndView mv = new ModelAndView();
 
 		if (search_products.isEmpty()) {
@@ -269,7 +275,7 @@ public class ProductController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping("/image/{fileName}")
 	public void handleFileDownload(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
@@ -286,12 +292,13 @@ public class ProductController {
 					+ ") does not exist");
 		}
 	}
-	
+
 	@RequestMapping("/admin/remove")
-	public ModelAndView remove(@RequestParam int id){
+	public ModelAndView remove(@RequestParam int id) {
 		products.delete(id);
-		
-		return new ModelAndView("admin").addObject("products", products.findAll());
+
+		return new ModelAndView("admin").addObject("products",
+				products.findAll());
 	}
 
 }
