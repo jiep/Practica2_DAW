@@ -20,7 +20,7 @@ public class Product {
 	private String name;
 	private String category;
 	private String image;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	private double price;
@@ -81,4 +81,22 @@ public class Product {
 		return id;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		boolean equals = false;
+
+		if (o instanceof Product
+				&& this.getName().equals(((Product) o).getName())
+				&& this.getCategory().equals(((Product) o).getCategory())
+				&& this.getImage().equals(((Product) o).getImage())
+				&& this.getDescription().equals(((Product) o).getDescription())
+				&& this.getPrice() == ((Product) o).getPrice()
+				&& this.getId() == ((Product) o).getId()) {
+			
+			equals = true;
+
+		}
+
+		return equals;
+	}
 }

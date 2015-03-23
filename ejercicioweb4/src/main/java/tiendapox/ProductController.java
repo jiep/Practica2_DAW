@@ -25,7 +25,8 @@ public class ProductController {
 
 	@Autowired
 	private ProductRepository products;
-	private List<Product> order = new ArrayList<>();
+
+	private Cart cart = new Cart();
 	private static final String FILES_FOLDER = "files";
 
 	@RequestMapping("/")
@@ -82,7 +83,7 @@ public class ProductController {
 				1149.00));
 
 		return new ModelAndView("index").addObject("products",
-				products.findAll()).addObject("order", order);
+				products.findAll()).addObject("order", cart);
 	}
 
 	@RequestMapping("/order")
@@ -110,7 +111,7 @@ public class ProductController {
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Login no válido")
-					.addObject("products", products).addObject("order", order);
+					.addObject("products", products).addObject("order", cart);
 		}
 
 		return mv;
@@ -133,7 +134,7 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products)
-						.addObject("order", order);
+						.addObject("order", cart);
 			}
 		} else {
 			session.setAttribute("null", USER);
@@ -141,7 +142,7 @@ public class ProductController {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", order);
+					.addObject("order", cart);
 		}
 
 		return mv;
@@ -196,17 +197,25 @@ public class ProductController {
 
 	@RequestMapping(value = "/addToCart")
 	public ModelAndView addToCart(@RequestParam int product_id) {
+		
+		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
 
-		order.add(products.findOne(product_id));
+		
+		if(cart.getProducts().contains(ac)){
+			cart.getProducts().get(cart.getProducts().indexOf(ac)).add();
+		}else{
+			cart.getProducts().add(ac);
+		}
+		
 
 		return new ModelAndView("index").addObject("products",
-				products.findAll()).addObject("order", order);
+				products.findAll()).addObject("order", cart);
 	}
 
 	@RequestMapping("/cart")
 	public ModelAndView cart() {
 
-		return new ModelAndView("cart").addObject("order", order);
+		return new ModelAndView("cart").addObject("order", cart);
 	}
 
 	@RequestMapping("category/{category}")
@@ -231,7 +240,7 @@ public class ProductController {
 			break;
 		default:
 			return new ModelAndView("index").addObject("error",
-					"No se encuentra la categoría").addObject("order", order);
+					"No se encuentra la categoría").addObject("order", cart);
 		}
 
 		List<Product> category_products = products.findByCategory(cat);
@@ -239,10 +248,10 @@ public class ProductController {
 		if (category_products.isEmpty()) {
 			mv = new ModelAndView("index").addObject("category_error",
 					"No existen productos en esta categoría").addObject(
-					"order", order);
+					"order", cart);
 		} else {
 			mv = new ModelAndView("index").addObject("products",
-					category_products).addObject("order", order);
+					category_products).addObject("order", cart);
 		}
 
 		return mv;
@@ -267,10 +276,10 @@ public class ProductController {
 		if (search_products.isEmpty()) {
 			mv = new ModelAndView("index").addObject("category_error",
 					"No existen productos con el nombre de " + name).addObject(
-					"order", order);
+					"order", cart);
 		} else {
 			mv = new ModelAndView("index").addObject("products",
-					search_products).addObject("order", order);
+					search_products).addObject("order", cart);
 		}
 
 		return mv;

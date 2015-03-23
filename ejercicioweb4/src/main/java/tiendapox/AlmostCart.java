@@ -1,17 +1,18 @@
-package tiendapox; 
+package tiendapox;
 
 public class AlmostCart {
+
 	private Product product;
 	private int cuantity;
-	
-	public AlmostCart(){
+
+	public AlmostCart() {
 	}
-	public AlmostCart(Product product, int cuantity){
+
+	public AlmostCart(Product product, int cuantity) {
 		this.cuantity = cuantity;
 		this.product = product;
 	}
-	
-	
+
 	public Product getProduct() {
 		return product;
 	}
@@ -19,15 +20,30 @@ public class AlmostCart {
 	public int getCuantity() {
 		return cuantity;
 	}
+
 	public void setCuantity(int cuantity) {
 		this.cuantity = cuantity;
 	}
-	
-	public void add(){
+
+	public void add() {
 		this.cuantity++;
 	}
-	
-	public void substract(){
+
+	public void substract() {
 		this.cuantity--;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		boolean equals = false;
+
+		if (o instanceof AlmostCart
+				&& product.equals(((AlmostCart) o).getProduct())) {
+
+			equals = true;
+
+		}
+
+		return equals;
 	}
 }

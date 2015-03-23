@@ -145,13 +145,20 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
-					th:text="${order != null} ? ${#lists.size(order)} : 0">0</span>
+					th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span>
 			</div>
-			<ul>
-				<li th:each="product_order : ${order}">
-					<p th:text="${product_order.name}">Nombre</p>
-				</li>
-			</ul>
+			<div class="panel-body">	
+				<div class="panel panel-default" th:each="product_order : ${order.products}">
+					<div class="panel-body">
+						<div class="col-md-10">
+							<p th:text="${product_order.product.name}">Nombre </p>
+						</div>
+						<div class="col-md-2">
+							<span th:text="'x' + ${product_order.cuantity}" class="badge pull-right">x1</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
