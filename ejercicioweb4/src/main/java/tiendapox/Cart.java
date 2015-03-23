@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Cart {
 	private ArrayList<AlmostCart> products = new ArrayList<AlmostCart>();
+	private double total;
 
 	public Cart() {
 	}
@@ -32,4 +33,17 @@ public class Cart {
 	void setProducts(ArrayList<AlmostCart> products) {
 		this.products = products;
 	}
+
+	public double getTotal() {
+		int total = 0;
+
+		for (AlmostCart ac : products) {
+			total += ac.getProduct().getPrice() * ac.getCuantity();
+		}
+		
+		this.total = total;
+
+		return this.total;
+	}
+	
 }

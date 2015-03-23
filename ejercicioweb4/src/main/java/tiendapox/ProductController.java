@@ -266,7 +266,7 @@ public class ProductController {
 
 		if (name != null) {
 			search_products = products.findByNameContainingIgnoreCase(name);
-		} else if (from != 0 && to != 0) {
+		} else if (from != null && to != null) {
 			search_products = products.findByPriceBetweenOrderByPriceAsc(from,
 					to);
 		}

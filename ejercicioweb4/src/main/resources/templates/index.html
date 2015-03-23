@@ -121,9 +121,7 @@
 	<div class="col-md-3">
 
 		<div class="panel panel-default">
-			<div class="panel-heading">
-				Filtrar por precio
-			</div>
+			<div class="panel-heading">Filtrar por precio</div>
 			<div class="panel-body">
 				<form th:action="@{/search}">
 					<div class="form-group">
@@ -147,16 +145,22 @@
 				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
 					th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span>
 			</div>
-			<div class="panel-body">	
-				<div class="panel panel-default" th:each="product_order : ${order.products}">
+			<div class="panel-body">
+				<div class="panel panel-default"
+					th:each="product_order : ${order.products}">
 					<div class="panel-body">
 						<div class="col-md-10">
-							<p th:text="${product_order.product.name}">Nombre </p>
+							<p th:text="${product_order.product.name}">Nombre</p>
 						</div>
 						<div class="col-md-2">
-							<span th:text="'x' + ${product_order.cuantity}" class="badge pull-right">x1</span>
+							<span th:text="'x' + ${product_order.cuantity}"
+								class="badge pull-right">x1</span>
 						</div>
 					</div>
+				</div>
+
+				<div th:if="${#lists.size(order.products)} != 0">
+					<h3 class="pull-right" th:text="${order.total} + ' €'">0</h3>
 				</div>
 			</div>
 		</div>
