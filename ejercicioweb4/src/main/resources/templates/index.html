@@ -80,11 +80,12 @@
 		</div>
 
 		<div id="category-not-found" th:if="${category_error != null}">
-			<div class="alert alert-warning" role="alert" th:text="${category_error}"></div>
+			<div class="alert alert-warning" role="alert"
+				th:text="${category_error}"></div>
 		</div>
 		<div id="articulos">
 
-			<div class="panel panel-default" th:each="product, it : ${products}">
+			<div class="panel panel-default" th:each="product : ${products}">
 				<div class="panel-heading" th:text="${product.name}">Producto</div>
 				<div class="panel-body">
 					<div class="col-md-4">
@@ -103,7 +104,7 @@
 								<h1 th:text="${product.price} + €">98 €</h1>
 							</div>
 							<div class="col-md-6">
-								<a th:href="@{/addToCart(product_id=${it.count})}"><button
+								<a th:href="@{/addToCart(product_id=${product.id})}"><button
 										class="btn btn-default">
 										Añadir al carrito <span
 											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
@@ -118,6 +119,29 @@
 	</div>
 
 	<div class="col-md-3">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Filtrar por precio
+			</div>
+			<div class="panel-body">
+				<form th:action="@{/search}">
+					<div class="form-group">
+						<label>Desde</label> <input min="0" name="from" type="number"
+							class="form-control" placeholder="Desde" />
+					</div>
+					<div class="form-group">
+						<label>Hasta</label> <input name="to" min="0" type="number"
+							class="form-control" placeholder="Hasta" />
+					</div>
+					<button type="submit" class="btn btn-default pull-right">
+						<span class="glyphicon glyphicon glyphicon glyphicon-search"
+							aria-hidden="true"></span> Buscar
+					</button>
+				</form>
+			</div>
+		</div>
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
