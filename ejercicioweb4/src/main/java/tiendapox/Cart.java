@@ -3,6 +3,7 @@ package tiendapox;
 import java.util.ArrayList;
 
 public class Cart {
+	
 	private ArrayList<AlmostCart> products = new ArrayList<AlmostCart>();
 	private double total;
 

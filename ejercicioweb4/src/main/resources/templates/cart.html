@@ -34,7 +34,8 @@
 				<li><a th:href="@{/category/informatica}">Informática</a></li>
 			</ul>
 
-			<form th:action="@{/search}" class="navbar-form navbar-left" role="search">
+			<form th:action="@{/search}" class="navbar-form navbar-left"
+				role="search">
 				<div class="input-group">
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
@@ -77,12 +78,13 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div id="cesta">
-					<div class="panel panel-default" th:each="product_order : ${order}">
-						<div class="panel-heading" th:text="${product_order.name}">Producto</div>
+					<div class="panel panel-default"
+						th:each="product_order, it : ${order.products}">
+						<div class="panel-heading" th:text="${product_order.product.name}">Producto</div>
 						<div class="panel-body">
 							<div class="col-md-4">
 								<img class="img-responsive"
-									th:src="@{/image/} + ${product_order.image}" />
+									th:src="@{/image/} + ${product_order.product.image}" />
 							</div>
 
 							<div class="col-md-5">
@@ -90,22 +92,24 @@
 									<p>
 										<b>Descripción:</b>
 									</p>
-									<p th:text="${product_order.description}"></p>
+									<p th:text="${product_order.product.description}"></p>
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="row">
-									<h1 th:text="${product_order.price} + €">98 €</h1>
+									<h1 th:text="${product_order.product.price} + €">98 €</h1>
 								</div>
 								<div class="row">
-									<input type="number" name="cuantity" value="1" min="1"
-										max="100" width="5" />
+									<input type="number" th:value="${product_order.cuantity}"
+										name="cuantity" min="1" max="100" width="5" />
 								</div>
 								<div class="row">
-									<button class="btn btn-default">
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									</button>
+									<a th:href="@{/removeFromCart(product_id=${it.count})}">
+										<button class="btn btn-default">
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										</button>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -116,7 +120,7 @@
 							<p>Total:</p>
 						</div>
 						<div class="panel-body">
-							<p>Total</p>
+							<h3 class="pull-right" th_text="${order.total} + ' €'">0 €</h3>
 						</div>
 					</div>
 

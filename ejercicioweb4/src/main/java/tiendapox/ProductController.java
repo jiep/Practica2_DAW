@@ -29,9 +29,7 @@ public class ProductController {
 	private Cart cart = new Cart();
 	private static final String FILES_FOLDER = "files";
 
-	@RequestMapping("/")
-	public ModelAndView index() {
-
+	private void dummyData() {
 		products.save(new Product(
 				"SAMSUNG Galaxy S5 - negro - Smartphone",
 				"Pequeños electrodomésticos",
@@ -81,6 +79,12 @@ public class ProductController {
 				"9.png",
 				"El LG 55UB850V dispone de un diseño Cinema Screen para disfrutar al máximo de la Ultra Alta Definición de 4K. Cuenta con una resolución 4 veces superior a la de la Full HD 1080p y con pantalla de 55 pulgadas (139 cm) con bordes ultrafinos para ofrecer imágenes perfectas con un nivel de detalle inigualado tanto de cerca como de lejos.  El televisor 55-UB850V incluye el motor de tratamiento de imagenTriple XD Engine que optimiza el contraste, la nitidez y los colores. La tecnología LED Plus, que asocia una retroiluminación de tipo Edge LED con la gestión Local Dimming, garantiza por su parte una imagen particularmente luminosa con un tratamiento por zonas para una fineza incomparable. Gracias a una frecuencia de barrido mejorada UCI 1000Hz obtendrás una imagen de 3840 x 2160 píxeles con un realismo increíble. ",
 				1149.00));
+	}
+
+	@RequestMapping("/")
+	public ModelAndView index() {
+
+		dummyData();
 
 		return new ModelAndView("index").addObject("products",
 				products.findAll()).addObject("order", cart);
@@ -107,11 +111,13 @@ public class ProductController {
 		session.setAttribute(pass, PASS);
 
 		if (user.equals(USER) && pass.equals(PASS)) {
-			mv = new ModelAndView("admin").addObject("products", products);
+			mv = new ModelAndView("admin").addObject("products",
+					products.findAll());
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Login no válido")
-					.addObject("products", products).addObject("order", cart);
+					.addObject("products", products.findAll())
+					.addObject("order", cart);
 		}
 
 		return mv;
@@ -133,7 +139,7 @@ public class ProductController {
 			} else {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
-						.addObject("products", products)
+						.addObject("products", products.findAll())
 						.addObject("order", cart);
 			}
 		} else {
@@ -197,16 +203,14 @@ public class ProductController {
 
 	@RequestMapping(value = "/addToCart")
 	public ModelAndView addToCart(@RequestParam int product_id) {
-		
+
 		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
 
-		
-		if(cart.getProducts().contains(ac)){
+		if (cart.getProducts().contains(ac)) {
 			cart.getProducts().get(cart.getProducts().indexOf(ac)).add();
-		}else{
+		} else {
 			cart.getProducts().add(ac);
 		}
-		
 
 		return new ModelAndView("index").addObject("products",
 				products.findAll()).addObject("order", cart);
@@ -303,11 +307,21 @@ public class ProductController {
 	}
 
 	@RequestMapping("/admin/remove")
-	public ModelAndView remove(@RequestParam int id) {
+	public ModelAndView removeProductFromAdmin(
+			@RequestParam(value = "product_id") int id) {
+
 		products.delete(id);
 
-		return new ModelAndView("admin").addObject("products",
-				products.findAll());
+		return new ModelAndView("admin").addObject("products", products.findAll());
+	}
+
+	@RequestMapping("/removeFromCart")
+	public ModelAndView removeProductFromCart(
+			@RequestParam(value = "product_id") int id) {
+		
+		cart.getProducts().remove(id-1);
+
+		return new ModelAndView("cart").addObject("order", cart);
 	}
 
 }
