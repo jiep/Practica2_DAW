@@ -27,15 +27,16 @@
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#">Pequeños electrodómesticos</a></li>
-				<li><a href="#">Televisores</a></li>
-				<li><a href="#">Videoconsolas</a></li>
-				<li><a href="#">Otras cosas</a></li>
+				<li><a th:href="@{/category/electrodomesticos}">Pequeños
+						electrodómesticos</a></li>
+				<li><a th:href="@{/category/televisores}">Televisores</a></li>
+				<li><a th:href="@{/category/videoconsolas}">Videoconsolas</a></li>
+				<li><a th:href="@{/category/informatica}">Informática</a></li>
 			</ul>
 
-			<form class="navbar-form navbar-left" role="search">
+			<form th:action="@{/search}" class="navbar-form navbar-left" role="search">
 				<div class="input-group">
-					<input type="text" class="form-control"
+					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
 						class="input-group-btn">
 						<button class="btn btn-default" type="submit">
