@@ -80,7 +80,21 @@
 				<div id="cesta">
 					<div class="panel panel-default"
 						th:each="product_order, it : ${order.products}">
-						<div class="panel-heading" th:text="${product_order.product.name}">Producto</div>
+						<div class="panel-heading clearfix">
+
+							<h4 class="panel-title pull-left"
+								th:text="${product_order.product.name}">Producto</h4>
+							<div class="btn-group pull-right">
+								<a th:href="@{/removeFromCart(product_id=${it.count})}">
+									<button class="btn btn-default">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</a>
+							</div>
+
+						</div>
+
+
 						<div class="panel-body">
 							<div class="col-md-4">
 								<img class="img-responsive"
@@ -103,13 +117,6 @@
 								<div class="row">
 									<input type="number" th:value="${product_order.cuantity}"
 										name="cuantity" min="1" max="100" width="5" />
-								</div>
-								<div class="row">
-									<a th:href="@{/removeFromCart(product_id=${it.count})}">
-										<button class="btn btn-default">
-											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-										</button>
-									</a>
 								</div>
 							</div>
 						</div>
@@ -134,9 +141,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 </body>
 
 </html>
