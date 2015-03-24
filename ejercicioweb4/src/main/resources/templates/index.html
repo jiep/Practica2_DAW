@@ -125,11 +125,11 @@
 			<div class="panel-body">
 				<form th:action="@{/search}">
 					<div class="form-group">
-						<label>Desde</label> <input min="0" name="from" type="number"
+						<label>Desde</label> <input min="0" name="from" type="number" step="any"
 							class="form-control" placeholder="Desde" />
 					</div>
 					<div class="form-group">
-						<label>Hasta</label> <input name="to" min="0" type="number"
+						<label>Hasta</label> <input name="to" min="0" type="number" step="any"
 							class="form-control" placeholder="Hasta" />
 					</div>
 					<button type="submit" class="btn btn-default pull-right">
