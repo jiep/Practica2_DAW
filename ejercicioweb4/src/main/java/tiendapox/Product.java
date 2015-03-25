@@ -15,6 +15,7 @@ public class Product {
 	 */
 
 	@Id
+	@Column(name="product_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String name;

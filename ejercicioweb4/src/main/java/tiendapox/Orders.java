@@ -2,53 +2,54 @@ package tiendapox;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Order {
+public class Orders {
 	
-	public static enum State{
+	/*public static enum State{
 		PENDIENTE, PREPARADO
-	}
+	}*/
 	
 	@Id
+	@Column(name="order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 
+	@OneToOne(cascade=CascadeType.ALL)
 	private Cart cart;
-	private State state;
+	private String state;
 	private Date date;
 	
-	public Order(){
+	public Orders(){
 	}
 	
-	public Order(Cart cart){
+	public Orders(Cart cart){
 		this.cart = cart;
-		this.state = State.PENDIENTE;
+		this.state = "Pendiente";
 		this.setDate(new Date());
 	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public State getState() {
+	
+	public String getState() {
 		return state;
 	}
 
-	public void setState(State state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	
 	public void changeState(){
-		this.state = State.PREPARADO;
+		this.state = "Preparado";
 	}
 
 	public Date getDate() {
@@ -57,6 +58,10 @@ public class Order {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public Cart getCart(){
+		return cart;
 	}
 	
 }
