@@ -18,27 +18,24 @@ public class Order {
 	/*public static enum State{
 		PENDIENTE, PREPARADO
 	}*/
+	
 	@Id
 	@Column(name="order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String state;
 	private Date date;
-	@Lob @Column(name="product_list")
-	private ArrayList<Product> products = new ArrayList<Product>();
-	@Lob @Column(name="cuantity_list")
-	private ArrayList<Double> cuantity = new ArrayList<Double>();
-	
+	@Lob @Column(name="cart")
+	private Cart cart;
 	
 	public Order(){
 	}
 	
-	public Order(ArrayList<Product> products, ArrayList<Double> cuantity){
+	public Order(Cart cart){
 		this.state = "Pendiente";
+		this.setCart(cart);
 		this.setDate(new Date());
 	}
-
-
 
 	public String getState() {
 		return state;
@@ -46,7 +43,6 @@ public class Order {
 	public Date getDate() {
 		return date;
 	}
-	
 	
 
 	public void setDate(Date date) {
@@ -65,20 +61,12 @@ public class Order {
 		this.state = "Preparado";
 	}
 
-	public ArrayList<Product> getProducts() {
-		return products;
+	private Cart getCart() {
+		return cart;
 	}
 
-	public void setProducts(ArrayList<Product> products) {
-		this.products = products;
-	}
-
-	public ArrayList<Double> getCuantity() {
-		return cuantity;
-	}
-
-	public void setCuantity(ArrayList<Double> cuantity) {
-		this.cuantity = cuantity;
+	private void setCart(Cart cart) {
+		this.cart = cart;
 	}
 	
 }

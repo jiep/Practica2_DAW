@@ -1,5 +1,6 @@
 package tiendapox;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Cart {
+public class Cart implements Serializable{
 
 	@Id
     @GeneratedValue
@@ -22,11 +23,13 @@ public class Cart {
     private Integer id;
 
 	@ElementCollection
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = AlmostCart.class, cascade=CascadeType.ALL)
-	@JoinColumn(name = "ALMOST_CART_ID")
 	private List<AlmostCart> products = new ArrayList<>();
 	private double total;
-
+	
+	public Cart(List<AlmostCart> prod, double total){
+		this.products=prod;
+		this.total=total;
+	}
     public Integer getId() {
         return id;
     }

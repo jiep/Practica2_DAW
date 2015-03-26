@@ -30,6 +30,7 @@ public class ProductController {
 	private OrderRepository orders;
 
 	private Cart cart = new Cart();
+	private Cart cart1 = new Cart();
 	private static final String FILES_FOLDER = "files";
 
 	private void dummyData() {
@@ -82,13 +83,36 @@ public class ProductController {
 				"9.png",
 				"El LG 55UB850V dispone de un diseño Cinema Screen para disfrutar al máximo de la Ultra Alta Definición de 4K. Cuenta con una resolución 4 veces superior a la de la Full HD 1080p y con pantalla de 55 pulgadas (139 cm) con bordes ultrafinos para ofrecer imágenes perfectas con un nivel de detalle inigualado tanto de cerca como de lejos.  El televisor 55-UB850V incluye el motor de tratamiento de imagenTriple XD Engine que optimiza el contraste, la nitidez y los colores. La tecnología LED Plus, que asocia una retroiluminación de tipo Edge LED con la gestión Local Dimming, garantiza por su parte una imagen particularmente luminosa con un tratamiento por zonas para una fineza incomparable. Gracias a una frecuencia de barrido mejorada UCI 1000Hz obtendrás una imagen de 3840 x 2160 píxeles con un realismo increíble.",
 				1149.00));
+		
+		
+		Product p1 = new Product(
+				"LG 55UB850V - Televisor LED 3D Smart TV Ultra HD",
+				"Televisores",
+				"9.png",
+				"El LG 55UB850V dispone de un diseño Cinema Screen para disfrutar al máximo de la Ultra Alta Definición de 4K. Cuenta con una resolución 4 veces superior a la de la Full HD 1080p y con pantalla de 55 pulgadas (139 cm) con bordes ultrafinos para ofrecer imágenes perfectas con un nivel de detalle inigualado tanto de cerca como de lejos.  El televisor 55-UB850V incluye el motor de tratamiento de imagenTriple XD Engine que optimiza el contraste, la nitidez y los colores. La tecnología LED Plus, que asocia una retroiluminación de tipo Edge LED con la gestión Local Dimming, garantiza por su parte una imagen particularmente luminosa con un tratamiento por zonas para una fineza incomparable. Gracias a una frecuencia de barrido mejorada UCI 1000Hz obtendrás una imagen de 3840 x 2160 píxeles con un realismo increíble.",
+				1149.00);
 
-		ArrayList<Product> product_order = (ArrayList<Product>) products.findAll();
+		Product p2 = new Product(
+				"SAMSUNG UE40H6400 - Televisor LED 3D Smart TV",
+				"Televisores",
+				"8.png",
+				"El interactivo e intuitivo televisor Samsung UE40H6400 te permite navegar rápida y fácilmente en su interfaz Smart TV. Este televisor LED Full HD viene con el nuevo mando a distancia Smart Touch. Utilizando el giroscopio o interacción de voz, podrás pedir y obtener -con un simple gesto o con la voz sobre la programación- consejos sobre la programación basados en tus preferencias de visionado. De este modo, tu televisor UE40-H6400 te propondrá una selección personalizada de contenidos para contentar a toda la familia.",
+				477.78);
+				
+		AlmostCart almostCart1 = new AlmostCart(p1,2);
+		AlmostCart almostCart2 = new AlmostCart(p2,5);
+		cart.getProducts().add(almostCart1);
+		cart.getProducts().add(almostCart2);
+		cart1.getProducts().add(almostCart1);
+		cart1.getProducts().add(almostCart2);
 		
-		ArrayList<Double> product_cuantity = new ArrayList<Double>();
-		product_cuantity.add(new Double(1));
 		
-		orders.save(new Order(product_order, product_cuantity));
+		orders.save(new Order(cart));
+		orders.save(new Order(cart1));
+		
+		for(Order o : orders.findAll()){
+			System.out.println(o);
+		}
 
 		
 	}
