@@ -82,6 +82,7 @@ public class ProductController {
 				"El LG 55UB850V dispone de un diseño Cinema Screen para disfrutar al máximo de la Ultra Alta Definición de 4K. Cuenta con una resolución 4 veces superior a la de la Full HD 1080p y con pantalla de 55 pulgadas (139 cm) con bordes ultrafinos para ofrecer imágenes perfectas con un nivel de detalle inigualado tanto de cerca como de lejos.  El televisor 55-UB850V incluye el motor de tratamiento de imagenTriple XD Engine que optimiza el contraste, la nitidez y los colores. La tecnología LED Plus, que asocia una retroiluminación de tipo Edge LED con la gestión Local Dimming, garantiza por su parte una imagen particularmente luminosa con un tratamiento por zonas para una fineza incomparable. Gracias a una frecuencia de barrido mejorada UCI 1000Hz obtendrás una imagen de 3840 x 2160 píxeles con un realismo increíble. ",
 				1149.00));
 		
+<<<<<<< HEAD
 		Cart cart = new Cart();
 		cart.getProducts().add(new AlmostCart(new Product(
 				"LG 55UB850V - Televisor LED 3D Smart TV Ultra HD",
@@ -91,6 +92,15 @@ public class ProductController {
 				1149.00), 2));
 		
 		orders.save(new Orders(cart));
+=======
+		ArrayList<Product> product_order = (ArrayList<Product>) products.findAll();
+		
+		ArrayList<Double> product_cuantity = new ArrayList<Double>();
+		product_cuantity.add(new Double(1));
+		
+		orders.save(new Order(product_order, product_cuantity));
+		
+>>>>>>> atraaas
 		
 	}
 
@@ -136,7 +146,7 @@ public class ProductController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/admin")
+	@RequestMapping("/admin")
 	public ModelAndView admin(HttpSession session) {
 
 		final String USER = "usuario";
