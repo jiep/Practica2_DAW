@@ -26,7 +26,7 @@ public class Order {
 	private String state;
 	private Date date;
 	private String name;
-	private String adress;
+	private String address;
 	@Lob @Column(name="cart")
 	private Cart cart;
 	

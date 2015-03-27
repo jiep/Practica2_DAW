@@ -251,11 +251,31 @@ public class ProductController {
 		return new ModelAndView("index").addObject("products",
 				products.findAll()).addObject("order", cart);
 	}
+	
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public ModelAndView modify(@RequestParam("cuantity") int cuantity,
+			@RequestParam("product_id") int product_id) {
+		System.out.println(cuantity);
+		System.out.println(product_id);
+		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
+		cart.getProducts().get(cart.getProducts().indexOf(ac)).setCuantity(cuantity);
+		
+		return new ModelAndView("cart").addObject("order", cart).addObject("products", products);
+	}
+	
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView edit() {
+		
+	return new ModelAndView("edit").addObject("products",
+			products.findAll());
+	}
 
 	@RequestMapping("/cart")
 	public ModelAndView cart() {
 
-		return new ModelAndView("cart").addObject("order", cart);
+		return new ModelAndView("cart").addObject("order", cart).addObject("products", products);
 	}
 
 	@RequestMapping("category/{category}")
