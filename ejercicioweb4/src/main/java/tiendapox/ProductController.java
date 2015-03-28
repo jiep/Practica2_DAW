@@ -183,7 +183,7 @@ public class ProductController {
 		return mv;
 	}
 
-	@RequestMapping("/add")
+	@RequestMapping(value="/add")
 	public ModelAndView add(HttpSession session,
 			@RequestParam("name") String name,
 			@RequestParam("category") String category,
@@ -298,6 +298,29 @@ public class ProductController {
 			if (permiso == 1) {
 				mv = new ModelAndView("edit").addObject("product",
 						products.findOne(id));
+			} else {
+				mv = new ModelAndView("index")
+						.addObject("error", "Acceso no permitido")
+						.addObject("products", products.findAll())
+						.addObject("order", cart);
+			}
+		} else {
+			mv = new ModelAndView("index")
+					.addObject("error", "Acceso no permitido")
+					.addObject("products", products.findAll())
+					.addObject("order", cart);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/edit")
+	public ModelAndView edi(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if (permiso != null) {
+			if (permiso == 1) {
+				mv = new ModelAndView("admin").addObject("products", products.findAll());
 			} else {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
@@ -470,7 +493,7 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping("/admin/remove")
+	@RequestMapping(value="/admin/remove",  method = RequestMethod.POST)
 	public ModelAndView removeProductFromAdmin(HttpSession session,
 			@RequestParam(value = "product_id") int id) {
 
@@ -481,6 +504,31 @@ public class ProductController {
 		if (permiso != null) {
 			if (permiso == 1) {
 				products.delete(id);
+				mv = new ModelAndView("admin").addObject("products",
+						products.findAll());
+			} else {
+				mv = new ModelAndView("index")
+						.addObject("error", "Acceso no permitido")
+						.addObject("products", products.findAll())
+						.addObject("order", cart);
+			}
+		} else {
+			mv = new ModelAndView("index")
+					.addObject("error", "Acceso no permitido")
+					.addObject("products", products.findAll())
+					.addObject("order", cart);
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/admin/remove")
+	public ModelAndView removeAdmin(HttpSession session) {
+
+		Cart cart = (Cart) session.getAttribute("cart");
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if (permiso != null) {
+			if (permiso == 1) {
 				mv = new ModelAndView("admin").addObject("products",
 						products.findAll());
 			} else {
@@ -511,19 +559,34 @@ public class ProductController {
 
 	@RequestMapping("/admin/orders")
 	public ModelAndView orders(HttpSession session) {
-		ArrayList<Order> order = (ArrayList<Order>) orders.findAll();
-
-		ModelAndView mv = new ModelAndView();
 		
-		if(order.isEmpty()){
-			mv = new ModelAndView("orders").addObject("error", "No existen pedidos");
-		}else{
-			mv = new ModelAndView("orders").addObject("orders", order);
+		Cart cart = (Cart) session.getAttribute("cart");
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if (permiso != null) {
+			if (permiso == 1) {
+				ArrayList<Order> order = (ArrayList<Order>) orders.findAll();
+				
+				if(order.isEmpty()){
+					mv = new ModelAndView("orders").addObject("error", "No existen pedidos");
+				}else{
+					mv = new ModelAndView("orders").addObject("orders", order);
+				}
+			} else {
+				mv = new ModelAndView("index")
+						.addObject("error", "Acceso no permitido")
+						.addObject("products", products.findAll())
+						.addObject("order", cart);
+			}
+		} else {
+			mv = new ModelAndView("index")
+					.addObject("error", "Acceso no permitido")
+					.addObject("products", products.findAll())
+					.addObject("order", cart);
 		}
-
 		return mv;
 	}
-
+	
 	@RequestMapping("/admin/search/{state}")
 	public ModelAndView adminSearch(HttpSession session,
 			@PathVariable String state) {
@@ -562,6 +625,25 @@ public class ProductController {
 			mv = new ModelAndView("orders").addObject("error", "No existen pedidos");
 		}else{
 			mv = new ModelAndView("orders").addObject("orders", orders.findAll());
+		}
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping("/new")
+	public ModelAndView newProduct(HttpSession session){
+		
+		
+		ModelAndView mv = new ModelAndView();
+		
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		if (permiso != null) {
+			if (permiso == 1) {
+				mv = new ModelAndView("new");
+			}
+		}else{
+			mv = new ModelAndView("index").addObject("error", "Ruta no permitida");
 		}
 		
 		return mv;
