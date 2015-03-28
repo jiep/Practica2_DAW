@@ -1,0 +1,15 @@
+button {
+  background-color: #04c407;
+}
+
+button:hover {
+  background-color: #05a100;
+}
+
+.panel-heading {
+  background-color: #ff30c1;
+}
+
+.panel-default > panel-panel-heading {
+  border-color: #ff30c1;
+}
