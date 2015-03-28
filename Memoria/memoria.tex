@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,svgnames]{article}
+\documentclass[12pt,a4paper,svgnames]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
@@ -40,8 +40,9 @@ GIS+MAT: & José Ignacio Escribano Pablos
 \setcounter{page}{1}
 
 
-\section{Patrón MVC}
-Para la realización de la práctica vamos a usar el patrón de arquitectura de software \texttt{Modelo-Vista-Controlador(MVC)}, que como su propio nombre indica, define la organización independiente del Modelo (información y lógica de negocio), la Vista (interfaz con el usuario) y el Controlador (intermediario entre modelo y vista).\\
+\section{Introducción}
+Para la realización de la práctica vamos a usar el patrón de arquitectura de software \\
+\texttt{Modelo-Vista-Controlador(MVC)}, que como su propio nombre indica, define la organización independiente del Modelo (información y lógica de negocio), la Vista (interfaz con el usuario) y el Controlador (intermediario entre modelo y vista).\\
 
 \begin{figure}[htbp]
 \centering
@@ -51,20 +52,30 @@ Para la realización de la práctica vamos a usar el patrón de arquitectura de 
 
 Para llevar a cabo la explicación de la responsabilidad de cada clase, vamos a dividir dicha explicación en las tres partes del patrón.\\
 
-Pero antes, veamos los diagramas \texttt{UML} de nuestra aplicación web.\\
+Pero antes, veamos los diagramas \texttt{UML} de nuestra aplicación web.
+
+\clearpage
 
 \section{Diagramas UML}
-
 \subsection{Diagrama de casos de uso}
-\begin{figure}[h]
+ 
+El diagrama de casos de uso de la Figura~\ref{fig:casosdeuso} muestra que la aplicación tiene dos roles distintos dentro de la aplicación: usuario y administrador. El primero de ellos puede ver productos, añadirlos al carrito, ver su carro, y el segundo puede añadir productos al catálogo de la tienda, modificarlos, ver los pedidos, así como todas las acciones derivadas de las anteriores.\\
+
+Esto supone que hay que distinguir casos distintos casos, ya sea para un usuario o para el administrador.  
+\begin{figure}[htbp]
 	\centering
 	\casosdeuso
 	\caption{Diagrama de casos de uso de la aplicación}
+	\label{fig:casosdeuso}
 \end{figure}
+
+\clearpage
 
 \subsection{Diagrama de clases}
 
-\begin{figure}[h] 
+El diagrama de clases muestra todas las clases que manejarán la lógica de la aplicación. Estas clases son ProductWithCuantity, Cart, Product y Order. La descripción de cada clase se puede ver en la Sección~\ref{sec:descripcion}.
+
+\begin{figure}[htbp] 
 	\centering
 	\clases
 	\caption{Diagrama de clases de la aplicación}
@@ -72,41 +83,51 @@ Pero antes, veamos los diagramas \texttt{UML} de nuestra aplicación web.\\
 
 \subsection{Diagramas de actividad}
 
-\begin{figure}[h] 
+Como hemos comentado anteriormente, debemos distinguir tareas para un usuario normal y el administrador. Esto se refleja en los diagramas de actividad: en el caso de un usuario normal no es necesario iniciar sesión (en el enunciado de la práctica se especifica que no hay usuarios, salvo el administrador), mientras que en el adminstrador sí que es necesario.\\
+
+Un ejemplo de lo anterior se puede ver en las Figuras~\ref{fig:actividad1}~y~\ref{fig:actividad2} donde no es necesario iniciar sesión para comprar un producto de la tienda, y, por el contrario, sí que lo es para añadir un producto al catálogo de la tienda.  
+
+\begin{figure}[htbp] 
 	\centering
 	\comprarproducto
 	\caption{Diagrama de secuencia de comprar producto}
+	\label{fig:actividad1}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 	\centering
 	\anadirproductoadministrador
 	\caption{Diagrama de secuencia de añadir producto como administrador}
+	\label{fig:actividad2}
 \end{figure}
 
-\section{Descripción de las clases}
+\clearpage
+
+\section{Descripción de las clases}\label{sec:descripcion}
 \subsection{Modelo}
 \subsubsection{Clase Product}
 Esta clase define el objeto producto y las propiedades y métodos de los que dispondrán los productos de nuestra web.\\
-\subsubsection{Clase AlmostCart}
-La clase \texttt{AlmostCart} define un producto que estará en el carro de compra y la cantidad de dicho producto almacenada en el carro. Por tanto, se compone de un producto y su cantidad.\\
+\subsubsection{Clase ProductWithCuantity}
+La clase \texttt{ProductWithCuantity} define un producto que estará en el carro de compra y la cantidad de dicho producto almacenada en el carro. Por tanto, se compone de un producto y su cantidad.\\
 \subsubsection{Clase Cart}
-Esta clase define el carro de compra de cada usuario. Está compuesto por un ArrayList de \texttt{AlmostCart} (que serán el total de productos en la cesta) y el precio total del carro.\\
+Esta clase define el carro de compra de cada usuario. Está compuesto por un ArrayList de \texttt{ProductWithCuantity} (que serán el total de productos en la cesta) y el precio total del carro.\\
 \subsubsection{Clase Order}
 La clase \texttt{Order} define el pedido del usuario, es decir, la confirmación de querer comprar su carro de compra. Por ello, esta clase contiene un atributo carro, además del estado del pedido (pendiente o preparado) y los datos correspondientes del usuario que ha realizado el pedido.\\
-\subsubsection{Clase ProductRepository}
+\subsubsection{Interfaz ProductRepository}
 Es una clase que extiende de CrudRepository, interfaz genérica que ofrece operaciones tipo CRUD (Create-Read-Update-Delete) para acceder a los datos de la base de datos. Nosotros lo utilizaremos en esta clase para realizar consultas sobre los productos en la BD.\\
-\subsubsection{Clase OrdertRepository}
+\subsubsection{Interfaz OrdertRepository}
 Al igual que \texttt{ProductRepository}, esta clase extiende de CrudRepository, pero esta vez la clase nos servirá para realizar consultas a la BD sobre los pedidos.\\
 \subsection{Controlador}
 \subsubsection{Clase ProductController}
 Esta clase es el controlador de nuestra aplicación, es decir, responderá a los eventos de las diferentes vistas (mayoritariamente acciones del usuario, como pulsar un botón) y hará peticiones al modelo cuando se hace alguna solicitud sobre la información.
 Un ejemplo podría ser cuando el usuario pulsa sobre la categoría "Videoconsolas", la clase \texttt{ProductController} responderá al evento buscando en la base de datos los productos pertenecientes a dicha categoría y devolviendo una vista donde aparezcan estos productos.\\
+\subsubsection{Clase StartController}
+Esta clase es un controlador que implementa la interfaz \texttt{CommandLineRunner}, que permite ejecutar algunos comandos al iniciar la aplicación. Se encarga de introducir algunos productos y pedidos de prueba que sirvan para probar el correcto funcionamiento de la aplicación. En la versión de producción, este controlador se eliminaría.
 \subsection{Vista}
 \subsubsection{index.html}
 Esta vista corresponde a la página principal de nuestra aplicación web.
 \subsubsection{product.html}
-En \texttt{product.html} encontramos la vista donde se ve un producto seleccionado (botón mas información), con la información completa de dicho producto y la posibilidad de añadirlo al carro.
+En \texttt{product.html} encontramos la vista donde se ve un producto seleccionado (botón más información), con la información completa de dicho producto y la posibilidad de añadirlo al carro.
 \subsubsection{cart.html}
 En esta vista tenemos nuestro carro de compra, donde podremos aumentar o disminuir la cantidad de los productos que se encuentren en la cesta, eliminarlos y realizar el pedido.
 \subsubsection{admin.html}
@@ -119,6 +140,9 @@ En esta vista tenemos un formulario que nos permitirá editar los productos de l
 Esta vista es otro formulario en donde se pedirán los datos al usuario para realizar el pedido.
 \subsubsection{orders.html}
 En \texttt{orders.html} se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado). Además, se podrán filtrar los pedidos mediante su estado, nombre o fecha.
+
+\clearpage
+
 \section{Recorrido por la aplicación}
 
 \end{document}
