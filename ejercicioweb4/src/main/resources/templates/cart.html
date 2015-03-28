@@ -112,24 +112,22 @@
 
 							<div class="col-md-3">
 								<form th:action="@{/modify}" method="post">
-								<div class="row">
-									<h1 th:text="${product_order.product.price} + €">98 €</h1>
-								</div>
-								<div class="row">
-									<input type="number" th:value="${product_order.cuantity}"
-										name="cuantity" min="1" max="100" width="5" />
-								</div>
-									<div class="row">									
-									<button class="btn btn-default">
-											Actualizar <span
-												class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-									</button>
-									<input type="hidden" th:value="${product_order.product.id}"
-										name="product_id" />
-									
+									<div class="row">
+										<h1 th:text="${product_order.product.price} + €">98 €</h1>
 									</div>
-									
-									</form>
+									<div class="row">
+										<input type="number" th:value="${product_order.cuantity}"
+											name="cuantity" min="1" max="100" width="5" />
+									</div>
+									<div class="row">
+										<input name="product_id" type="number"
+											th:value="${product_order.product.id}" />
+										<button class="btn btn-default">
+											Actualizar <span class="glyphicon glyphicon-refresh"
+												aria-hidden="true"></span>
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>

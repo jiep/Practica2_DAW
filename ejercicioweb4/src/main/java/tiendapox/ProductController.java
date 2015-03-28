@@ -29,8 +29,6 @@ public class ProductController {
 	@Autowired
 	private OrderRepository orders;
 
-	private Cart cart = new Cart();
-	private Cart cart1 = new Cart();
 	private static final String FILES_FOLDER = "files";
 
 	private void dummyData() {
@@ -98,27 +96,17 @@ public class ProductController {
 				"8.png",
 				"El interactivo e intuitivo televisor Samsung UE40H6400 te permite navegar rápida y fácilmente en su interfaz Smart TV. Este televisor LED Full HD viene con el nuevo mando a distancia Smart Touch. Utilizando el giroscopio o interacción de voz, podrás pedir y obtener -con un simple gesto o con la voz sobre la programación- consejos sobre la programación basados en tus preferencias de visionado. De este modo, tu televisor UE40-H6400 te propondrá una selección personalizada de contenidos para contentar a toda la familia.",
 				477.78);
-				
-		AlmostCart almostCart1 = new AlmostCart(p1,2);
-		AlmostCart almostCart2 = new AlmostCart(p2,5);
-		cart.getProducts().add(almostCart1);
-		cart.getProducts().add(almostCart2);
-		cart1.getProducts().add(almostCart1);
-		cart1.getProducts().add(almostCart2);
-		
-		
-		orders.save(new Order(cart));
-		orders.save(new Order(cart1));
-		
-		for(Order o : orders.findAll()){
-			System.out.println(o);
-		}
-
-		
 	}
 
 	@RequestMapping("/")
 	public ModelAndView index(HttpSession session) {
+		
+		if(session.isNew()){
+			session.setAttribute("cart", new Cart());
+			session.setAttribute("permisos", 0);
+		}
+		
+		Cart cart = (Cart) session.getAttribute("cart"); 
 
 		dummyData();
 
@@ -127,8 +115,16 @@ public class ProductController {
 	}
 
 	@RequestMapping("/order")
-	public ModelAndView order() {
-		return new ModelAndView("order").addObject("products", products);
+	public ModelAndView order(HttpSession session) {
+		Integer i = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if(!session.isNew() && i != null){
+			if(i == 1){
+				mv = new ModelAndView("order").addObject("products", products);
+			}
+		}
+		
+		return mv;
 	}
 
 	@RequestMapping(value = "/admin", method = RequestMethod.POST)
@@ -151,7 +147,7 @@ public class ProductController {
 					mv = new ModelAndView("index")
 							.addObject("error", "Login no válido")
 							.addObject("products", products.findAll())
-							.addObject("order", cart);
+							.addObject("order", (Cart) session.getAttribute("cart"));
 				}
 		return mv;
 	}
@@ -169,20 +165,20 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);	
+						.addObject("order", (Cart) session.getAttribute("cart"));	
 			}
 		}else{
 			mv = new ModelAndView("index")
 			.addObject("error", "Acceso no permitido")
 			.addObject("products", products.findAll())
-			.addObject("order", cart);
+			.addObject("order", (Cart) session.getAttribute("cart"));
 		}
 		return mv;
 	}
 	
 	
 	@RequestMapping("/add")
-	public ModelAndView add(HttpSession session,@RequestParam("name") String name,
+	public ModelAndView add(HttpSession session, @RequestParam("name") String name,
 			@RequestParam("category") String category,
 			@RequestParam("image") MultipartFile image,
 			@RequestParam("description") String description,
@@ -235,14 +231,14 @@ public class ProductController {
 			mv = new ModelAndView("index")
 			.addObject("error", "Acceso no permitido")
 			.addObject("products", products.findAll())
-			.addObject("order", cart);
+			.addObject("order", (Cart) session.getAttribute("cart"));
 
 		}
 		}else{
 			mv = new ModelAndView("index")
 			.addObject("error", "Login no válido")
 			.addObject("products", products.findAll())
-			.addObject("order", cart);
+			.addObject("order", (Cart) session.getAttribute("cart"));
 		}
 		return mv;
 		
@@ -251,10 +247,9 @@ public class ProductController {
 				
 
 	@RequestMapping(value = "/addToCart")
-	public ModelAndView addToCart(@RequestParam int product_id) {
-
+	public ModelAndView addToCart(@RequestParam int product_id, HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
 		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
-
 		if (cart.getProducts().contains(ac)) {
 			cart.getProducts().get(cart.getProducts().indexOf(ac)).add();
 		} else {
@@ -266,8 +261,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/moreInformation")
-	public ModelAndView moreInformation(@RequestParam int product_id) {
-
+	public ModelAndView moreInformation(@RequestParam int product_id, HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
 		return new ModelAndView("product").addObject("product",products.findOne(product_id)).addObject("order", cart);
 	}
 	
@@ -275,9 +270,11 @@ public class ProductController {
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public ModelAndView modify(@RequestParam("cuantity") int cuantity,
-			@RequestParam("product_id") int product_id) {
+			@RequestParam("product_id") int product_id, HttpSession session) {
+		
 		System.out.println(cuantity);
 		System.out.println(product_id);
+		Cart cart = (Cart) session.getAttribute("cart");
 		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
 		cart.getProducts().get(cart.getProducts().indexOf(ac)).setCuantity(cuantity);
 		
@@ -288,6 +285,7 @@ public class ProductController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ModelAndView edit(HttpSession session,
 			@RequestParam("product_id") int id){
+		Cart cart = (Cart) session.getAttribute("cart");
 		Integer permiso = (Integer) session.getAttribute("permisos");
 		ModelAndView mv = new ModelAndView();
 		if(permiso!=null){
@@ -316,6 +314,7 @@ public class ProductController {
 				@RequestParam("price") double price,
 				@RequestParam(value = "product_id") int id){
 
+		Cart cart = (Cart) session.getAttribute("cart");
 		Integer permiso = (Integer) session.getAttribute("permisos");
 		ModelAndView mv = new ModelAndView();
 		if(permiso!=null){
@@ -349,7 +348,7 @@ public class ProductController {
 				// return new ModelAndView("index").addObject("error",
 				// "El archivo está");
 			}
-			
+						
 			mv = new ModelAndView("admin").addObject("products",
 					products.findAll());
 		}else{
@@ -372,13 +371,14 @@ public class ProductController {
 	
 
 	@RequestMapping("/cart")
-	public ModelAndView cart() {
-
+	public ModelAndView cart(HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
 		return new ModelAndView("cart").addObject("order", cart).addObject("products", products);
 	}
 
 	@RequestMapping("category/{category}")
-	public ModelAndView searchCategory(@PathVariable String category) {
+	public ModelAndView searchCategory(@PathVariable String category, HttpSession session) {
+		Cart cart = (Cart) session.getAttribute("cart");
 
 		String cat = "";
 
@@ -419,10 +419,12 @@ public class ProductController {
 	@RequestMapping("/search")
 	public ModelAndView search(@RequestParam(required = false) String name,
 			@RequestParam(required = false) Double from,
-			@RequestParam(required = false) Double to) {
+			@RequestParam(required = false) Double to, HttpSession session) {
 
 		List<Product> search_products = null;
 
+		Cart cart = (Cart) session.getAttribute("cart");
+		
 		if (name != null) {
 			search_products = products.findByNameContainingIgnoreCase(name);
 		} else if (from != null && to != null) {
@@ -466,6 +468,8 @@ public class ProductController {
 	public ModelAndView removeProductFromAdmin(HttpSession session,
 			@RequestParam(value = "product_id") int id) {
 		
+		Cart cart = (Cart) session.getAttribute("cart");
+		
 		Integer permiso = (Integer) session.getAttribute("permisos");
 		ModelAndView mv = new ModelAndView();
 		if(permiso!=null){
@@ -489,7 +493,9 @@ public class ProductController {
 
 	@RequestMapping("/removeFromCart")
 	public ModelAndView removeProductFromCart(
-			@RequestParam(value = "product_id") int id) {
+			@RequestParam(value = "product_id") int id, HttpSession session) {
+		
+		Cart cart = (Cart) session.getAttribute("cart");
 		
 		cart.getProducts().remove(id-1);
 
