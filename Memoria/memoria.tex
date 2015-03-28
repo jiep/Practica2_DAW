@@ -39,15 +39,40 @@ GIS+MAT: & José Ignacio Escribano Pablos
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\section{Diagramas UML}
 
-\begin{figure}[h]
-	\centering
-	\anadirproductoadministrador
-	\caption{Diagrama de secuencia de añadir producto como administrador}
+\section{Patrón MVC}
+Para la realización de la práctica vamos a usar el patrón de arquitectura de software \texttt{Modelo-Vista-Controlador(MVC)}, que como su propio nombre indica, define la organización independiente del Modelo (información y lógica de negocio), la Vista (interfaz con el usuario) y el Controlador (intermediario entre modelo y vista).\\
+
+\begin{figure}[htbp]
+\centering
+\subfigure{\includegraphics[width=65mm]{./imagenes/mvc}}
+\caption{Patrón de arquitectura Modelo Vista Controlador (MVC)}
 \end{figure}
 
+Para llevar a cabo la explicación de la responsabilidad de cada clase, vamos a dividir dicha explicación en las tres partes del patrón.\\
+
+Pero antes, veamos los diagramas \texttt{UML} de nuestra aplicación web.\\
+
+\section{Diagramas UML}
+
+\subsection{Diagrama de casos de uso}
 \begin{figure}[h]
+	\centering
+	\casosdeuso
+	\caption{Diagrama de casos de uso de la aplicación}
+\end{figure}
+
+\subsection{Diagrama de clases}
+
+\begin{figure}[h] 
+	\centering
+	\clases
+	\caption{Diagrama de clases de la aplicación}
+\end{figure}
+
+\subsection{Diagramas de actividad}
+
+\begin{figure}[h] 
 	\centering
 	\comprarproducto
 	\caption{Diagrama de secuencia de comprar producto}
@@ -55,18 +80,45 @@ GIS+MAT: & José Ignacio Escribano Pablos
 
 \begin{figure}[h]
 	\centering
-	\casosdeuso
-	\caption{Diagrama de casos de uso de la aplicación}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\clases
-	\caption{Diagrama de clases de la aplicación}
+	\anadirproductoadministrador
+	\caption{Diagrama de secuencia de añadir producto como administrador}
 \end{figure}
 
 \section{Descripción de las clases}
-
+\subsection{Modelo}
+\subsubsection{Clase Product}
+Esta clase define el objeto producto y las propiedades y métodos de los que dispondrán los productos de nuestra web.\\
+\subsubsection{Clase AlmostCart}
+La clase \texttt{AlmostCart} define un producto que estará en el carro de compra y la cantidad de dicho producto almacenada en el carro. Por tanto, se compone de un producto y su cantidad.\\
+\subsubsection{Clase Cart}
+Esta clase define el carro de compra de cada usuario. Está compuesto por un ArrayList de \texttt{AlmostCart} (que serán el total de productos en la cesta) y el precio total del carro.\\
+\subsubsection{Clase Order}
+La clase \texttt{Order} define el pedido del usuario, es decir, la confirmación de querer comprar su carro de compra. Por ello, esta clase contiene un atributo carro, además del estado del pedido (pendiente o preparado) y los datos correspondientes del usuario que ha realizado el pedido.\\
+\subsubsection{Clase ProductRepository}
+Es una clase que extiende de CrudRepository, interfaz genérica que ofrece operaciones tipo CRUD (Create-Read-Update-Delete) para acceder a los datos de la base de datos. Nosotros lo utilizaremos en esta clase para realizar consultas sobre los productos en la BD.\\
+\subsubsection{Clase OrdertRepository}
+Al igual que \texttt{ProductRepository}, esta clase extiende de CrudRepository, pero esta vez la clase nos servirá para realizar consultas a la BD sobre los pedidos.\\
+\subsection{Controlador}
+\subsubsection{Clase ProductController}
+Esta clase es el controlador de nuestra aplicación, es decir, responderá a los eventos de las diferentes vistas (mayoritariamente acciones del usuario, como pulsar un botón) y hará peticiones al modelo cuando se hace alguna solicitud sobre la información.
+Un ejemplo podría ser cuando el usuario pulsa sobre la categoría "Videoconsolas", la clase \texttt{ProductController} responderá al evento buscando en la base de datos los productos pertenecientes a dicha categoría y devolviendo una vista donde aparezcan estos productos.\\
+\subsection{Vista}
+\subsubsection{index.html}
+Esta vista corresponde a la página principal de nuestra aplicación web.
+\subsubsection{product.html}
+En \texttt{product.html} encontramos la vista donde se ve un producto seleccionado (botón mas información), con la información completa de dicho producto y la posibilidad de añadirlo al carro.
+\subsubsection{cart.html}
+En esta vista tenemos nuestro carro de compra, donde podremos aumentar o disminuir la cantidad de los productos que se encuentren en la cesta, eliminarlos y realizar el pedido.
+\subsubsection{admin.html}
+Esta vista es la pantalla principal del administrador, en ella aparecen los distintos productos de la web, donde tenemos las opciones de añadir nuevos productos, borrar o editar productos existentes, filtrar los productos o ver los pedidos.
+\subsubsection{new.html}
+En esta vista tenemos un formulario que nos permitirá añadir nuevos productos a la tienda.
+\subsubsection{edit.html}
+En esta vista tenemos un formulario que nos permitirá editar los productos de la tienda.
+\subsubsection{order.html}
+Esta vista es otro formulario en donde se pedirán los datos al usuario para realizar el pedido.
+\subsubsection{orders.html}
+En \texttt{orders.html} se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado). Además, se podrán filtrar los pedidos mediante su estado, nombre o fecha.
 \section{Recorrido por la aplicación}
 
 \end{document}
