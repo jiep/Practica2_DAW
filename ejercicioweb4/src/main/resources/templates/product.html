@@ -76,45 +76,51 @@
 
 	<div class="col-md-9">
 		<div id="articulo">
+
+			<div class="panel panel-default">
 				<div class="panel-heading" th:text="${product.name}">Producto</div>
 				<div class="panel-body">
-				<div class="row">
-					<div class="col-md-4">
-						<img class="img-responsive" th:src="@{/image/} + ${product.image}" />
-					</div>
-					<div class="col-md-8">
-						<div class="row">
-							<p th:text="${product.category}">Categoría</p>
+					<div class="row">
+						<div class="col-md-4">
+							<img class="img-responsive"
+								th:src="@{/image/} + ${product.image}" />
 						</div>
-						<div class="row">
-							<h1 th:text="${product.price} + €">98 €</h1>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
+						<div class="col-md-8">
 							<div class="row">
-								<form th:href="@{/addToCart}">
-								<input type="hidden" th:value="${product.id}"
-										name="product_id" />
-								<button class="btn btn-default">
-										Añadir al carrito <span
-											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-								</button></form>
+								<p th:text="${product.category}">Categoría</p>
 							</div>
+							<div class="row">
+								<h1 th:text="${product.price} + €">98 €</h1>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row">
+										<form th:href="@{/addToCart}">
+											<input type="hidden" th:value="${product.id}"
+												name="product_id" />
+											<a th:href="@{/addToCart(product_id = ${product.id})}" class="btn btn-default">
+												Añadir al carrito <span
+													class="glyphicon glyphicon-shopping-cart"
+													aria-hidden="true"></span>
+											</a>
+										</form>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+					<div class="row">
 						<p>
 							<b>Descripción:</b>
 						</p>
 						<p th:text="${product.description}"></p>
-				</div>
-				
-			</div>
-			</div>
+					</div>
 
+				</div>
+			</div>
 		</div>
+
+	</div>
 
 	<div class="col-md-3">
 
@@ -123,12 +129,12 @@
 			<div class="panel-body">
 				<form th:action="@{/search}">
 					<div class="form-group">
-						<label>Desde</label> <input min="0" name="from" type="number" step="any"
-							class="form-control" placeholder="Desde" />
+						<label>Desde</label> <input min="0" name="from" type="number"
+							step="any" class="form-control" placeholder="Desde" />
 					</div>
 					<div class="form-group">
-						<label>Hasta</label> <input name="to" min="0" type="number" step="any"
-							class="form-control" placeholder="Hasta" />
+						<label>Hasta</label> <input name="to" min="0" type="number"
+							step="any" class="form-control" placeholder="Hasta" />
 					</div>
 					<button type="submit" class="btn btn-default pull-right">
 						<span class="glyphicon glyphicon glyphicon glyphicon-search"
@@ -159,8 +165,8 @@
 
 				<div th:if="${#lists.size(order.products)} != 0">
 					<h3 class="pull-right" th:text="${order.total} + ' €'">0</h3>
-				</div>							
-					
+				</div>
+
 			</div>
 		</div>
 	</div>
