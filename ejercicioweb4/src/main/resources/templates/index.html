@@ -1,0 +1,184 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+<title>Bienvienido a Poxmanía</title>
+<link rel="icon" th:href="@{~/img/favicon.ico}" />
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
+<script th:src="@{~/js/jquery.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Desplegar navegación</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="pull-left" rel="home" href="/" title="Poxmanía"> <img
+				th:src="@{~/img/logo.png}" />
+			</a>
+		</div>
+
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/category/electrodomesticos}">Pequeños
+						electrodómesticos</a></li>
+				<li><a th:href="@{/category/televisores}">Televisores</a></li>
+				<li><a th:href="@{/category/videoconsolas}">Videoconsolas</a></li>
+				<li><a th:href="@{/category/informatica}">Informática</a></li>
+			</ul>
+
+			<form th:action="@{/search}" class="navbar-form navbar-left"
+				role="search">
+				<div class="input-group">
+					<input name="name" type="text" class="form-control"
+						placeholder="¿Qué estás buscando?" /> <span
+						class="input-group-btn">
+						<button class="btn btn-default pull-right" type="submit">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							Buscar
+						</button>
+					</span>
+				</div>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown" id="menu1"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#menu1"> Administración <b
+						class="caret"></b>
+				</a>
+					<div class="dropdown-menu">
+						<form th:action="@{/admin}" method="post">
+							<div class="form-group">
+								<label>Usuario</label> <input name="user" type="text"
+									class="form-control" placeholder="Usuario" />
+							</div>
+							<div class="form-group">
+								<label>Contraseña</label> <input name="pass" type="password"
+									class="form-control" placeholder="Contraseña" />
+							</div>
+							<button type="submit" class="btn btn-default pull-right">
+								Entrar <span class="glyphicon glyphicon glyphicon-log-in"
+									aria-hidden="true"></span>
+							</button>
+						</form>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+
+
+	<div class="col-md-9">
+		<div id="error" th:if="${error != null}">
+			<div class="alert alert-danger" role="alert" th:text="${error}"></div>
+		</div>
+		<div id="error" th:if="${completed != null}">
+			<div class="alert alert-success" role="alert" th:text="${completed}"></div>
+		</div>
+
+		<div id="category-not-found" th:if="${category_error != null}">
+			<div class="alert alert-warning" role="alert"
+				th:text="${category_error}"></div>
+		</div>
+		<div id="articulos">
+
+			<div class="panel panel-default" th:each="product : ${products}">
+				<div class="panel-heading" th:text="${product.name}">Producto</div>
+				<div class="panel-body">
+					<div class="col-md-4">
+						<img class="img-responsive" th:src="@{/image/} + ${product.image}" />
+					</div>
+					<div class="col-md-8">
+						<div class="row">
+							<p>
+								<b>Descripción:</b>
+							</p>
+							<p th:text="${product.minidescription}"></p>
+							<span class="label label-primary" th:text="${product.category}">Categoría</span>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<h1 th:text="${product.price} + €">98 €</h1>
+							</div>
+							<div class="col-md-6">
+							<div class="row">
+								<a th:href="@{/addToCart(product_id=${product.id})}"><button
+										class="btn btn-default">
+										Añadir al carrito <span
+											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+									</button></a>
+							</div>
+							<div class="row">
+								<a th:href="@{/moreInformation(product_id=${product.id})}"><button
+										class="btn btn-default">
+										Mas información <span
+											class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+									</button></a>
+							</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="col-md-3">
+
+		<div class="panel panel-default">
+			<div class="panel-heading">Filtrar por precio</div>
+			<div class="panel-body">
+				<form th:action="@{/search}">
+					<div class="form-group">
+						<label>Desde</label> <input min="0" name="from" type="number" step="any"
+							class="form-control" placeholder="Desde" />
+					</div>
+					<div class="form-group">
+						<label>Hasta</label> <input name="to" min="0" type="number" step="any"
+							class="form-control" placeholder="Hasta" />
+					</div>
+					<button type="submit" class="btn btn-default pull-right">
+						<span class="glyphicon glyphicon glyphicon glyphicon-search"
+							aria-hidden="true"></span> Buscar
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
+					th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span>
+			</div>
+			<div class="panel-body">
+				<div class="panel panel-default"
+					th:each="product_order : ${order.products}">
+					<div class="panel-body">
+						<div class="col-md-10">
+							<p th:text="${product_order.product.name}">Nombre</p>
+						</div>
+						<div class="col-md-2">
+							<span th:text="'x' + ${product_order.cuantity}"
+								class="badge pull-right">x1</span>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${#lists.size(order.products)} != 0">
+					<h3 class="pull-right" th:text="${order.total} + ' €'">0</h3>
+				</div>							
+					
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
