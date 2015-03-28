@@ -121,6 +121,8 @@ Al igual que \texttt{ProductRepository}, esta clase extiende de CrudRepository, 
 \subsubsection{Clase ProductController}
 Esta clase es el controlador de nuestra aplicación, es decir, responderá a los eventos de las diferentes vistas (mayoritariamente acciones del usuario, como pulsar un botón) y hará peticiones al modelo cuando se hace alguna solicitud sobre la información.
 Un ejemplo podría ser cuando el usuario pulsa sobre la categoría "Videoconsolas", la clase \texttt{ProductController} responderá al evento buscando en la base de datos los productos pertenecientes a dicha categoría y devolviendo una vista donde aparezcan estos productos.\\
+\subsubsection{Clase StartController}
+Esta clase es un controlador que implementa la interfaz \texttt{CommandLineRunner}, que permite ejecutar algunos comandos al iniciar la aplicación. Se encarga de introducir algunos productos y pedidos de prueba que sirvan para probar el correcto funcionamiento de la aplicación. En la versión de producción, este controlador se eliminaría.
 \subsection{Vista}
 \subsubsection{index.html}
 Esta vista corresponde a la página principal de nuestra aplicación web.
