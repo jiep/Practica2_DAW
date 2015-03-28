@@ -124,4 +124,9 @@ public class Product implements Serializable{
 		return equals;
 	}
 
+	public void setImage(String image) {
+		this.image = image;
+		
+	}
+
 }

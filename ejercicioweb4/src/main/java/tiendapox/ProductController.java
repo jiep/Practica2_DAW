@@ -356,10 +356,18 @@ public class ProductController {
 				products.findOne(id).setPrice(price);
 
 				String fileName = id + ".png";
+				
+				System.out.println("El nombre del fichero nuevo es: " + fileName);
 
 				if (!image.isEmpty()) {
+					
+					System.out.println("No está vacía");
+
 
 					try {
+						
+						System.out.println("Entra en el try");
+
 
 						File filesFolder = new File(FILES_FOLDER);
 						if (!filesFolder.exists()) {
@@ -369,6 +377,8 @@ public class ProductController {
 						File uploadedFile = new File(
 								filesFolder.getAbsolutePath(), fileName);
 						image.transferTo(uploadedFile);
+						
+						products.findOne(id).setImage(fileName);
 
 					} catch (Exception e) {
 						return new ModelAndView("index").addObject("fileName",
@@ -376,6 +386,7 @@ public class ProductController {
 								e.getClass().getName() + ":" + e.getMessage());
 					}
 				} else {
+					System.out.println("Está vacía");
 					// return new ModelAndView("index").addObject("error",
 					// "El archivo está");
 				}
