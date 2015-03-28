@@ -26,7 +26,7 @@ public class Product implements Serializable{
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
-	private String mini_description;
+	private String minidescription;
 	private double price;
 
 	public Product() {
@@ -38,7 +38,7 @@ public class Product implements Serializable{
 		this.category = category;
 		this.image = image;
 		this.description = description;
-		this.mini_description = this.description.substring(0,15)+"...";
+		this.minidescription = this.description.substring(0,250)+"...";
 		this.price = price;
 	}
 	
@@ -48,7 +48,7 @@ public class Product implements Serializable{
 		this.category = category;
 		this.image = image;
 		this.description = description;
-		this.mini_description = mini_description;
+		this.minidescription = mini_description;
 				//this.description.substring(0,15)+"...";
 		this.price = price;
 	}
@@ -97,12 +97,12 @@ public class Product implements Serializable{
 		return id;
 	}
 	
-	private String getMiniDescription() {
-		return mini_description;
+	public String getMinidescription() {
+		return minidescription;
 	}
 
-	private void setMiniDescription(String mini_description) {
-		this.mini_description = mini_description;
+	public void setMinidescription(String mini_description) {
+		this.minidescription = mini_description;
 	}
 
 	@Override
