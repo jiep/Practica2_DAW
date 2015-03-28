@@ -79,8 +79,8 @@
 
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel panel-default" th:each="order_product : ${order}">
-						<div class="panel-heading" th:text="${order_product.name}">Producto</div>
+					<div class="panel panel-default" th:each="order_product : ${order.products}">
+						<div class="panel-heading" th:text="${order_product.product.name}">Producto</div>
 						<div class="panel-body">
 							<div class="col-md-4">
 								<img class="img-responsive"
@@ -101,12 +101,7 @@
 									<h1 th:text="${order_product.product.price} + €">98 €</h1>
 								</div>
 								<div class="row">
-									<label th:text="${order_product.product.cuantity}"></label> 
-								</div>
-								<div class="row">
-									<button class="btn btn-default">
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-									</button>
+									<label th:text="${order_product.cuantity}"></label> 
 								</div>
 							</div>
 						</div>
@@ -114,25 +109,25 @@
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div>Total:</div>
+							<p>Total:</p>
 						</div>
 						<div class="panel-body">
-							<div class="pull-right">0</div>
+							<h3 class="pull-right" th:text="${order.total} + ' €'">0 €</h3>
 						</div>
 					</div>
 
 					<hr />
 					<h2>Dirección de entrga</h2>
 
-					<form id="form">
+					<form th:action="@{/confirmOrder}" id="form" method="post">
 
 						<div class="form-group">
 							<label id="name">Nombre</label> <input type="text"
-								class="form-control" placeholder="Nombre" />
+								class="form-control" placeholder="Nombre" name="userName"/>
 						</div>
 						<div class="form-group">
-							<label id="address">Dirección</label> <input type="text"
-								class="form-control" placeholder="Dirección" />
+							<label id="surname">Apellidos</label> <input type="text"
+								class="form-control" placeholder="Apellidos" name="surname"/>
 						</div>
 						<button type="submit" class="btn btn-default pull-right">Confirmar
 							pedido</button>

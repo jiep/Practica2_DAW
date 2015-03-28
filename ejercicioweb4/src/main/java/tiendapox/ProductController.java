@@ -182,6 +182,25 @@ public class ProductController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping(value = "/confirmOrder", method = RequestMethod.POST)
+	public ModelAndView confirmOrder(HttpSession session,
+	@RequestParam("userName") String userName,
+	@RequestParam("surname") String surname) {
+ 
+		Cart cart = (Cart) session.getAttribute("cart");
+
+		Order order = new Order(cart,userName,surname);
+
+		Cart newCart = new Cart();
+		session.setAttribute("cart", newCart);
+
+		orders.save(order);
+
+		return new ModelAndView("index").addObject("products",
+				products.findAll()).addObject("order", newCart)
+				.addObject("completed", "Pedido realizado correctamente.");
+	}
 
 	@RequestMapping(value="/add")
 	public ModelAndView add(HttpSession session,

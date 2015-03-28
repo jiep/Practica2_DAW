@@ -26,7 +26,7 @@ public class Order {
 	private String state;
 	private Date date;
 	private String name;
-	private String address;
+	private String surname;
 	@Lob @Column(name="cart")
 	private Cart cart;
 	
@@ -38,7 +38,15 @@ public class Order {
 		this.setCart(cart);
 		this.setDate(new Date());
 	}
-
+	
+	public Order(Cart cart, String name, String surname){
+		this.state = "Pendiente";
+		this.setCart(cart);
+		this.setDate(new Date());
+		this.name = name;
+		this.surname = surname;
+	}
+	
 	public String getState() {
 		return state;
 	}
@@ -79,12 +87,12 @@ public class Order {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	
 }

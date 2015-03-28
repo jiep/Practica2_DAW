@@ -78,6 +78,9 @@
 		<div id="error" th:if="${error != null}">
 			<div class="alert alert-danger" role="alert" th:text="${error}"></div>
 		</div>
+		<div id="error" th:if="${completed != null}">
+			<div class="alert alert-success" role="alert" th:text="${completed}"></div>
+		</div>
 
 		<div id="category-not-found" th:if="${category_error != null}">
 			<div class="alert alert-warning" role="alert"
