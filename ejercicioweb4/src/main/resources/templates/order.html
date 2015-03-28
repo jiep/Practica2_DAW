@@ -84,7 +84,7 @@
 						<div class="panel-body">
 							<div class="col-md-4">
 								<img class="img-responsive"
-									th:src="@{/image/} + ${order_product.image}" />
+									th:src="@{/image/} + ${order_product.product.image}" />
 							</div>
 
 							<div class="col-md-5">
@@ -92,17 +92,16 @@
 									<p>
 										<b>Descripción:</b>
 									</p>
-									<p th:text="${order_product.description}"></p>
+									<p th:text="${order_product.product.description}"></p>
 								</div>
 							</div>
 
 							<div class="col-md-3">
 								<div class="row">
-									<h1 th:text="${order_product.price} + €">98 €</h1>
+									<h1 th:text="${order_product.product.price} + €">98 €</h1>
 								</div>
 								<div class="row">
-									<input type="number" name="cuantity" value="1" min="1"
-										max="100" width="5" />
+									<label th:text="${order_product.product.cuantity}"></label> 
 								</div>
 								<div class="row">
 									<button class="btn btn-default">

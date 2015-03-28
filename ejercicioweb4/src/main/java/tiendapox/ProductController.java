@@ -128,13 +128,8 @@ public class ProductController {
 
 	@RequestMapping("/order")
 	public ModelAndView order(HttpSession session) {
-		Integer i = (Integer) session.getAttribute("permisos");
-		ModelAndView mv = new ModelAndView();
-		if (!session.isNew() && i != null) {
-			if (i == 1) {
-				mv = new ModelAndView("order").addObject("products", products);
-			}
-		}
+		ModelAndView mv = new ModelAndView(); 
+		mv = new ModelAndView("order").addObject("products", (Cart) session.getAttribute("cart"));
 
 		return mv;
 	}
@@ -290,8 +285,7 @@ public class ProductController {
 		cart.getProducts().get(cart.getProducts().indexOf(ac))
 				.setCuantity(cuantity);
 
-		return new ModelAndView("cart").addObject("order", cart).addObject(
-				"products", products);
+		return new ModelAndView("cart").addObject("order", cart);
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
