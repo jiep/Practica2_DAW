@@ -118,7 +118,7 @@ public class ProductController {
 	}
 
 	@RequestMapping("/")
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
 
 		dummyData();
 
@@ -135,107 +135,120 @@ public class ProductController {
 	public ModelAndView admin(HttpSession session, @RequestParam String user,
 			@RequestParam String pass) {
 
-		final String USER = "usuario";
+		final String USER = "admin";
 		final String PASS = "1234";
 
 		System.out.println("usuario: " + user);
 		System.out.println("pass: " + pass);
-
+		Integer permiso = (Integer) session.getAttribute("permisos");
 		ModelAndView mv = new ModelAndView();
 
-		session.setAttribute(user, USER);
-		session.setAttribute(pass, PASS);
-
-		if (user.equals(USER) && pass.equals(PASS)) {
-			mv = new ModelAndView("admin").addObject("products",
-					products.findAll());
-		} else {
-			mv = new ModelAndView("index")
-					.addObject("error", "Login no válido")
-					.addObject("products", products.findAll())
-					.addObject("order", cart);
-		}
-
+				if (user.equals(USER) && pass.equals(PASS)) {
+					mv = new ModelAndView("admin").addObject("products",
+							products.findAll());
+					session.setAttribute("permisos", 1);
+				} else {
+					mv = new ModelAndView("index")
+							.addObject("error", "Login no válido")
+							.addObject("products", products.findAll())
+							.addObject("order", cart);
+				}
 		return mv;
 	}
 
 	@RequestMapping("/admin")
 	public ModelAndView admin(HttpSession session) {
 
-		final String USER = "usuario";
-		final String PASS = "1234";
-
 		ModelAndView mv = new ModelAndView();
-
-		if (!session.isNew()) {
-			if (session.getAttribute("user").equals(USER)
-					&& session.getAttribute("pass").equals(PASS)) {
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		if(permiso!=null){
+			if (permiso==1) {
 				mv = new ModelAndView("admin").addObject("products",
 						products.findAll());
 			} else {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart);	
 			}
-		} else {
-			session.setAttribute("null", USER);
-			session.setAttribute("null", PASS);
+		}else{
 			mv = new ModelAndView("index")
-					.addObject("error", "Acceso no permitido")
-					.addObject("products", products.findAll())
-					.addObject("order", cart);
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
 		}
-
 		return mv;
 	}
-
+	
+	
 	@RequestMapping("/add")
-	public ModelAndView add(@RequestParam("name") String name,
+	public ModelAndView add(HttpSession session,@RequestParam("name") String name,
 			@RequestParam("category") String category,
 			@RequestParam("image") MultipartFile image,
 			@RequestParam("description") String description,
 			@RequestParam("price") double price) {
+		
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if(permiso!=null){
+		if(permiso==1){
+			
+			String fileName = products.count() + ".png";
 
-		String fileName = products.count() + ".png";
+			if (!image.isEmpty()) {
 
-		if (!image.isEmpty()) {
+				try {
 
-			try {
+					File filesFolder = new File(FILES_FOLDER);
+					if (!filesFolder.exists()) {
+						filesFolder.mkdirs();
+					}
 
-				File filesFolder = new File(FILES_FOLDER);
-				if (!filesFolder.exists()) {
-					filesFolder.mkdirs();
+					File uploadedFile = new File(filesFolder.getAbsolutePath(),
+							fileName);
+					image.transferTo(uploadedFile);
+
+				} catch (Exception e) {
+					mv = new ModelAndView("index")
+							.addObject("fileName", fileName).addObject("error",
+									e.getClass().getName() + ":" + e.getMessage());
 				}
-
-				File uploadedFile = new File(filesFolder.getAbsolutePath(),
-						fileName);
-				image.transferTo(uploadedFile);
-
-			} catch (Exception e) {
-				return new ModelAndView("index")
-						.addObject("fileName", fileName).addObject("error",
-								e.getClass().getName() + ":" + e.getMessage());
+			} else {
+				// return new ModelAndView("index").addObject("error",
+				// "El archivo está");
 			}
-		} else {
-			// return new ModelAndView("index").addObject("error",
-			// "El archivo está");
+
+			Product product = new Product(name, category, fileName, description,
+					price);
+
+			System.out.println("Nombre: " + product.getName());
+			System.out.println("Categoría: " + product.getCategory());
+			System.out.println("Imagen: " + product.getImage());
+			System.out.println("Descripción: " + product.getDescription());
+			System.out.println("Precio: " + product.getPrice());
+
+			products.save(product);
+
+			mv = new ModelAndView("admin").addObject("products",
+					products.findAll());
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+
 		}
-
-		Product product = new Product(name, category, fileName, description,
-				price);
-
-		System.out.println("Nombre: " + product.getName());
-		System.out.println("Categoría: " + product.getCategory());
-		System.out.println("Imagen: " + product.getImage());
-		System.out.println("Descripción: " + product.getDescription());
-		System.out.println("Precio: " + product.getPrice());
-
-		products.save(product);
-
-		return new ModelAndView("admin").addObject("products",
-				products.findAll());
-	}
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Login no válido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		return mv;
+		
+		}
+		
+				
 
 	@RequestMapping(value = "/addToCart")
 	public ModelAndView addToCart(@RequestParam int product_id) {
@@ -252,6 +265,13 @@ public class ProductController {
 				products.findAll()).addObject("order", cart);
 	}
 	
+	@RequestMapping(value = "/moreInformation")
+	public ModelAndView moreInformation(@RequestParam int product_id) {
+
+		return new ModelAndView("product").addObject("product",products.findOne(product_id)).addObject("order", cart);
+	}
+	
+	
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public ModelAndView modify(@RequestParam("cuantity") int cuantity,
@@ -266,11 +286,90 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView edit() {
-		
-	return new ModelAndView("edit").addObject("products",
-			products.findAll());
+	public ModelAndView edit(HttpSession session,
+			@RequestParam("product_id") int id){
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if(permiso!=null){
+		if(permiso==1){
+			mv = new ModelAndView("edit").addObject("product",products.findOne(id));
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		return mv;
 	}
+	
+	@RequestMapping(value = "/edition", method = RequestMethod.POST)
+	public ModelAndView edition(HttpSession session,@RequestParam("name") String name,
+				@RequestParam("category") String category,
+				@RequestParam("description") String description,
+				@RequestParam("image") MultipartFile image,
+				@RequestParam("price") double price,
+				@RequestParam(value = "product_id") int id){
+
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if(permiso!=null){
+		if(permiso==1){	
+			products.findOne(id).setCategory(category);
+			products.findOne(id).setDescription(description);
+			products.findOne(id).setName(name);
+			products.findOne(id).setPrice(price);
+			
+			String fileName = id + ".png";
+
+			if (!image.isEmpty()) {
+
+				try {
+
+					File filesFolder = new File(FILES_FOLDER);
+					if (!filesFolder.exists()) {
+						filesFolder.mkdirs();
+					}
+
+					File uploadedFile = new File(filesFolder.getAbsolutePath(),
+							fileName);
+					image.transferTo(uploadedFile);
+
+				} catch (Exception e) {
+					return new ModelAndView("index")
+							.addObject("fileName", fileName).addObject("error",
+									e.getClass().getName() + ":" + e.getMessage());
+				}
+			} else {
+				// return new ModelAndView("index").addObject("error",
+				// "El archivo está");
+			}
+			
+			mv = new ModelAndView("admin").addObject("products",
+					products.findAll());
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		return mv;
+	}
+	
+	
+	
+	
 
 	@RequestMapping("/cart")
 	public ModelAndView cart() {
@@ -346,9 +445,10 @@ public class ProductController {
 	}
 
 	@RequestMapping("/image/{fileName}")
-	public void handleFileDownload(@PathVariable String fileName,
+	public void handleFileDownload(HttpSession session,@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
-
+		
+		
 		File file = new File(FILES_FOLDER, fileName + ".png");
 
 		if (file.exists()) {
@@ -363,12 +463,28 @@ public class ProductController {
 	}
 
 	@RequestMapping("/admin/remove")
-	public ModelAndView removeProductFromAdmin(
+	public ModelAndView removeProductFromAdmin(HttpSession session,
 			@RequestParam(value = "product_id") int id) {
-
+		
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if(permiso!=null){
+		if(permiso==1){	
 		products.delete(id);
-
-		return new ModelAndView("admin").addObject("products", products.findAll());
+		mv = new ModelAndView("admin").addObject("products", products.findAll());
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Acceso no permitido")
+			.addObject("products", products.findAll())
+			.addObject("order", cart);
+		}
+		return mv;
 	}
 
 	@RequestMapping("/removeFromCart")

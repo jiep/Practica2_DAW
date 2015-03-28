@@ -56,13 +56,15 @@
 		<h1>Nuevo producto</h1>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form action="/edit" method="post" enctype="multipart/form-data">
+				<form action="/edition" method="post" enctype="multipart/form-data">
+				<input type="hidden" th:value="${product.id}"
+										name="product_id" />
 					<div class="form-group">
 						<label>Nombre del producto</label> <input type="text" name="name"
-							class="form-control" th:value="$product.name" placeholder="Nombre del producto" />
+							class="form-control" th:value="${product.name}" placeholder="Nombre del producto" />
 					</div>
 					<div class="form-group">
-						<label>Categoría</label> <select th:value="$product.category" name="category"
+						<label>Categoría</label> <select th:value="${product.category}" name="category"
 							class="form-control">
 							<option name="Pequeños-electrodomésticos" value="Pequeños electrodomésticos">Pequeños
 								electrodomésticos</option>
@@ -79,16 +81,16 @@
 								class="input-group-addon">€</span>
 						</div>
 					</div>
-					<div class="form-group">
+					 <div class="form-group">
 						<label>Imagen</label> <input type="file" name="image"
 							placeholder="Seleccionar imagen" th:value="${product.image}"/>
 					</div>
 					<div class="form-group">
 						<label>Descripción</label>
-						<textarea name="description" class="form-control" rows="10" th:value="${product.description}"></textarea>
+						<textarea name="description" class="form-control" rows="10" th:text="${product.description}"></textarea>
 					</div>
 					<button type="submit" class="btn btn-default pull-right">
-						Añadir producto <span class="glyphicon glyphicon glyphicon-plus"
+						Editar producto <span class="glyphicon glyphicon glyphicon-plus"
 							aria-hidden="true"></span>
 					</button>
 				</form>

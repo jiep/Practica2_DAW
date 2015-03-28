@@ -75,57 +75,46 @@
 
 
 	<div class="col-md-9">
-		<div id="error" th:if="${error != null}">
-			<div class="alert alert-danger" role="alert" th:text="${error}"></div>
-		</div>
-
-		<div id="category-not-found" th:if="${category_error != null}">
-			<div class="alert alert-warning" role="alert"
-				th:text="${category_error}"></div>
-		</div>
-		<div id="articulos">
-
-			<div class="panel panel-default" th:each="product : ${products}">
+		<div id="articulo">
 				<div class="panel-heading" th:text="${product.name}">Producto</div>
 				<div class="panel-body">
+				<div class="row">
 					<div class="col-md-4">
 						<img class="img-responsive" th:src="@{/image/} + ${product.image}" />
 					</div>
 					<div class="col-md-8">
 						<div class="row">
-							<p>
-								<b>Descripción:</b>
-							</p>
-							<p th:text="${product.description}"></p>
 							<p th:text="${product.category}">Categoría</p>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
-								<h1 th:text="${product.price} + €">98 €</h1>
-							</div>
+							<h1 th:text="${product.price} + €">98 €</h1>
+						</div>
+						<div class="row">
 							<div class="col-md-6">
 							<div class="row">
-								<a th:href="@{/addToCart(product_id=${product.id})}"><button
-										class="btn btn-default">
+								<form th:href="@{/addToCart}">
+								<input type="hidden" th:value="${product.id}"
+										name="product_id" />
+								<button class="btn btn-default">
 										Añadir al carrito <span
 											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-									</button></a>
-							</div>
-							<div class="row">
-								<a th:href="@{/moreInformation(product_id=${product.id})}"><button
-										class="btn btn-default">
-										Mas información <span
-											class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
-									</button></a>
+								</button></form>
 							</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="row">
+						<p>
+							<b>Descripción:</b>
+						</p>
+						<p th:text="${product.description}"></p>
+				</div>
+				
+			</div>
 			</div>
 
 		</div>
-	</div>
 
 	<div class="col-md-3">
 
