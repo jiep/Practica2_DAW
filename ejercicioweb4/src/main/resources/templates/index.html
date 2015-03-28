@@ -6,8 +6,10 @@
 <title>Bienvienido a Poxmanía</title>
 <link rel="icon" th:href="@{~/img/favicon.ico}" />
 <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{~/css/custom.css}" />
 <script th:src="@{~/js/jquery.min.js}"></script>
 <script th:src="@{~/js/bootstrap.min.js}"></script>
+
 </head>
 
 <body>
@@ -49,11 +51,13 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
+			
+					<!-- <div 	th:if="${session.getAtributte == 0}">-->
 				<li class="dropdown" id="menu1"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#menu1"> Administración <b
 						class="caret"></b>
 				</a>
-					<div class="dropdown-menu">
+					<div  class="dropdown-menu">
 						<form th:action="@{/admin}" method="post">
 							<div class="form-group">
 								<label>Usuario</label> <input name="user" type="text"
@@ -68,7 +72,12 @@
 									aria-hidden="true"></span>
 							</button>
 						</form>
-					</div></li>
+					</div></li><!--</div>-->
+					<!--<div 	th:if="${session.getAtributte == 0}">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">Administración</a></li>
+					</ul>
+					</div>-->
 			</ul>
 		</div>
 	</nav>

@@ -70,14 +70,6 @@
 				</button>
 			</a>
 		</div>
-		<div class="row">
-			<form th:action="@{/update}">
-				<button class="btn btn-default">
-					Actualizar <span class="glyphicon glyphicon-shopping-plus"
-						aria-hidden="true"></span>
-				</button>
-			</form>
-		</div>
 		<div id="error" th:if="${error != null}">
 			<div class="alert alert-warning" role="alert" th:text="${error}"></div>
 		</div>
@@ -96,8 +88,8 @@
 					<div class="panel panel-default"
 						th:each="product : ${order.cart.products}">
 						<div class="panel-body">
-						<div class="col-md-3">
-								<p th:text="${product.product.image}"></p>
+							<div class="col-md-3">
+								<img class="img-responsive" th:src="@{/image/} + ${product.product.image}" />
 							</div>
 							<div class="col-md-3">
 								<p th:text="${product.product.name}"></p>
@@ -112,6 +104,9 @@
 						</div>
 					</div>
 					<div class="panel panel-default">
+					<form th:action="@{/update}">
+						<input type="hidden" th:value="${order.id}"
+										name="order_id" />
 							<div class="col-md-2">
 								<p th:text="${order.name}"></p>
 							</div>
@@ -121,20 +116,23 @@
 							<div class="col-md-2">
 								<p th:text="${order.date}"></p>
 							</div>
-							<div class="col-md-3">
-								<form class="form-group">
+							<div class="col-md-2">
 									<label>Estado:</label> <select
-										th:value="${order.state}" name="state"
-										class="form-control">
-										<option name="pendientes" value="Pendientes">Pendiente
-											preparación</option>
-										<option name="preparados" value="Preparados">Preparado</option>
+										th:value="${order.state}" name="state">
+										<option name="Pendiente" value="Pendiente">Pendiente</option>
+										<option name="Preparado" value="Preparado">Preparado</option>
 									</select>
-								</form>
 							</div>
 							<div class="col-md-2">
 								<p th:text="${order.cart.total}+ ' €'"></p>
 							</div>
+							<div class="col-md-2">
+									<button class="btn btn-default">
+										Actualizar <span class="glyphicon glyphicon-shopping-plus"
+										aria-hidden="true"></span>
+									</button>
+							</div>
+					</form>
 					</div>
 
 				</div>

@@ -123,14 +123,35 @@ public class ProductController {
 	
 	@RequestMapping(value = "/viewOrders")
 	public ModelAndView viewOrders() {
-
+			
 		return new ModelAndView("orders").addObject("orders", orders.findAll());
 	}
 	
 	@RequestMapping(value = "/update")
-	public ModelAndView update() {
-
-		return new ModelAndView("orders").addObject("orders", orders.findAll());
+	public ModelAndView update(HttpSession session,
+			@RequestParam("order_id") int id,
+			@RequestParam("state") String state) {
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if (permiso != null) {
+			if (permiso == 1) {
+					System.out.println(state);
+					orders.findOne(id).setState(state);
+					System.out.println(orders.findOne(id).getName());
+					mv = new ModelAndView("orders").addObject("orders", orders.findAll());
+			}else{
+				mv = new ModelAndView("index")
+				.addObject("error", "Acceso no permitido")
+				.addObject("products", products.findAll())
+				.addObject("order", (Cart) session.getAttribute("cart"));
+			}
+		}else{
+			mv = new ModelAndView("index")
+			.addObject("error", "Login no válido")
+			.addObject("products", products.findAll())
+			.addObject("order", (Cart) session.getAttribute("cart"));
+		}
+		return mv;
 	}
 	
 
