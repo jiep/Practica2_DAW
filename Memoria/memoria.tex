@@ -1,5 +1,6 @@
-\documentclass[10pt,a4paper]{article}
-\usepackage{fontspec}
+\documentclass[10pt,a4paper,svgnames]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -7,11 +8,15 @@
 \usepackage[spanish,es-nodecimaldot,es-lcroman,es-tabla,es-noshorthands]{babel}
 \usepackage[left=3cm,right=2cm, bottom=4cm]{geometry}
 \usepackage{subfigure}
+\usepackage{tikz}
+\usepackage{xstring}
+\usepackage{./tikz-uml}
 
-\setsansfont[Ligatures=TeX]{texgyreadventor}
-\setmainfont[Ligatures=TeX]{texgyrepagella}
+%\setsansfont[Ligatures=TeX]{texgyreadventor}
+%\setmainfont[Ligatures=TeX]{texgyrepagella}
 
 \input{portada}
+\input{diagramas}
 
 \newcommand*{\autores}{
 \begin{tabular}{r l}
@@ -34,8 +39,34 @@ GIS+MAT: & José Ignacio Escribano Pablos
 \pagenumbering{arabic}
 \setcounter{page}{1}
 
-\section{}
+\section{Diagramas UML}
 
+\begin{figure}[h]
+	\centering
+	\anadirproductoadministrador
+	\caption{Diagrama de secuencia de añadir producto como administrador}
+\end{figure}
 
+\begin{figure}[h]
+	\centering
+	\comprarproducto
+	\caption{Diagrama de secuencia de comprar producto}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\casosdeuso
+	\caption{Diagrama de casos de uso de la aplicación}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\clases
+	\caption{Diagrama de clases de la aplicación}
+\end{figure}
+
+\section{Descripción de las clases}
+
+\section{Recorrido por la aplicación}
 
 \end{document}

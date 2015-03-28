@@ -1,0 +1,150 @@
+\newcommand{\anadirproductoadministrador}{
+\begin{tikzpicture}
+\tikzumlset{fill state=white}
+\umlstateinitial[name=initial]
+\begin{umlstate}[x=0, y=-3,name=datos]{Iniciar sesión}
+\end{umlstate}
+
+\umlstatedecision[y=-5, name=permiso] 
+
+\begin{umlstate}[x=0, y=-8,name=comprobar]{Añadir nuevo producto}
+\end{umlstate}
+
+\begin{umlstate}[y=-11,name=sesion]{Rellenar datos del producto}
+\end{umlstate}
+
+\begin{umlstate}[y=-14,name=actualizar]{Confirmar nuevo producto}
+\end{umlstate}
+
+\umlstatefinal[y=-16, name=final]
+
+\umltrans{initial}{datos}
+\umltrans{datos}{permiso}
+\umltrans[arg1=correcto]{permiso}{comprobar}
+\umltrans{comprobar}{sesion}
+\umltrans{sesion}{actualizar}
+\umltrans{actualizar}{final}
+\umlHVHtrans[arg1=incorrecto, arm2=-4]{permiso}{datos}
+
+\end{tikzpicture}
+}
+
+\newcommand{\comprarproducto}{
+	\begin{tikzpicture}
+	\tikzumlset{fill state=white}
+	\umlstateinitial[name=initial]
+	\begin{umlstate}[x=0, y=-3,name=datos]{Buscar producto}
+	\end{umlstate}
+	
+	\umlstatedecision[y=-5, name=permiso] 
+	
+	\begin{umlstate}[x=0, y=-8,name=comprobar]{Añadir prodcuto al carrito}
+	\end{umlstate}
+	
+	\begin{umlstate}[y=-11,name=sesion]{Ver cesta}
+	\end{umlstate}
+	
+	\begin{umlstate}[y=-14,name=actualizar]{Realizar pedido}
+	\end{umlstate}
+	
+	\umlstatefinal[y=-16, name=final]
+	
+	\umltrans{initial}{datos}
+	\umltrans{datos}{permiso}
+	\umltrans[arg1=encontrado]{permiso}{comprobar}
+	\umltrans{comprobar}{sesion}
+	\umltrans{sesion}{actualizar}
+	\umltrans{actualizar}{final}
+	\umlHVHtrans[arg1=no encontrado, arm2=-4]{permiso}{final}
+	
+	\end{tikzpicture}
+}
+
+\newcommand{\casosdeuso}{
+	\begin{tikzpicture}
+	\tikzumlset{fill usecase=white}
+	\tikzumlset{fill note=gray!30}
+	\tikzumlset{font=\tiny}
+	
+	\umlactor[x=0, y=3]{USUARIO}
+	\umlactor[x=0, y=-2]{ADMIN}
+	
+	\umlusecase[x=3, y=4, name=buscarproductos]{Buscar productos}
+	\umlusecase[x=3, y=2, name=realizarpedido]{Realizar pedido}
+	\umlusecase[x=8, y=3, name=anadirproductocarro]{Añadir producto producto al carro}
+	\umlusecase[x=8, y=2, name=vercarro]{Ver carro}
+	
+	\umlassoc{USUARIO}{realizarpedido}
+	\umlassoc{USUARIO}{buscarproductos}
+	
+	
+	\umlinclude{realizarpedido}{anadirproductocarro}
+	\umlinclude{realizarpedido}{vercarro}
+	
+	
+	\umlusecase[x=3, y=-1, name=anadirproducto]{Añadir productos}
+	\umlusecase[x=3, y=-2, name=verproductos]{Ver productos}
+	\umlusecase[x=3, y=-3, name=verpedido]{Ver pedido}
+
+	\umlusecase[x=7, y=-2, name=modificarproducto]{Modificar producto}
+	\umlusecase[x=7, y=-3, name=borrarproductos]{Borrar productos}
+	\umlusecase[x=7, y=-4, name=borrarpedido]{Borrar pedido}
+	\umlusecase[x=7, y=-5, name=actualizarestadopedido]{Actualizar estado pedido}
+	
+	\umlusecase[x=11, y=-2, name=iniciarsesion]{Iniciar sesión}
+	
+	\umlassoc{ADMIN}{anadirproducto}
+	\umlassoc{ADMIN}{verproductos}
+	\umlassoc{ADMIN}{verpedido}
+	
+	
+	
+	\umlinclude{anadirproducto}{iniciarsesion}
+	\umlextend{modificarproducto}{verproductos}
+	\umlextend{borrarproductos}{verproductos}
+	\umlextend{borrarpedido}{verpedido}
+	\umlextend{actualizarestadopedido}{verpedido}
+	\umlextend{realizarpedido}{vercarro}
+	
+	\umlinclude{modificarproducto}{iniciarsesion}
+	\umlinclude{borrarproductos}{iniciarsesion}
+	\umlinclude{borrarpedido}{iniciarsesion}
+	\umlinclude{actualizarestadopedido}{iniciarsesion}
+	
+	
+	\end{tikzpicture}
+}
+
+\newcommand{\clases}{
+	
+\begin{tikzpicture}
+	
+
+\umlclass[x=0, y=0]{AlmostCart}{
+}{
+}
+
+\umlclass[x=5, y=0]{Cart}{
+}{
+}
+
+\umlclass[x=0, y=-5]{Product}{
+}{
+}
+
+\umlclass[x=5, y=-5]{Order}{
+}{
+}
+
+% Relaciones
+
+\umlcompo[mult2=1..n]{Cart}{AlmostCart}
+
+\umlcompo[mult2=1..n]{Order}{Cart}
+
+\umlassoc[mult2=1, mult1=1..n]{AlmostCart}{Product}
+
+
+\end{tikzpicture}
+
+}
