@@ -4,7 +4,7 @@
 
 <head>
 <title>Módulo de administración</title>
-<link rel="icon" th:href="@{~/img/favicon.ico}"/>
+<link rel="icon" th:href="@{~/img/favicon.ico}" />
 <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
 <script th:src="@{~/js/jquery.min.js}"></script>
 <script th:src="@{~/js/bootstrap.min.js}"></script>
@@ -34,7 +34,8 @@
 				<li><a th:href="@{/category/informatica}">Informática</a></li>
 			</ul>
 
-			<form th:action="@{/search}" class="navbar-form navbar-left" role="search">
+			<form th:action="@{/search}" class="navbar-form navbar-left"
+				role="search">
 				<div class="input-group">
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
@@ -54,30 +55,32 @@
 	</nav>
 
 	<div class="col-md-12">
-	<div class="row">
-		<form th:action="@{/searchPending}">
-			<button class="btn btn-default">
-				Buscar productos pendientes <span class="glyphicon glyphicon-shopping-plus"
-					aria-hidden="true"></span>
-			</button>
-		</form>
-	</div>
-	<div class="row">
-		<form th:action="@{/searchPrepared}">
-			<button class="btn btn-default">
-				Buscar productos preparados <span class="glyphicon glyphicon-shopping-plus"
-					aria-hidden="true"></span>
-			</button>
-		</form>
-	</div>
-	<div class="row">
-		<form th:action="@{/update}">
-			<button class="btn btn-default">
-				Actualizar <span class="glyphicon glyphicon-shopping-plus"
-					aria-hidden="true"></span>
-			</button>
-		</form>
-	</div>
+		<div class="row">
+			<a th:href="@{/admin/search/pendiente}"><button
+					class="btn btn-default">
+					Buscar productos pendientes <span
+						class="glyphicon glyphicon-shopping-plus" aria-hidden="true"></span>
+				</button></a>
+		</div>
+		<div class="row">
+			<a th:href="@{/admin/search/preparado}">
+				<button class="btn btn-default">
+					Buscar productos preparados <span
+						class="glyphicon glyphicon-shopping-plus" aria-hidden="true"></span>
+				</button>
+			</a>
+		</div>
+		<div class="row">
+			<form th:action="@{/update}">
+				<button class="btn btn-default">
+					Actualizar <span class="glyphicon glyphicon-shopping-plus"
+						aria-hidden="true"></span>
+				</button>
+			</form>
+		</div>
+		<div id="error" th:if="${error != null}">
+			<div class="alert alert-warning" role="alert" th:text="${error}"></div>
+		</div>
 	</div>
 
 	<div class="btn-group col-md-12">
@@ -85,48 +88,52 @@
 
 			<div class="panel panel-default" th:each="order : ${orders}">
 				<div class="panel-heading clearfix">
-					<h4 class="panel-title pull-left" th:text="${order.name}">Producto</h4>
+					<h4 class="panel-title pull-left" th:text="${order.name}">Pedido</h4>
 					<div class="btn-group pull-right">
-						<a th:href="@{/admin/removeOrder(order_id=${order.id})}"><button class="btn btn-default">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</button></a>
+						<a th:href="@{/admin/removeOrder(order_id=${order.id})}"><button
+								class="btn btn-default">
+								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button></a>
 					</div>
 				</div>
 
 				<div class="panel-body">
-				
-				<div class="panel panel-default" th:each="product : ${products}">
-  					<div class="panel-body">
-    						
-    				<div class="col-md-2">
-						<p th:text="${order.cart.products.name}"></p>
-					</div>
-					<div class="col-md-2">
-						<p th:text="${order.cart.products.cuantity}"></p>
-					</div>
-					<div class="col-md-2">
-						<p th:text="${order.cart.products.product.price}"></p>
-					</div>
-					<div class="col-md-2">
-						<p th:text="${order.address}"></p>
-					</div>
-					<div class="col-md-2">
-						<p th:text="${order.date}"></p>
-					</div>
-					<div class="col-md-2">
-							<div class="form-group">
-						<label>Categoría</label> <select th:value="${product.category}" name="category"
-							class="form-control">
-							<option name="pendientes" value="Pendientes">Pendiente preparación</option>
-							<option name="preparados" value="Preparados">Preparado</option>
-							</select>
+
+					<div class="panel panel-default"
+						th:each="product : ${order.cart.products}">
+						<div class="panel-body">
+
+							<div class="col-md-2">
+								<p th:text="${product.product.name}"></p>
+							</div>
+							<div class="col-md-2">
+								<p th:text="${product.cuantity}"></p>
+							</div>
+							<div class="col-md-2">
+								<p th:text="${product.product.price}"></p>
+							</div>
+							<div class="col-md-2">
+								<p th:text="${order.address}"></p>
+							</div>
+							<div class="col-md-2">
+								<p th:text="${order.date}"></p>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label>Categoría</label> <select
+										th:value="${product.product.category}" name="category"
+										class="form-control">
+										<option name="pendientes" value="Pendientes">Pendiente
+											preparación</option>
+										<option name="preparados" value="Preparados">Preparado</option>
+									</select>
+								</div>
+							</div>
+
 						</div>
-					</div>	
-    						
-  					</div>
-				</div>
-				
-					
+					</div>
+
+
 
 				</div>
 			</div>
