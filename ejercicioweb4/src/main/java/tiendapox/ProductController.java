@@ -96,6 +96,20 @@ public class ProductController {
 				"8.png",
 				"El interactivo e intuitivo televisor Samsung UE40H6400 te permite navegar rápida y fácilmente en su interfaz Smart TV. Este televisor LED Full HD viene con el nuevo mando a distancia Smart Touch. Utilizando el giroscopio o interacción de voz, podrás pedir y obtener -con un simple gesto o con la voz sobre la programación- consejos sobre la programación basados en tus preferencias de visionado. De este modo, tu televisor UE40-H6400 te propondrá una selección personalizada de contenidos para contentar a toda la familia.",
 				477.78);
+		
+		Cart cart = new Cart();
+		Cart cart1 =  new Cart();
+		
+		AlmostCart almostCart1 = new AlmostCart(p1,2);
+		AlmostCart almostCart2 = new AlmostCart(p2,5);
+		cart.getProducts().add(almostCart1);
+		cart.getProducts().add(almostCart2);
+		cart1.getProducts().add(almostCart1);
+		cart1.getProducts().add(almostCart2);
+		
+		
+		orders.save(new Order(cart));
+		orders.save(new Order(cart1));
 	}
 
 	@RequestMapping("/")
@@ -496,6 +510,11 @@ public class ProductController {
 		cart.getProducts().remove(id-1);
 
 		return new ModelAndView("cart").addObject("order", cart);
+	}
+	
+	@RequestMapping("/orders")
+	public ModelAndView orders(HttpSession session){
+		return new ModelAndView("orders").addObject("orders", orders.findAll());
 	}
 
 }

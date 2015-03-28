@@ -85,7 +85,7 @@
 
 			<div class="panel panel-default" th:each="order : ${orders}">
 				<div class="panel-heading clearfix">
-					<h4 class="panel-title pull-left" th:text="${Order.name}">Producto</h4>
+					<h4 class="panel-title pull-left" th:text="${order.name}">Producto</h4>
 					<div class="btn-group pull-right">
 						<a th:href="@{/admin/removeOrder(order_id=${order.id})}"><button class="btn btn-default">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
