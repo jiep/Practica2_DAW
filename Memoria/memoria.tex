@@ -73,7 +73,7 @@ Esto supone que hay que distinguir casos distintos casos, ya sea para un usuario
 
 \subsection{Diagrama de clases}
 
-El diagrama de clases muestra todas las clases que manejarán la lógica de la aplicación. Estas clases son AlmostCart, Cart, Product y Order. La descripción de cada clase se puede ver en la Sección~\ref{sec:descripcion}.
+El diagrama de clases muestra todas las clases que manejarán la lógica de la aplicación. Estas clases son ProductWithCuantity, Cart, Product y Order. La descripción de cada clase se puede ver en la Sección~\ref{sec:descripcion}.
 
 \begin{figure}[htbp] 
 	\centering
@@ -107,10 +107,10 @@ Un ejemplo de lo anterior se puede ver en las Figuras~\ref{fig:actividad1}~y~\re
 \subsection{Modelo}
 \subsubsection{Clase Product}
 Esta clase define el objeto producto y las propiedades y métodos de los que dispondrán los productos de nuestra web.\\
-\subsubsection{Clase AlmostCart}
-La clase \texttt{AlmostCart} define un producto que estará en el carro de compra y la cantidad de dicho producto almacenada en el carro. Por tanto, se compone de un producto y su cantidad.\\
+\subsubsection{Clase ProductWithCuantity}
+La clase \texttt{ProductWithCuantity} define un producto que estará en el carro de compra y la cantidad de dicho producto almacenada en el carro. Por tanto, se compone de un producto y su cantidad.\\
 \subsubsection{Clase Cart}
-Esta clase define el carro de compra de cada usuario. Está compuesto por un ArrayList de \texttt{AlmostCart} (que serán el total de productos en la cesta) y el precio total del carro.\\
+Esta clase define el carro de compra de cada usuario. Está compuesto por un ArrayList de \texttt{ProductWithCuantity} (que serán el total de productos en la cesta) y el precio total del carro.\\
 \subsubsection{Clase Order}
 La clase \texttt{Order} define el pedido del usuario, es decir, la confirmación de querer comprar su carro de compra. Por ello, esta clase contiene un atributo carro, además del estado del pedido (pendiente o preparado) y los datos correspondientes del usuario que ha realizado el pedido.\\
 \subsubsection{Interfaz ProductRepository}

@@ -120,7 +120,7 @@
 \begin{tikzpicture}
 	
 
-\umlclass[x=0, y=0]{AlmostCart}{
+\umlclass[x=0, y=0]{ProductWithCuantity}{
 }{
 }
 
@@ -138,11 +138,11 @@
 
 % Relaciones
 
-\umlcompo[mult2=1..n]{Cart}{AlmostCart}
+\umlcompo[mult2=1..n]{Cart}{ProductWithCuantity}
 
 \umlcompo[mult2=1..n]{Order}{Cart}
 
-\umlassoc[mult2=1, mult1=1..n]{AlmostCart}{Product}
+\umlassoc[mult2=1, mult1=1..n]{ProductWithCuantity}{Product}
 
 
 \end{tikzpicture}
