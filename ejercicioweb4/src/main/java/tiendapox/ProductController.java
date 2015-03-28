@@ -48,7 +48,7 @@ public class ProductController {
 	@RequestMapping("/order")
 	public ModelAndView order(HttpSession session) {
 		ModelAndView mv = new ModelAndView(); 
-		mv = new ModelAndView("order").addObject("products", (Cart) session.getAttribute("cart"));
+		mv = new ModelAndView("order").addObject("order", (Cart) session.getAttribute("cart"));
 
 		return mv;
 	}
