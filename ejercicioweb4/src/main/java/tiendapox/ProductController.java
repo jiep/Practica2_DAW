@@ -120,6 +120,19 @@ public class ProductController {
 				products.findAll()).addObject("order", newCart)
 				.addObject("completed", "Pedido realizado correctamente.");
 	}
+	
+	@RequestMapping(value = "/viewOrders")
+	public ModelAndView viewOrders() {
+
+		return new ModelAndView("orders").addObject("orders", orders.findAll());
+	}
+	
+	@RequestMapping(value = "/update")
+	public ModelAndView update() {
+
+		return new ModelAndView("orders").addObject("orders", orders.findAll());
+	}
+	
 
 	@RequestMapping(value="/add")
 	public ModelAndView add(HttpSession session,
@@ -188,7 +201,8 @@ public class ProductController {
 		return mv;
 
 	}
-
+	
+	
 	@RequestMapping(value = "/addToCart")
 	public ModelAndView addToCart(@RequestParam int product_id,
 			HttpSession session) {

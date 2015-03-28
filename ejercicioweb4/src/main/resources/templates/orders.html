@@ -88,13 +88,7 @@
 
 			<div class="panel panel-default" th:each="order : ${orders}">
 				<div class="panel-heading clearfix">
-					<h4 class="panel-title pull-left" th:text="${order.name}">Pedido</h4>
-					<div class="btn-group pull-right">
-						<a th:href="@{/admin/removeOrder(order_id=${order.id})}"><button
-								class="btn btn-default">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</button></a>
-					</div>
+					<h4 class="panel-title pull-left" th:text="${order.id}">Pedido</h4>
 				</div>
 
 				<div class="panel-body">
@@ -102,15 +96,24 @@
 					<div class="panel panel-default"
 						th:each="product : ${order.cart.products}">
 						<div class="panel-body">
-
-							<div class="col-md-2">
+						<div class="col-md-3">
+								<p th:text="${product.product.image}"></p>
+							</div>
+							<div class="col-md-3">
 								<p th:text="${product.product.name}"></p>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<p th:text="${product.cuantity}"></p>
 							</div>
+							<div class="col-md-3">
+								<p th:text="${product.product.price}+ ' €'"></p>
+							</div>
+
+						</div>
+					</div>
+					<div class="panel panel-default">
 							<div class="col-md-2">
-								<p th:text="${product.product.price}"></p>
+								<p th:text="${order.name}"></p>
 							</div>
 							<div class="col-md-2">
 								<p th:text="${order.surname}"></p>
@@ -118,22 +121,21 @@
 							<div class="col-md-2">
 								<p th:text="${order.date}"></p>
 							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label>Categoría</label> <select
-										th:value="${product.product.category}" name="category"
+							<div class="col-md-3">
+								<form class="form-group">
+									<label>Estado:</label> <select
+										th:value="${order.state}" name="state"
 										class="form-control">
 										<option name="pendientes" value="Pendientes">Pendiente
 											preparación</option>
 										<option name="preparados" value="Preparados">Preparado</option>
 									</select>
-								</div>
+								</form>
 							</div>
-
-						</div>
+							<div class="col-md-2">
+								<p th:text="${order.cart.total}+ ' €'"></p>
+							</div>
 					</div>
-
-
 
 				</div>
 			</div>
