@@ -366,10 +366,6 @@ public class ProductController {
 		return mv;
 	}
 	
-	
-	
-	
-
 	@RequestMapping("/cart")
 	public ModelAndView cart(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
