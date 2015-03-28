@@ -38,7 +38,11 @@ public class Product implements Serializable{
 		this.category = category;
 		this.image = image;
 		this.description = description;
-		this.minidescription = this.description.substring(0,250)+"...";
+		if(this.description.length() <= 250){
+			this.minidescription = description; 
+		}else{
+			this.minidescription = this.description.substring(0,250)+"...";
+		}
 		this.price = price;
 	}
 	
