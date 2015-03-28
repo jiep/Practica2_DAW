@@ -23,10 +23,10 @@ public class Cart implements Serializable{
     private Integer id;
 
 	@ElementCollection
-	private List<AlmostCart> products = new ArrayList<>();
+	private List<ProductWithCuantity> products = new ArrayList<>();
 	private double total;
 	
-	public Cart(List<AlmostCart> prod, double total){
+	public Cart(List<ProductWithCuantity> prod, double total){
 		this.products=prod;
 		this.total=total;
 	}
@@ -38,11 +38,11 @@ public class Cart implements Serializable{
 	public Cart() {
 	}
 
-	public Cart(ArrayList<AlmostCart> products) {
+	public Cart(ArrayList<ProductWithCuantity> products) {
 		this.setProducts(products);
 	}
 
-	public void modify(AlmostCart product, int new_cuantity) {
+	public void modify(ProductWithCuantity product, int new_cuantity) {
 		if (new_cuantity > 0) {
 			if (getProducts().contains(product)) {
 				getProducts().get(getProducts().indexOf(product)).setCuantity(
@@ -51,22 +51,22 @@ public class Cart implements Serializable{
 		}
 	}
 
-	public void remove(AlmostCart product) {
+	public void remove(ProductWithCuantity product) {
 		getProducts().remove(product);
 	}
 
-	public List<AlmostCart> getProducts() {
+	public List<ProductWithCuantity> getProducts() {
 		return products;
 	}
 
-	void setProducts(ArrayList<AlmostCart> products) {
+	void setProducts(ArrayList<ProductWithCuantity> products) {
 		this.products = products;
 	}
 	
 	public double getTotal() {
 		int total = 0;
 
-		for (AlmostCart ac : products) {
+		for (ProductWithCuantity ac : products) {
 			total += ac.getProduct().getPrice() * ac.getCuantity();
 		}
 		

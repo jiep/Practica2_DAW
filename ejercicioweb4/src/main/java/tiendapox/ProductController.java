@@ -99,8 +99,8 @@ public class ProductController {
 		Cart cart = new Cart();
 		Cart cart1 = new Cart();
 
-		AlmostCart almostCart1 = new AlmostCart(p1, 2);
-		AlmostCart almostCart2 = new AlmostCart(p2, 5);
+		ProductWithCuantity almostCart1 = new ProductWithCuantity(p1, 2);
+		ProductWithCuantity almostCart2 = new ProductWithCuantity(p2, 5);
 		cart.getProducts().add(almostCart1);
 		cart.getProducts().add(almostCart2);
 		cart1.getProducts().add(almostCart1);
@@ -255,7 +255,7 @@ public class ProductController {
 	public ModelAndView addToCart(@RequestParam int product_id,
 			HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
-		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
+		ProductWithCuantity ac = new ProductWithCuantity(products.findOne(product_id), 1);
 		if (cart.getProducts().contains(ac)) {
 			cart.getProducts().get(cart.getProducts().indexOf(ac)).add();
 		} else {
@@ -281,7 +281,7 @@ public class ProductController {
 		System.out.println(cuantity);
 		System.out.println(product_id);
 		Cart cart = (Cart) session.getAttribute("cart");
-		AlmostCart ac = new AlmostCart(products.findOne(product_id), 1);
+		ProductWithCuantity ac = new ProductWithCuantity(products.findOne(product_id), 1);
 		cart.getProducts().get(cart.getProducts().indexOf(ac))
 				.setCuantity(cuantity);
 

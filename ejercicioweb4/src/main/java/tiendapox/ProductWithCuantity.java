@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class AlmostCart implements Serializable{
+public class ProductWithCuantity implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +20,10 @@ public class AlmostCart implements Serializable{
 	private Product product;
 	private int cuantity;
 
-	public AlmostCart() {
+	public ProductWithCuantity() {
 	}
 
-	public AlmostCart(Product product, int cuantity) {
+	public ProductWithCuantity(Product product, int cuantity) {
 		this.cuantity = cuantity;
 		this.product = product;
 	}
@@ -52,8 +52,8 @@ public class AlmostCart implements Serializable{
 	public boolean equals(Object o) {
 		boolean equals = false;
 
-		if (o instanceof AlmostCart
-				&& product.equals(((AlmostCart) o).getProduct())) {
+		if (o instanceof ProductWithCuantity
+				&& product.equals(((ProductWithCuantity) o).getProduct())) {
 
 			equals = true;
 
