@@ -44,6 +44,28 @@ h1, h3 {
    
 }
 
+#cart_button {
+	width: 100%;
+	background-color: #bf3288;
+	font-weight: bold;
+   	color: #ffffff;
+   	border-radius: 0px;
+   	border: 0px;
+}
+
+#cart_button:hover {
+	background-color: #DB399D;
+}
+
+#cesta {
+	background-color: #ffffff;
+}
+
+#cesta.panel-heading {
+	padding: 0px;
+	border: 0px;
+}
+
 #cesta  div.panel-body {
   border-style: solid;
   border-width: 1px;
