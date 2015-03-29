@@ -261,7 +261,7 @@ public class ProductController {
 		return new ModelAndView("cart").addObject("order", cart);
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit")
 	public ModelAndView edit(HttpSession session,
 			@RequestParam("product_id") int id) {
 		Cart cart = (Cart) session.getAttribute("cart");
@@ -286,29 +286,6 @@ public class ProductController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/edit")
-	public ModelAndView edi(HttpSession session) {
-		Cart cart = (Cart) session.getAttribute("cart");
-		Integer permiso = (Integer) session.getAttribute("permisos");
-		ModelAndView mv = new ModelAndView();
-		if (permiso != null) {
-			if (permiso == 1) {
-				mv = new ModelAndView("admin").addObject("products", products.findAll());
-			} else {
-				mv = new ModelAndView("index")
-						.addObject("error", "Acceso no permitido")
-						.addObject("products", products.findAll())
-						.addObject("order", cart);
-			}
-		} else {
-			mv = new ModelAndView("index")
-					.addObject("error", "Acceso no permitido")
-					.addObject("products", products.findAll())
-					.addObject("order", cart);
-		}
-		return mv;
-	}
-
 	@RequestMapping(value = "/edition", method = RequestMethod.POST)
 	public ModelAndView edition(HttpSession session,
 			@RequestParam("name") String name,

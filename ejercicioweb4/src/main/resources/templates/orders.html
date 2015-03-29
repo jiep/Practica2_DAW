@@ -41,7 +41,7 @@
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
 						class="input-group-btn">
-						<button class="btn btn-default" type="submit">
+						<button id="search" class="btn btn-default" type="submit">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							Buscar
 						</button>
@@ -56,14 +56,12 @@
 	</nav>
 
 	<div class="col-md-12">
-		<div class="row">
+		<div class="row btn-group pull-right">
 			<a th:href="@{/admin/search/pendiente}"><button
 					class="btn btn-default">
 					Buscar productos pendientes <span
 						class="glyphicon glyphicon-shopping-plus" aria-hidden="true"></span>
 				</button></a>
-		</div>
-		<div class="row">
 			<a th:href="@{/admin/search/preparado}">
 				<button class="btn btn-default">
 					Buscar productos preparados <span
