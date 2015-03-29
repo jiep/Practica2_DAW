@@ -331,9 +331,6 @@ public class ProductController {
 						image.transferTo(uploadedFile);
 						
 						products.findOne(id).setImage(fileName);
-
-						Product paux = products.findOne(id);
-						products.save(paux);
 						
 					} catch (Exception e) {
 						return new ModelAndView("index").addObject("fileName",
@@ -345,7 +342,9 @@ public class ProductController {
 					// return new ModelAndView("index").addObject("error",
 					// "El archivo está");
 				}
-
+				
+				Product paux = products.findOne(id);
+				products.save(paux);
 				mv = new ModelAndView("admin").addObject("products",
 						products.findAll());
 			} else {
