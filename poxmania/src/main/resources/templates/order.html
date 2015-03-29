@@ -1,0 +1,194 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+<title>Mi pedido</title>
+<link rel="icon" th:href="@{~/img/favicon.ico}" />
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{~/css/custom.css}" />
+<script th:src="@{~/js/jquery.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Desplegar navegación</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="pull-left" rel="home" href="/" title="Poxmanía"> <img
+				th:src="@{~/img/logo.png}" />
+			</a>
+		</div>
+
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/category/electrodomesticos}">Pequeños
+						electrodómesticos</a></li>
+				<li><a th:href="@{/category/televisores}">Televisores</a></li>
+				<li><a th:href="@{/category/videoconsolas}">Videoconsolas</a></li>
+				<li><a th:href="@{/category/informatica}">Informática</a></li>
+			</ul>
+
+			<form th:action="@{/search}" class="navbar-form navbar-left"
+				role="search">
+				<div class="input-group">
+					<input name="name" type="text" class="form-control"
+						placeholder="¿Qué estás buscando?" /> <span
+						class="input-group-btn">
+						<button id="search" class="btn btn-default pull-right"
+							type="submit">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							Buscar
+						</button>
+					</span>
+				</div>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+
+				<li th:if="${permiso} == 0" class="dropdown" id="menu1"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+						Administración <b class="caret"></b>
+				</a>
+					<div class="dropdown-menu">
+						<form th:action="@{/admin}" method="post">
+							<div class="form-group">
+								<label>Usuario</label> <input name="user" type="text"
+									class="form-control" placeholder="Usuario" />
+							</div>
+							<div class="form-group">
+								<label>Contraseña</label> <input name="pass" type="password"
+									class="form-control" placeholder="Contraseña" />
+							</div>
+							<button type="submit" class="btn btn-default pull-right">
+								Entrar <span class="glyphicon glyphicon glyphicon-log-in"
+									aria-hidden="true"></span>
+							</button>
+						</form>
+					</div></li>
+				<li th:if="${permiso}== 1"><a th:href="@{/logout}">Cerrar
+						sesión</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="col-md-12">
+		<h1>Mi pedido</h1>
+		<div id="cesta">
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="panel panel-default"
+						th:each="order_product : ${order.products}">
+						<div class="panel-heading" th:text="${order_product.product.name}">Producto</div>
+						<div class="panel-body">
+							<div class="col-md-4">
+								<img class="img-responsive"
+									th:src="@{/image/} + ${order_product.product.image}" />
+							</div>
+
+							<div class="col-md-5">
+								<div class="row">
+									<p>
+										<b>Descripción:</b>
+									</p>
+									<p th:text="${order_product.product.description}"></p>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="row">
+									<h1 th:text="${order_product.product.price} + €">98 €</h1>
+								</div>
+								<div class="row">
+									<span class="badge" th:text="'x' + ${order_product.cuantity}"></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<p>Total:</p>
+						</div>
+						<div class="panel-body">
+							<h3 class="pull-right" th:text="${order.total} + ' €'">0 €</h3>
+						</div>
+					</div>
+
+					<hr />
+					<h2>Datos</h2>
+
+					<form th:action="@{/confirmOrder}" id="form" method="post">
+
+						<div class="form-group">
+							<label id="name">Nombre</label> <input type="text"
+								class="form-control" placeholder="Nombre" name="userName"
+								required="required" />
+						</div>
+						<div class="form-group">
+							<label id="surname">Apellidos</label> <input type="text"
+								class="form-control" placeholder="Apellidos" name="surname"
+								required="required" />
+						</div>
+						<button type="submit" class="btn btn-default pull-right">Confirmar
+							pedido</button>
+					</form>
+
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<hr />
+
+	<div id="footer" class="col-md-12">
+		<ul class="col-md-3">
+			<li class="first">¿QUIÉNES SOMOS?</li>
+			<li>Condiciones generales de venta de Pixmania</li>
+			<li>Términos y condiciones uso de la plataforma</li>
+			<li>Cookies</li>
+			<li>Aviso legal</li>
+			<li>Nuestros compromisos</li>
+		</ul>
+		<ul class="col-md-3">
+			<li class="first">SERVICIOS</li>
+			<li>Hacer un pedido</li>
+			<li>Modos de entrega</li>
+			<li>Pago</li>
+			<li>Registrarse</li>
+			<li>Seguimiento de mi pedido</li>
+			<li>Anular mi pedido</li>
+			<li>Mi seguimiento SPV</li>
+			<li>Libro de fotos cewe</li>
+		</ul>
+		<ul class="col-md-3">
+			<li class="first">AYUDA</li>
+			<li>FAQ</li>
+			<li>Opiniones consumidores Pixmania</li>
+			<li>Mapa del sitio</li>
+			<li>Vender en Pixmania</li>
+			<li>Condiciones*</li>
+			<li>Contacto</li>
+		</ul>
+		<ul class="col-md-3">
+			<li class="first">¡ÚNETE!</li>
+			<li><img th:src="@{~/img/facebook.png}" />Facebook</li>
+			<li><img th:src="@{~/img/twitter.png}" />Twitter</li>
+			<li><img th:src="@{~/img/google.png}" />Google+</li>
+			<li><img th:src="@{~/img/pinterest.png}" />Pinterest</li>
+			<li><img th:src="@{~/img/tuenti.jpg}" />Tuenti</li>
+		</ul>
+	</div>
+</body>
+
+</html>
