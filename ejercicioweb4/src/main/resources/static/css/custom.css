@@ -111,3 +111,15 @@ h4 {
 .carousel-control.left {
 	  background-image: linear-gradient(to right,rgba(191,50,136,1) 0,rgba(0,0,0,.0001) 100%);
 }
+
+
+#footer ul{
+	list-style:none;
+}
+
+#footer .first {
+	 margin-bottom: 1em;
+	 text-transform: uppercase;
+	 font-weight: 700;
+	 color: #bf3288;
+}
