@@ -42,13 +42,14 @@ public class ProductController {
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		return new ModelAndView("index").addObject("products",
-				products.findAll()).addObject("order", cart);
+				products.findAll()).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping("/order")
 	public ModelAndView order(HttpSession session) {
+
 		ModelAndView mv = new ModelAndView(); 
-		mv = new ModelAndView("order").addObject("order", (Cart) session.getAttribute("cart"));
+		mv = new ModelAndView("order").addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 
 		return mv;
 	}
@@ -62,7 +63,6 @@ public class ProductController {
 
 		System.out.println("usuario: " + user);
 		System.out.println("pass: " + pass);
-		Integer permiso = (Integer) session.getAttribute("permisos");
 		ModelAndView mv = new ModelAndView();
 
 		if (user.equals(USER) && pass.equals(PASS)) {
@@ -73,7 +73,7 @@ public class ProductController {
 			mv = new ModelAndView("index")
 					.addObject("error", "Login no válido")
 					.addObject("products", products.findAll())
-					.addObject("order", (Cart) session.getAttribute("cart"));
+					.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -91,13 +91,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", (Cart) session.getAttribute("cart"));
+						.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", (Cart) session.getAttribute("cart"));
+					.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -106,7 +106,7 @@ public class ProductController {
 	public ModelAndView confirmOrder(HttpSession session,
 	@RequestParam("userName") String userName,
 	@RequestParam("surname") String surname) {
- 
+
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		Order order = new Order(cart,userName,surname);
@@ -118,7 +118,7 @@ public class ProductController {
 
 		return new ModelAndView("index").addObject("products",
 				products.findAll()).addObject("order", newCart)
-				.addObject("completed", "Pedido realizado correctamente.");
+				.addObject("completed", "Pedido realizado correctamente.").addObject("permiso", session.getAttribute("permisos"));
 	}
 	
 	@RequestMapping(value = "/viewOrders")
@@ -145,13 +145,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 				.addObject("error", "Acceso no permitido")
 				.addObject("products", products.findAll())
-				.addObject("order", (Cart) session.getAttribute("cart"));
+				.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 			}
 		}else{
 			mv = new ModelAndView("index")
 			.addObject("error", "Login no válido")
 			.addObject("products", products.findAll())
-			.addObject("order", (Cart) session.getAttribute("cart"));
+			.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -212,14 +212,14 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", (Cart) session.getAttribute("cart"));
+						.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Login no válido")
 					.addObject("products", products.findAll())
-					.addObject("order", (Cart) session.getAttribute("cart"));
+					.addObject("order", (Cart) session.getAttribute("cart")).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 
@@ -238,29 +238,28 @@ public class ProductController {
 		}
 
 		return new ModelAndView("index").addObject("products",
-				products.findAll()).addObject("order", cart);
+				products.findAll()).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping(value = "/moreInformation")
 	public ModelAndView moreInformation(@RequestParam int product_id,
 			HttpSession session) {
+
 		Cart cart = (Cart) session.getAttribute("cart");
 		return new ModelAndView("product").addObject("product",
-				products.findOne(product_id)).addObject("order", cart);
+				products.findOne(product_id)).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public ModelAndView modify(@RequestParam("cuantity") int cuantity,
 			@RequestParam("product_id") int product_id, HttpSession session) {
 
-		System.out.println(cuantity);
-		System.out.println(product_id);
 		Cart cart = (Cart) session.getAttribute("cart");
 		ProductWithCuantity ac = new ProductWithCuantity(products.findOne(product_id), 1);
 		cart.getProducts().get(cart.getProducts().indexOf(ac))
 				.setCuantity(cuantity);
 
-		return new ModelAndView("cart").addObject("order", cart);
+		return new ModelAndView("cart").addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping(value = "/edit")
@@ -277,13 +276,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", cart);
+					.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -335,7 +334,7 @@ public class ProductController {
 					} catch (Exception e) {
 						return new ModelAndView("index").addObject("fileName",
 								fileName).addObject("error",
-								e.getClass().getName() + ":" + e.getMessage());
+								e.getClass().getName() + ":" + e.getMessage()).addObject("permiso", session.getAttribute("permisos"));
 					}
 				} else {
 					System.out.println("Está vacía");
@@ -351,13 +350,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", cart);
+					.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -366,12 +365,13 @@ public class ProductController {
 	public ModelAndView cart(HttpSession session) {
 		Cart cart = (Cart) session.getAttribute("cart");
 		return new ModelAndView("cart").addObject("order", cart).addObject(
-				"products", products);
+				"products", products).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping("category/{category}")
 	public ModelAndView searchCategory(@PathVariable String category,
 			HttpSession session) {
+
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		String cat = "";
@@ -393,7 +393,7 @@ public class ProductController {
 			break;
 		default:
 			return new ModelAndView("index").addObject("error",
-					"No se encuentra la categoría").addObject("order", cart);
+					"No se encuentra la categoría").addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 
 		List<Product> category_products = products.findByCategory(cat);
@@ -401,10 +401,10 @@ public class ProductController {
 		if (category_products.isEmpty()) {
 			mv = new ModelAndView("index").addObject("category_error",
 					"No existen productos en esta categoría").addObject(
-					"order", cart);
+					"order", cart).addObject("permiso", session.getAttribute("permisos"));
 		} else {
 			mv = new ModelAndView("index").addObject("products",
-					category_products).addObject("order", cart);
+					category_products).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 
 		return mv;
@@ -428,13 +428,14 @@ public class ProductController {
 
 		ModelAndView mv = new ModelAndView();
 
+
 		if (search_products.isEmpty()) {
 			mv = new ModelAndView("index").addObject("category_error",
 					"No existen productos con el nombre de " + name).addObject(
-					"order", cart);
+					"order", cart).addObject("permiso", session.getAttribute("permisos"));
 		} else {
 			mv = new ModelAndView("index").addObject("products",
-					search_products).addObject("order", cart);
+					search_products).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 
 		return mv;
@@ -475,13 +476,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", cart);
+					.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -501,13 +502,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", cart);
+					.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -516,11 +517,12 @@ public class ProductController {
 	public ModelAndView removeProductFromCart(
 			@RequestParam(value = "product_id") int id, HttpSession session) {
 
+		
 		Cart cart = (Cart) session.getAttribute("cart");
 
 		cart.getProducts().remove(id - 1);
 
-		return new ModelAndView("cart").addObject("order", cart);
+		return new ModelAndView("cart").addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 	}
 
 	@RequestMapping("/admin/orders")
@@ -542,13 +544,13 @@ public class ProductController {
 				mv = new ModelAndView("index")
 						.addObject("error", "Acceso no permitido")
 						.addObject("products", products.findAll())
-						.addObject("order", cart);
+						.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		} else {
 			mv = new ModelAndView("index")
 					.addObject("error", "Acceso no permitido")
 					.addObject("products", products.findAll())
-					.addObject("order", cart);
+					.addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		return mv;
 	}
@@ -609,7 +611,7 @@ public class ProductController {
 				mv = new ModelAndView("new");
 			}
 		}else{
-			mv = new ModelAndView("index").addObject("error", "Ruta no permitida");
+			mv = new ModelAndView("index").addObject("error", "Ruta no permitida").addObject("permiso", session.getAttribute("permisos"));
 		}
 		
 		return mv;
@@ -625,10 +627,12 @@ public class ProductController {
 		if (permiso != null) {
 			if (permiso == 1) {
 				session.setAttribute("permisos", 0);
-				mv = new ModelAndView("index").addObject("completed", "La sesión se ha cerrado correctamente").addObject("products", products.findAll()).addObject("order", cart);;
+				mv = new ModelAndView("index").addObject("completed", "La sesión se ha cerrado correctamente").addObject("products", products.findAll()).addObject("order", cart).addObject("permiso", 0);
+			}else{
+				mv = new ModelAndView("index").addObject("error", "Ruta no permitida").addObject("products", products.findAll()).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 			}
 		}else{
-			mv = new ModelAndView("index").addObject("error", "Ruta no permitida").addObject("products", products.findAll()).addObject("order", cart);
+			mv = new ModelAndView("index").addObject("error", "Ruta no permitida").addObject("products", products.findAll()).addObject("order", cart).addObject("permiso", session.getAttribute("permisos"));
 		}
 		
 		return mv;
