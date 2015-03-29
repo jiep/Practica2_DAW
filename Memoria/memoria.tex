@@ -1,6 +1,7 @@
 \documentclass[12pt,a4paper,svgnames]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -146,7 +147,7 @@ La interfaz de nuestra aplicación se divide en las siguientes vistas:
 \section{Recorrido por la aplicación}
 
 \subsection{index.html}
-Esta es la vista principal de nuestra aplicación web. Como se puede observar en la Figura~\ref{fig:index_sin_admin}, en la parte superior los usuarios puedes buscar productos por categoría y por nombre, y el administrador podrá loguearse con el menú desplegable. Estas opciones también estarán disponibles en las demás vistas.
+Esta es la vista principal de nuestra aplicación web. Como se puede observar en la Figura~\ref{fig:index_sin_admin}, en la parte superior los usuarios puedes buscar productos por categoría y por nombre, y el administrador podrá loguearse con el menú desplegable. Estas opciones también estarán disponibles en las demás vistas. Cuando hemos iniciado sesión, se cambia este desplegable con un cerrar sesión.
 
 \begin{figure}[htbp]
 \centering
@@ -229,7 +230,7 @@ En esta vista (Figura~\ref{fig:edit}) tenemos otro formulario que nos permitirá
 \clearpage
 
 \subsection{orders.html}
-En \texttt{orders.html} (Figura~\ref{fig:orders}) se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado) (Figura~\ref{fig:orders_actualizar_estado}). Además, se podrán filtrar los pedidos mediante su estado
+En \texttt{orders.html} (Figura~\ref{fig:orders}) se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado) (Figura~\ref{fig:orders_actualizar_estado}). Además, se podrán filtrar los pedidos mediante su estado.
 
 \begin{figure}[htbp]
 	\centering
