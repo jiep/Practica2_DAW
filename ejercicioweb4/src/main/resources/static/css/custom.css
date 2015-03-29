@@ -103,3 +103,11 @@ h4 {
 #articulos:nth-child(2) {
     margin-top: 20px;
 }
+
+.carousel-control.right {
+	background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(191,50,136,1) 100%);
+}
+
+.carousel-control.left {
+	  background-image: linear-gradient(to right,rgba(191,50,136,1) 0,rgba(0,0,0,.0001) 100%);
+}
