@@ -160,8 +160,8 @@
 
 		<div class="panel panel-default">
 			<div id="cesta" class="panel-heading">
-				<a th:href="@{/cart}"><button id="cart_button" class="btn btn-default">Ir a la cesta <span class="badge pull-right"
-					th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span></button> </a> 
+				 <a th:href="@{/cart}"><button id="cart_button" class="btn btn-default">Ir a la cesta 
+				 <span class="badge pull-right" th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span></button> </a> 
 			</div>
 			<div class="panel-body">
 				<div class="panel panel-default"
