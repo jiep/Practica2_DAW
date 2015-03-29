@@ -91,3 +91,15 @@ h4 {
   padding-bottom: 20px;
   margin-right: 20px;
 }
+
+.carousel-inner {
+	border-bottom: 20px;
+}
+
+#myCarousel img {
+	width: 100%;
+}
+
+#articulos:nth-child(2) {
+    margin-top: 20px;
+}

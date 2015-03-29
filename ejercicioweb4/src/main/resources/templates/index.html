@@ -42,7 +42,8 @@
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
 						class="input-group-btn">
-						<button id="search" class="btn btn-default pull-right" type="submit">
+						<button id="search" class="btn btn-default pull-right"
+							type="submit">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							Buscar
 						</button>
@@ -51,13 +52,12 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-			
-				<li th:if="${permiso} == 0" class="dropdown" id="menu1">
-				<a class="dropdown-toggle"
-					data-toggle="dropdown" href="#menu1"> Administración <b
-						class="caret"></b>
+
+				<li th:if="${permiso} == 0" class="dropdown" id="menu1"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+						Administración <b class="caret"></b>
 				</a>
-					<div  class="dropdown-menu">
+					<div class="dropdown-menu">
 						<form th:action="@{/admin}" method="post">
 							<div class="form-group">
 								<label>Usuario</label> <input name="user" type="text"
@@ -72,11 +72,9 @@
 									aria-hidden="true"></span>
 							</button>
 						</form>
-						</div>
-					</li>
-					<li th:if="${permiso}== 1">
-						<a th:href="@{/logout}">Cerrar sesión</a>
-					</li>
+					</div></li>
+				<li th:if="${permiso}== 1"><a th:href="@{/logout}">Cerrar
+						sesión</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -93,6 +91,43 @@
 		<div id="category-not-found" th:if="${category_error != null}">
 			<div class="alert alert-warning" role="alert"
 				th:text="${category_error}"></div>
+		</div>
+		<div id="myCarousel" class="carousel slide" data-interval="3000"
+			data-ride="carousel">
+			<!-- Carousel indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<!-- Carousel items -->
+			<div class="carousel-inner">
+				<div class="active item">
+					<img th:src="@{~/img/c1.png}"  />
+					<div class="carousel-caption">
+						<h3>PRÓXIMAMENTE</h3>
+					</div>
+				</div>
+				<div class="item">
+					<img th:src="@{~/img/c2.png}"  />
+					<div class="carousel-caption">
+						<h3>PRÓXIMAMENTE</h3>
+					</div>
+				</div>
+				<div class="item">
+					<img th:src="@{~/img/c4.png}"  />
+					<div class="carousel-caption">
+						<h3>PRÓXIMAMENTE</h3>
+					</div>
+				</div>
+			</div>
+			<!-- Carousel nav -->
+			<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a> <a class="carousel-control right" href="#myCarousel"
+				data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right"></span>
+			</a>
 		</div>
 		<div id="articulos">
 
@@ -115,18 +150,17 @@
 								<h1 th:text="${product.price} + €">98 €</h1>
 							</div>
 							<div class="col-md-6">
-							<div class="row btn-group btn-group-lg" role="group">
-								<a th:href="@{/addToCart(product_id=${product.id})}"><button
-										class="btn btn-default">
-										 <span
-											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-									</button></a>
-									<a th:href="@{/moreInformation(product_id=${product.id})}"><button
-										class="btn btn-default">
-										Más información <span
-											class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
-									</button></a>
-							</div>
+								<div class="row btn-group btn-group-lg" role="group">
+									<a th:href="@{/addToCart(product_id=${product.id})}"><button
+											class="btn btn-default">
+											<span class="glyphicon glyphicon-shopping-cart"
+												aria-hidden="true"></span>
+										</button></a> <a th:href="@{/moreInformation(product_id=${product.id})}"><button
+											class="btn btn-default">
+											Más información <span
+												class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+										</button></a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -143,12 +177,12 @@
 			<div class="panel-body">
 				<form th:action="@{/search}">
 					<div class="form-group">
-						<label>Desde</label> <input min="0" name="from" type="number" step="any"
-							class="form-control" placeholder="Desde" />
+						<label>Desde</label> <input min="0" name="from" type="number"
+							step="any" class="form-control" placeholder="Desde" />
 					</div>
 					<div class="form-group">
-						<label>Hasta</label> <input name="to" min="0" type="number" step="any"
-							class="form-control" placeholder="Hasta" />
+						<label>Hasta</label> <input name="to" min="0" type="number"
+							step="any" class="form-control" placeholder="Hasta" />
 					</div>
 					<button type="submit" class="btn btn-default pull-right">
 						<span class="glyphicon glyphicon glyphicon glyphicon-search"
@@ -160,8 +194,11 @@
 
 		<div class="panel panel-default">
 			<div id="cesta" class="panel-heading">
-				 <a th:href="@{/cart}"><button id="cart_button" class="btn btn-default">Ir a la cesta 
-				 <span class="badge pull-right" th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span></button> </a> 
+				<a th:href="@{/cart}"><button id="cart_button"
+						class="btn btn-default">
+						Ir a la cesta <span class="badge pull-right"
+							th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span>
+					</button> </a>
 			</div>
 			<div class="panel-body">
 				<div class="panel panel-default"
@@ -179,8 +216,8 @@
 
 				<div th:if="${#lists.size(order.products)} != 0">
 					<h3 class="pull-right" th:text="${order.total} + ' €'">0</h3>
-				</div>							
-					
+				</div>
+
 			</div>
 		</div>
 	</div>
