@@ -42,7 +42,7 @@
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
 						class="input-group-btn">
-						<button class="btn btn-default pull-right" type="submit">
+						<button id="search" class="btn btn-default pull-right" type="submit">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							Buscar
 						</button>
@@ -116,17 +116,15 @@
 								<h1 th:text="${product.price} + €">98 €</h1>
 							</div>
 							<div class="col-md-6">
-							<div class="row">
+							<div class="row btn-group btn-group-lg" role="group">
 								<a th:href="@{/addToCart(product_id=${product.id})}"><button
 										class="btn btn-default">
-										Añadir al carrito <span
+										 <span
 											class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 									</button></a>
-							</div>
-							<div class="row">
-								<a th:href="@{/moreInformation(product_id=${product.id})}"><button
+									<a th:href="@{/moreInformation(product_id=${product.id})}"><button
 										class="btn btn-default">
-										Mas información <span
+										Más información <span
 											class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
 									</button></a>
 							</div>
@@ -162,7 +160,7 @@
 		</div>
 
 		<div class="panel panel-default">
-			<div class="panel-heading">
+			<div id="cesta" class="panel-heading">
 				<a th:href="@{/cart}">Cesta</a> <span class="badge pull-right"
 					th:text="${order.products != null} ? ${#lists.size(order.products)} : 0">0</span>
 			</div>

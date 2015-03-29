@@ -1,15 +1,54 @@
-button {
-  background-color: #04c407;
+.btn-default {
+  background-color: #cbe213;
+  font-weight: bold;
+  color: #bf3288;
 }
 
-button:hover {
-  background-color: #05a100;
+.btn-default:hover {
+  background-color: D3E452;
+  font-weight: bold;
+  color: #ffffff;
 }
 
-.panel-heading {
-  background-color: #ff30c1;
+.panel-default > .panel-heading {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #bf3288;
+  background-color: #bf3288;
 }
 
-.panel-default > panel-panel-heading {
-  border-color: #ff30c1;
+.panel-body {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #bf3288;
+}
+
+div {
+	font-weight: bold;
+}
+
+h1, h3 {
+	font-weight: bold;
+	color: red;
+}
+
+.navbar-nav>li>.dropdown-menu {
+	padding: 20px;
+}
+
+#search {
+   background-color: #bf3288;
+   font-weight: bold;
+   color: #ffffff;
+   
+}
+
+#cesta  div.panel-body {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ffffff;
+}
+
+a {
+  color: #ffffff;
 }

@@ -6,6 +6,7 @@
 <title>Bienvienido a Poxmanía</title>
 <link rel="icon" th:href="@{~/img/favicon.ico}" />
 <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{~/css/custom.css}" />
 <script th:src="@{~/js/jquery.min.js}"></script>
 <script th:src="@{~/js/bootstrap.min.js}"></script>
 </head>
@@ -87,7 +88,7 @@
 						</div>
 						<div class="col-md-8">
 							<div class="row">
-								<p th:text="${product.category}">Categoría</p>
+								<span class="label label-primary" th:text="${product.category}">Categoría</span>
 							</div>
 							<div class="row">
 								<h1 th:text="${product.price} + €">98 €</h1>
