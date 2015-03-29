@@ -32,9 +32,14 @@ GIS+MAT: & José Ignacio Escribano Pablos
 
 \portada{Práctica 1}{Diseño de Aplicaciones Web}{Implementación de una tienda virtual}{\autores}{Móstoles}
 
+\listoffigures
+\thispagestyle{empty}
+\newpage
+
 \tableofcontents
 \thispagestyle{empty}
 \newpage
+
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
@@ -132,25 +137,114 @@ Este controlador es el encargado de gestionar las peticiones desde la sección d
 \subsubsection{Clase StartController}
 Esta clase es un controlador que implementa la interfaz \texttt{CommandLineRunner}, que permite ejecutar algunos comandos al iniciar la aplicación. Se encarga de introducir algunos productos y pedidos de prueba que sirvan para probar el correcto funcionamiento de la aplicación. En la versión de producción, este controlador se eliminaría.
 \subsection{Vista}
-\subsubsection{index.html}
-Esta vista corresponde a la página principal de nuestra aplicación web.
-\subsubsection{product.html}
-En \texttt{product.html} encontramos la vista donde se ve un producto seleccionado (botón más información), con la información completa de dicho producto y la posibilidad de añadirlo al carro.
-\subsubsection{cart.html}
-En esta vista tenemos nuestro carro de compra, donde podremos aumentar o disminuir la cantidad de los productos que se encuentren en la cesta, eliminarlos y realizar el pedido.
-\subsubsection{admin.html}
-Esta vista es la pantalla principal del administrador, en ella aparecen los distintos productos de la web, donde tenemos las opciones de añadir nuevos productos, borrar o editar productos existentes, filtrar los productos o ver los pedidos.
-\subsubsection{new.html}
-En esta vista tenemos un formulario que nos permitirá añadir nuevos productos a la tienda.
-\subsubsection{edit.html}
-En esta vista tenemos un formulario que nos permitirá editar los productos de la tienda.
-\subsubsection{order.html}
-Esta vista es otro formulario en donde se pedirán los datos al usuario para realizar el pedido.
-\subsubsection{orders.html}
-En \texttt{orders.html} se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado). Además, se podrán filtrar los pedidos mediante su estado, nombre o fecha.
+La interfaz de nuestra aplicación se divide en las siguientes vistas:
+\texttt{\textbackslash index.html, \textbackslash product.html, \textbackslash cart.html, \textbackslash admin.html, \textbackslash new.html, \textbackslash edit.html, \textbackslash order.html y \textbackslash orders.html} que se explicarán en la sección de \texttt{Recorrido por la aplicación}
+
 
 \clearpage
 
 \section{Recorrido por la aplicación}
+
+\subsection{index.html}
+Esta es la vista principal de nuestra aplicación web. Como se puede observar en la Figura~\ref{fig:index_sin_admin}, en la parte superior los usuarios puedes buscar productos por categoría y por nombre, y el administrador podrá loguearse con el menú desplegable. Estas opciones también estarán disponibles en las demás vistas.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{imagenes/index_con_admin}
+\caption{Vista index.html}
+\label{fig:index_sin_admin}
+\end{figure}
+
+En el cuerpo de la vista encontramos en la parte izquierda el listado de los productos de la web, y si han realizado una búsqueda, aparecerán los productos que concuerden con dicha búsqueda. 
+Para cada producto aparecen 2 botones, el botón \texttt{Carro} que añadirá el producto a la cesta y el botón \texttt{Más información}, que nos llevará a la vista \texttt{/product.html} para ver en detalle dicho producto.\\
+
+Por último, en la parte derecha tenemos la opción de filtrar los productos por precio y el carro de compra, donde se pueden ver los productos añadidos y un botón para acceder a la vista \texttt{/cart}, que contendrá el carro de compra (Figura~\ref{fig:moreInformation}).
+
+\clearpage
+
+\subsection{product.html}
+En esta vista (Figura~\ref{fig:moreInformation}) se puede observar el producto seleccionado con la descripción completa y la opción de añadirlo al carro.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/moreInformation}
+	\caption{Vista product.html}
+	\label{fig:moreInformation}
+\end{figure}
+
+\subsection{cart.html}
+En esta vista tenemos (Figura~\ref{fig:cart}) todos los productos que han sido añadidos a la cesta de compra. En ella podemos aumentar la cantidad de un producto o, si lo deseamos, borrar un producto de la cesta. Cuando ya esté lista la cesta, se podrá pulsar el botón de hacer pedido, que nos llevará a la vista \texttt{order.html} con un mensaje confirmando el pedido.
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/cart}
+	\caption{Vista cart.html}
+	\label{fig:cart}
+\end{figure}
+
+
+\subsection{order.html}
+Esta vista (Figura~\ref{fig:order}) como se puede observar, podemos ver el carro de compra que hemos hecho y tenemos un pequeño formulario para rellenar antes de proceder a confirmar el pedido (botón realizar pedido). Al realizar el pedido, se volverá a la vista \texttt{/index.html}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/order}
+	\caption{Vista order.html}
+	\label{fig:order}
+\end{figure}
+
+\clearpage
+
+\subsection{admin.html}
+Esta vista (Figura~\ref{fig:admin}) es la pantalla principal del administrador, en ella aparecen los distintos productos de la web, donde tenemos las opciones de añadir nuevos productos, borrar o editar productos existentes, filtrar los productos o ver los pedidos.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/admin}
+	\caption{Vista admin.html}
+	\label{fig:admin}
+\end{figure}
+
+\subsection{new.html}
+En esta vista (Figura~\ref{fig:new}) tenemos un formulario que nos permitirá añadir nuevos productos a la tienda.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/new}
+	\caption{Vista new.html}
+	\label{fig:new}
+\end{figure}
+
+\subsection{edit.html}
+En esta vista (Figura~\ref{fig:edit}) tenemos otro formulario que nos permitirá editar los productos de la tienda.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/edit}
+	\caption{Vista edit.html}
+	\label{fig:edit}
+\end{figure}
+
+\clearpage
+
+\subsection{orders.html}
+En \texttt{orders.html} (Figura~\ref{fig:orders}) se mostrarán los distintos pedidos de la tienda donde tendremos la opción de cambiar su estado (pendiente o preparado) (Figura~\ref{fig:orders_actualizar_estado}). Además, se podrán filtrar los pedidos mediante su estado
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/orders}
+	\caption{Vista orders.html}
+	\label{fig:orders}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/orders_actualizar_estado}
+	\caption{Vista orders.html (actualizar estado)}
+	\label{fig:orders_actualizar_estado}
+\end{figure}
+
+
 
 \end{document}
