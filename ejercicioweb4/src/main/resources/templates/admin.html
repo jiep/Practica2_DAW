@@ -50,12 +50,12 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Administración</a></li>
+				<li><a th:href="@{/logout}">Cerrar sesión</a></li>
 			</ul>
 		</div>
 	</nav>
 
-	<div class="btn-group pull-right">
+	<div id="buttons" class="btn-group pull-right">
 		<a href="/new.html">
 			<button class="btn btn-default">
 				Añadir producto <span class="glyphicon glyphicon-shopping-plus"

@@ -50,13 +50,13 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Administración</a></li>
+				<li><a th:href="@{/logout}">Cerrar sesión</a></li>
 			</ul>
 		</div>
 	</nav>
 
 	<div class="col-md-12">
-		<div class="row btn-group pull-right">
+		<div id="buttons" class="row btn-group pull-right">
 			<a th:href="@{/admin/search/pendiente}"><button
 					class="btn btn-default">
 					Buscar productos pendientes <span

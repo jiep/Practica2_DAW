@@ -612,5 +612,26 @@ public class ProductController {
 		
 	}
 	
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session){
+		
+		ModelAndView mv = new ModelAndView();
+		Cart cart = (Cart) session.getAttribute("cart");
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		if (permiso != null) {
+			if (permiso == 1) {
+				session.setAttribute("permisos", 0);
+				mv = new ModelAndView("index").addObject("completed", "La sesión se ha cerrado correctamente").addObject("products", products.findAll()).addObject("order", cart);;
+			}
+		}else{
+			mv = new ModelAndView("index").addObject("error", "Ruta no permitida").addObject("products", products.findAll()).addObject("order", cart);
+		}
+		
+		return mv;
+		
+	}
+	
+	
+	
 
 }
