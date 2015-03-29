@@ -3,20 +3,17 @@ package tiendapox;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
-public class ProductWithCuantity implements Serializable{
+public class ProductWithCuantity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private Product product;
 	private int cuantity;
 
@@ -61,7 +58,7 @@ public class ProductWithCuantity implements Serializable{
 
 		return equals;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

@@ -15,25 +15,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Cart implements Serializable{
+public class Cart implements Serializable {
 
 	@Id
-    @GeneratedValue
-	@Column(name="cart_id")
-    private Integer id;
+	@GeneratedValue
+	@Column(name = "cart_id")
+	private Integer id;
 
 	@ElementCollection
 	private List<ProductWithCuantity> products = new ArrayList<>();
 	private double total;
-	
-	public Cart(List<ProductWithCuantity> prod, double total){
-		this.products=prod;
-		this.total=total;
+
+	public Cart(List<ProductWithCuantity> prod, double total) {
+		this.products = prod;
+		this.total = total;
 	}
-    public Integer getId() {
-        return id;
-    }
-	
+
+	public Integer getId() {
+		return id;
+	}
 
 	public Cart() {
 	}
@@ -62,14 +62,14 @@ public class Cart implements Serializable{
 	void setProducts(ArrayList<ProductWithCuantity> products) {
 		this.products = products;
 	}
-	
+
 	public double getTotal() {
 		int total = 0;
 
 		for (ProductWithCuantity ac : products) {
 			total += ac.getProduct().getPrice() * ac.getCuantity();
 		}
-		
+
 		this.total = total;
 
 		return this.total;
@@ -82,5 +82,5 @@ public class Cart implements Serializable{
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	
+
 }

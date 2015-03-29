@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Product implements Serializable{
+public class Product implements Serializable {
 
 	/*
 	 * public static enum Category { PEQUEÑOS_ELECTRODOMESTICOS, TELEVISIONES,
@@ -18,7 +18,7 @@ public class Product implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="product_id")
+	@Column(name = "product_id")
 	private int id;
 	private String name;
 	private String category;
@@ -38,14 +38,14 @@ public class Product implements Serializable{
 		this.category = category;
 		this.image = image;
 		this.description = description;
-		if(this.description.length() <= 250){
-			this.minidescription = description; 
-		}else{
-			this.minidescription = this.description.substring(0,250)+"...";
+		if (this.description.length() <= 250) {
+			this.minidescription = description;
+		} else {
+			this.minidescription = this.description.substring(0, 250) + "...";
 		}
 		this.price = price;
 	}
-	
+
 	public Product(String name, String category, String image,
 			String description, String mini_description, double price) {
 		this.name = name;
@@ -53,7 +53,7 @@ public class Product implements Serializable{
 		this.image = image;
 		this.description = description;
 		this.minidescription = mini_description;
-				//this.description.substring(0,15)+"...";
+		// this.description.substring(0,15)+"...";
 		this.price = price;
 	}
 
@@ -100,7 +100,7 @@ public class Product implements Serializable{
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getMinidescription() {
 		return minidescription;
 	}
@@ -120,7 +120,7 @@ public class Product implements Serializable{
 				&& this.getDescription().equals(((Product) o).getDescription())
 				&& this.getPrice() == ((Product) o).getPrice()
 				&& this.getId() == ((Product) o).getId()) {
-			
+
 			equals = true;
 
 		}
@@ -130,7 +130,7 @@ public class Product implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
-		
+
 	}
 
 }

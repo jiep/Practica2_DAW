@@ -1,6 +1,5 @@
 package tiendapox;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,48 +11,49 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="t_order")
+@Table(name = "t_order")
 public class Order {
-	
-	/*public static enum State{
-		PENDIENTE, PREPARADO
-	}*/
-	
+
+	/*
+	 * public static enum State{ PENDIENTE, PREPARADO }
+	 */
+
 	@Id
-	@Column(name="order_id")
+	@Column(name = "order_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String state;
 	private Date date;
 	private String name;
 	private String surname;
-	@Lob @Column(name="cart")
+	@Lob
+	@Column(name = "cart")
 	private Cart cart;
-	
-	public Order(){
+
+	public Order() {
 	}
-	
-	public Order(Cart cart){
+
+	public Order(Cart cart) {
 		this.state = "Pendiente";
 		this.setCart(cart);
 		this.setDate(new Date());
 	}
-	
-	public Order(Cart cart, String name, String surname){
+
+	public Order(Cart cart, String name, String surname) {
 		this.state = "Pendiente";
 		this.setCart(cart);
 		this.setDate(new Date());
 		this.name = name;
 		this.surname = surname;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
+
 	public Date getDate() {
 		return date;
 	}
-	
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -66,8 +66,8 @@ public class Order {
 	public int getId() {
 		return id;
 	}
-	
-	public void changeState(){
+
+	public void changeState() {
 		this.state = "Preparado";
 	}
 
@@ -94,5 +94,5 @@ public class Order {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
 }

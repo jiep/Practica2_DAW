@@ -1,27 +1,27 @@
 .btn-default {
-  background-color: #cbe213;
-  font-weight: bold;
-  color: #bf3288;
+	background-color: #cbe213;
+	font-weight: bold;
+	color: #bf3288;
 }
 
 .btn-default:hover {
-  background-color: D3E452;
-  font-weight: bold;
-  color: #ffffff;
+	background-color: D3E452;
+	font-weight: bold;
+	color: #ffffff;
 }
 
-.panel-default > .panel-heading {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #bf3288;
-  background-color: #bf3288;
-  color: #ffffff;
+.panel-default>.panel-heading {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #bf3288;
+	background-color: #bf3288;
+	color: #ffffff;
 }
 
 .panel-body {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #bf3288;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #bf3288;
 }
 
 div {
@@ -38,19 +38,18 @@ h1, h3 {
 }
 
 #search {
-   background-color: #bf3288;
-   font-weight: bold;
-   color: #ffffff;
-   
+	background-color: #bf3288;
+	font-weight: bold;
+	color: #ffffff;
 }
 
 #cart_button {
 	width: 100%;
 	background-color: #bf3288;
 	font-weight: bold;
-   	color: #ffffff;
-   	border-radius: 0px;
-   	border: 0px;
+	color: #ffffff;
+	border-radius: 0px;
+	border: 0px;
 }
 
 #cart_button:hover {
@@ -67,29 +66,28 @@ h1, h3 {
 }
 
 #cesta  div.panel-body {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #bf3288;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #bf3288;
 }
 
 #cesta  div.panel-default {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #ffffff;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ffffff;
 }
 
 a {
-  color: #ffffff;
+	color: #ffffff;
 }
 
 h4 {
-  font-weight: bold;
-	
+	font-weight: bold;
 }
 
 #buttons {
-  padding-bottom: 20px;
-  margin-right: 20px;
+	padding-bottom: 20px;
+	margin-right: 20px;
 }
 
 .carousel-inner {
@@ -101,25 +99,26 @@ h4 {
 }
 
 #articulos:nth-child(2) {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .carousel-control.right {
-	background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(191,50,136,1) 100%);
+	background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0,
+		rgba(191, 50, 136, 1) 100%);
 }
 
 .carousel-control.left {
-	  background-image: linear-gradient(to right,rgba(191,50,136,1) 0,rgba(0,0,0,.0001) 100%);
+	background-image: linear-gradient(to right, rgba(191, 50, 136, 1) 0,
+		rgba(0, 0, 0, .0001) 100%);
 }
 
-
-#footer ul{
-	list-style:none;
+#footer ul {
+	list-style: none;
 }
 
 #footer .first {
-	 margin-bottom: 1em;
-	 text-transform: uppercase;
-	 font-weight: 700;
-	 color: #bf3288;
+	margin-bottom: 1em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #bf3288;
 }
