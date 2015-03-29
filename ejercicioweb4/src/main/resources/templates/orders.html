@@ -103,7 +103,8 @@
 						</div>
 					</div>
 					<div class="panel panel-default">
-					<form th:action="@{/update}">
+						<div class="panel-body">
+						<form th:action="@{/update}" method="post">
 						<input type="hidden" th:value="${order.id}"
 										name="order_id" />
 							<div class="col-md-2">
@@ -118,8 +119,8 @@
 							<div class="col-md-2">
 									<label>Estado:</label> <select
 										th:value="${order.state}" name="state">
-										<option name="Pendiente" value="Pendiente">Pendiente</option>
-										<option name="Preparado" value="Preparado">Preparado</option>
+										<option name="Pendiente" value="Pendiente" th:selected="${order.state} == 'Pendiente' ? 'Pendiente'">Pendiente</option>
+										<option name="Preparado" value="Preparado" th:selected="${order.state} == 'Preparado' ? 'Preparado'">Preparado</option>
 									</select>
 							</div>
 							<div class="col-md-2">
@@ -132,6 +133,7 @@
 									</button>
 							</div>
 					</form>
+						</div>
 					</div>
 
 				</div>

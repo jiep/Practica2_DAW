@@ -127,7 +127,7 @@ public class ProductController {
 		return new ModelAndView("orders").addObject("orders", orders.findAll());
 	}
 	
-	@RequestMapping(value = "/update")
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView update(HttpSession session,
 			@RequestParam("order_id") int id,
 			@RequestParam("state") String state) {
@@ -135,9 +135,9 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		if (permiso != null) {
 			if (permiso == 1) {
-					System.out.println(state);
+					System.out.println(id);
 					orders.findOne(id).setState(state);
-					System.out.println(orders.findOne(id).getName());
+					System.out.println(orders.findOne(id).getState());
 					mv = new ModelAndView("orders").addObject("orders", orders.findAll());
 			}else{
 				mv = new ModelAndView("index")
