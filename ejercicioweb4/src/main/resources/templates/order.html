@@ -41,7 +41,8 @@
 					<input name="name" type="text" class="form-control"
 						placeholder="¿Qué estás buscando?" /> <span
 						class="input-group-btn">
-						<button id="search" class="btn btn-default pull-right" type="submit">
+						<button id="search" class="btn btn-default pull-right"
+							type="submit">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							Buscar
 						</button>
@@ -50,13 +51,12 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
-			
-				<li th:if="${permiso} == 0" class="dropdown" id="menu1">
-				<a class="dropdown-toggle"
-					data-toggle="dropdown" href="#menu1"> Administración <b
-						class="caret"></b>
+
+				<li th:if="${permiso} == 0" class="dropdown" id="menu1"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+						Administración <b class="caret"></b>
 				</a>
-					<div  class="dropdown-menu">
+					<div class="dropdown-menu">
 						<form th:action="@{/admin}" method="post">
 							<div class="form-group">
 								<label>Usuario</label> <input name="user" type="text"
@@ -71,11 +71,9 @@
 									aria-hidden="true"></span>
 							</button>
 						</form>
-						</div>
-					</li>
-					<li th:if="${permiso}== 1">
-						<a th:href="@{/logout}">Cerrar sesión</a>
-					</li>
+					</div></li>
+				<li th:if="${permiso}== 1"><a th:href="@{/logout}">Cerrar
+						sesión</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -86,7 +84,8 @@
 
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel panel-default" th:each="order_product : ${order.products}">
+					<div class="panel panel-default"
+						th:each="order_product : ${order.products}">
 						<div class="panel-heading" th:text="${order_product.product.name}">Producto</div>
 						<div class="panel-body">
 							<div class="col-md-4">
@@ -108,7 +107,7 @@
 									<h1 th:text="${order_product.product.price} + €">98 €</h1>
 								</div>
 								<div class="row">
-									<label th:text="${order_product.cuantity}"></label> 
+									<span class="badge" th:text="'x' + ${order_product.cuantity}"></span>
 								</div>
 							</div>
 						</div>
@@ -130,11 +129,13 @@
 
 						<div class="form-group">
 							<label id="name">Nombre</label> <input type="text"
-								class="form-control" placeholder="Nombre" name="userName"/>
+								class="form-control" placeholder="Nombre" name="userName"
+								required="required" />
 						</div>
 						<div class="form-group">
 							<label id="surname">Apellidos</label> <input type="text"
-								class="form-control" placeholder="Apellidos" name="surname"/>
+								class="form-control" placeholder="Apellidos" name="surname"
+								required="required" />
 						</div>
 						<button type="submit" class="btn btn-default pull-right">Confirmar
 							pedido</button>
@@ -148,7 +149,7 @@
 
 	</div>
 
-<div id="footer" class="col-md-12">
+	<div id="footer" class="col-md-12">
 		<ul class="col-md-3">
 			<li class="first">¿QUIÉNES SOMOS?</li>
 			<li>Condiciones generales de venta de Pixmania</li>
@@ -179,16 +180,11 @@
 		</ul>
 		<ul class="col-md-3">
 			<li class="first">¡ÚNETE!</li>
-			<li><img
-				th:src="@{~/img/facebook.png}" />Facebook</li>
-			<li><img
-				th:src="@{~/img/twitter.png}" />Twitter</li>
-			<li><img
-				th:src="@{~/img/google.png}" />Google+</li>
-			<li><img
-				th:src="@{~/img/pinterest.png}" />Pinterest</li>
-			<li><img
-				th:src="@{~/img/tuenti.jpg}" />Tuenti</li>
+			<li><img th:src="@{~/img/facebook.png}" />Facebook</li>
+			<li><img th:src="@{~/img/twitter.png}" />Twitter</li>
+			<li><img th:src="@{~/img/google.png}" />Google+</li>
+			<li><img th:src="@{~/img/pinterest.png}" />Pinterest</li>
+			<li><img th:src="@{~/img/tuenti.jpg}" />Tuenti</li>
 		</ul>
 	</div>
 </body>

@@ -170,6 +170,33 @@ public class AdminController {
 
 	}
 
+	@RequestMapping(value = "/edit")
+	public ModelAndView edit(HttpSession session,
+			@RequestParam("product_id") int id) {
+		Cart cart = (Cart) session.getAttribute("cart");
+		Integer permiso = (Integer) session.getAttribute("permisos");
+		ModelAndView mv = new ModelAndView();
+		if (permiso != null) {
+			if (permiso == 1) {
+				mv = new ModelAndView("edit").addObject("product",
+						products.findOne(id));
+			} else {
+				mv = new ModelAndView("index")
+						.addObject("error", "Acceso no permitido")
+						.addObject("products", products.findAll())
+						.addObject("order", cart)
+						.addObject("permiso", session.getAttribute("permisos"));
+			}
+		} else {
+			mv = new ModelAndView("index")
+					.addObject("error", "Acceso no permitido")
+					.addObject("products", products.findAll())
+					.addObject("order", cart)
+					.addObject("permiso", session.getAttribute("permisos"));
+		}
+		return mv;
+	}
+
 	@RequestMapping(value = "/edition", method = RequestMethod.POST)
 	public ModelAndView edition(HttpSession session,
 			@RequestParam("name") String name,
@@ -188,6 +215,11 @@ public class AdminController {
 				products.findOne(id).setDescription(description);
 				products.findOne(id).setName(name);
 				products.findOne(id).setPrice(price);
+				if(products.findOne(id).getDescription().length() < 250){
+					products.findOne(id).setMinidescription(description);
+				}else{
+					products.findOne(id).setMinidescription(description.substring(0,250));
+				}
 
 				String fileName = id + ".png";
 
