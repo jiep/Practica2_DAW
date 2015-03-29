@@ -1,4 +1,4 @@
-package tiendapox;
+package marketpox;
 
 import javax.servlet.http.HttpSession;
 

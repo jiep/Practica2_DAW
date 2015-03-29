@@ -1,4 +1,4 @@
-package tiendapox;
+package marketpox;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

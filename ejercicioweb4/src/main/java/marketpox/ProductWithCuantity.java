@@ -1,4 +1,4 @@
-package tiendapox;
+package marketpox;
 
 import java.io.Serializable;
 
