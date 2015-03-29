@@ -119,8 +119,16 @@ Es una clase que extiende de CrudRepository, interfaz genérica que ofrece opera
 Al igual que \texttt{ProductRepository}, esta clase extiende de CrudRepository, pero esta vez la clase nos servirá para realizar consultas a la BD sobre los pedidos.\\
 \subsection{Controlador}
 \subsubsection{Clase ProductController}
-Esta clase es el controlador de nuestra aplicación, es decir, responderá a los eventos de las diferentes vistas (mayoritariamente acciones del usuario, como pulsar un botón) y hará peticiones al modelo cuando se hace alguna solicitud sobre la información.
-Un ejemplo podría ser cuando el usuario pulsa sobre la categoría "Videoconsolas", la clase \texttt{ProductController} responderá al evento buscando en la base de datos los productos pertenecientes a dicha categoría y devolviendo una vista donde aparezcan estos productos.\\
+Esta clase es el controlador que se encarga de gestión todas las acciones relacionadas con los productos del catálogo. Ejemplo de esto puede ser mostrar información de productos, listar todos los productos, añadir productos al carrito de la compra, buscar (tanto por categorías, por nombre o precio). \\
+
+Este controlador recoge las peticiones del repositorio y lleva la información proporcionada por el repositorio hasta la vista correspondiente a la acción requerida.
+
+\subsubsection{Clase OrderController}
+Análogo al anterior, pero gestionando los pedidos. Realiza acciones tales como mostrar pedidos, confirmarlos o pedir los datos (nombre y apellidos) del pedido.
+
+\subsubsection{Clase AdminController}
+Este controlador es el encargado de gestionar las peticiones desde la sección de administraddor como añadir nuevo producto, borrar productos, editar productos, cambiar estados de los pedidos, etc.
+
 \subsubsection{Clase StartController}
 Esta clase es un controlador que implementa la interfaz \texttt{CommandLineRunner}, que permite ejecutar algunos comandos al iniciar la aplicación. Se encarga de introducir algunos productos y pedidos de prueba que sirvan para probar el correcto funcionamiento de la aplicación. En la versión de producción, este controlador se eliminaría.
 \subsection{Vista}
