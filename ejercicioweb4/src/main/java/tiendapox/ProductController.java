@@ -135,9 +135,11 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		if (permiso != null) {
 			if (permiso == 1) {
-					System.out.println(id);
 					orders.findOne(id).setState(state);
-					System.out.println(orders.findOne(id).getState());
+					
+					Order oaux = orders.findOne(id);
+					orders.save(oaux);
+					
 					mv = new ModelAndView("orders").addObject("orders", orders.findAll());
 			}else{
 				mv = new ModelAndView("index")
@@ -330,6 +332,9 @@ public class ProductController {
 						
 						products.findOne(id).setImage(fileName);
 
+						Product paux = products.findOne(id);
+						products.save(paux);
+						
 					} catch (Exception e) {
 						return new ModelAndView("index").addObject("fileName",
 								fileName).addObject("error",
