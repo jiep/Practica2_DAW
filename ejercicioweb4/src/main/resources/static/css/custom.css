@@ -118,7 +118,9 @@ h4 {
 
 #footer .first {
 	margin-bottom: 1em;
-	text-transform: uppercase;
 	font-weight: 700;
+	color: #bf3288;
+}
+hr{
 	color: #bf3288;
 }
