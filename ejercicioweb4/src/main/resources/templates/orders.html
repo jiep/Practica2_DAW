@@ -79,7 +79,7 @@
 
 			<div class="panel panel-default" th:each="order : ${orders}">
 				<div class="panel-heading clearfix">
-					<h4 class="panel-title pull-left" th:text="${order.id}">Pedido</h4>
+					<h4 class="panel-title pull-left" th:text="'Pedido #' + ${order.id}">Pedido</h4>
 				</div>
 
 				<div class="panel-body">
@@ -94,10 +94,10 @@
 								<p th:text="${product.product.name}"></p>
 							</div>
 							<div class="col-md-3">
-								<p th:text="${product.cuantity}"></p>
+								<span class="badge" th:text="'x' + ${product.cuantity}"></span>
 							</div>
 							<div class="col-md-3">
-								<p th:text="${product.product.price}+ ' €'"></p>
+								<h3 th:text="${product.product.price}+ ' €'"></h3>
 							</div>
 
 						</div>
@@ -124,7 +124,7 @@
 									</select>
 							</div>
 							<div class="col-md-2">
-								<p th:text="${order.cart.total}+ ' €'"></p>
+								<p th:text="${order.cart.total} + ' €'"></p>
 							</div>
 							<div class="col-md-2">
 									<button class="btn btn-default">
