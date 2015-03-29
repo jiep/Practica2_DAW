@@ -15,6 +15,7 @@
   border-width: 1px;
   border-color: #bf3288;
   background-color: #bf3288;
+  color: #ffffff;
 }
 
 .panel-body {
@@ -57,4 +58,9 @@ h1, h3 {
 
 a {
   color: #ffffff;
+}
+
+h4 {
+	font-weight: bold;
+	
 }
